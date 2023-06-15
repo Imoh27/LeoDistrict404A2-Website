@@ -585,3 +585,35 @@
 .footer .copyright a {
     color: var(--light);
 }
+#fh5co-contact .section-title {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 30px;
+  }
+  
+  #fh5co-contact p {
+    font-size: 16px;
+    color: #777;
+    margin-bottom: 30px;
+  }
+  
+  #fh5co-contact .form-control {
+    height: 40px;
+    border-radius: 0;
+    border: 1px solid #ddd;
+    font-size: 14px;
+  }
+  
+  #fh5co-contact .form-control:focus {
+    box-shadow: none;
+    border-color: #8dc63f;
+  }
+  
+  #fh5co-contact select.form-control {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: url("arrow.png") no-repeat right center;
+    background-size: 14px;
+  }
+  
