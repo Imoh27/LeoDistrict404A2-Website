@@ -616,4 +616,16 @@
     background: url("arrow.png") no-repeat right center;
     background-size: 14px;
   }
+  .message {
+    height: 100px; /* Adjust the height as needed */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Show only 3 lines of text */
+    -webkit-box-orient: vertical;
+  }
+  .custom-img-size {
+    width: 100%; /* Adjust the width as needed */
+    height: auto; /* Maintain the aspect ratio */
+  }
   
