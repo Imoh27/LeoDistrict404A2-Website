@@ -70,7 +70,9 @@
     font-weight: normal;
 }
 
-
+.inline{
+    display: inline !important;
+}
 /*** Navbar ***/
 .top-bar {
     height: 75px;
