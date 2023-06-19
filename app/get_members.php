@@ -9,11 +9,11 @@ if (!empty($_POST["clubID"])) {
   $select_query = "SELECT * From tblmembers WHERE clubID = $clubID";
   $sth = $con->query($select_query);
   $result1 = $sth->fetchAll(PDO::FETCH_ASSOC);
-  if (!empty($result1)) {
-    $select_query2 = "SELECT * From tblclubpresidents WHERE clubID = $clubID";
+  if (!empty($result1) || $result1 != '') {
+    $select_query2 = "SELECT * From tblclubpresidents WHERE clubID = $clubID AND isActive = 1";
     $sth = $con->query($select_query2);
     $result2 = $sth->fetch(PDO::FETCH_ASSOC);
-    if (empty($result2)) { ?>
+    if (empty($result2) || $result2 == '') { ?>
       <option value="">Select Leo</option>
 
   <?php
