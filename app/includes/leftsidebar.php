@@ -44,7 +44,7 @@
                                 <ul class="list-unstyled">
                                     <li><a href="add-club">Add Club</a></li>
                                     <li><a href="add-club-president"> Club President</a></li>
-                                    <li><a href="manage-board-of-directors" class="waves-effect"><span>Manage Leo Clubs</span></a></li>
+                                    <li><a href="leo-clubs" class="waves-effect"><span>Manage Leo Clubs</span></a></li>
                                     <!-- <li ><a href="suspended-bods">Suspended Board Members</a></li> -->
                                     <!-- <li ><a href="boards-history">Boards History</a></li> -->
                                 </ul>

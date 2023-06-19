@@ -6,6 +6,7 @@ error_reporting(0);
 if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
     header('location:index');
 } else {
+    $clubID = intval($_GET['cid']);
     global $con;
 
     if (isset($_POST['add_club'])) {
@@ -21,6 +22,8 @@ if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
         $result = $sth->fetch(PDO::FETCH_OBJ);
         $added_by = $result->userID;
         // echo $added_by;     exit;
+
+        if ($clubID == '' || empty($clubID)) {
 
         $select_club = "SELECT * From  tblclubs WHERE regionID = $region AND indexNo = '$clubNo'";
         // echo $select_club;     exit;
@@ -41,6 +44,23 @@ if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
                 $error = "Something went wrong . Please try again.";
             }
         }
+    }else{
+        $select_club2 = "SELECT * From  tblclubs";
+        $sth = $con->query($select_club2);
+        $result2 = $sth->fetch(PDO::FETCH_ASSOC);
+        
+        $update = "UPDATE tblclubs set regionID  = '$region', clubName = '$clubName', indexNo = '$clubNo', SponsorLions =  '$sponsorClub', dateUpdated = NOW() WHERE clubID  = $clubID";
+        //  echo $update; exit;
+        $query = $con->query($update);
+        if ($query) {
+            $msg = "Club details successfully Updated ";
+        } else {
+            $error = "Something went wrong . Please try again.";
+        }
+    
+    }
+    
+       
     }
 
 
@@ -120,22 +140,36 @@ if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
                                 <form class="form-horizontal" name="add_club" method="post">
                                     <div class="form-group">
                                         <?php
+                                        $check_club = "SELECT * FROM tblclubs c JOIN tblregion r ON r.regionID = c.regionID WHERE clubID = $clubID";
+                                        // echo $select_query; exit;
+                                        $sth = $con->query($check_club);
+                                        $chk_club = $sth->fetch(PDO::FETCH_ASSOC);
+                                        
                                         $select_query = "SELECT * From tblregion";
                                         // echo $select_query; exit;
                                         $sth = $con->query($select_query);
                                         $result = $sth->fetchAll(PDO::FETCH_ASSOC);
+
                                         ?>
                                         <label class="col-md-4 control-label">Select Region</label>
                                         <div class="col-md-8">
                                             <select class="form-control" name="region" id="region" required>
-                                                <option value="" selected>Select Region </option>
+                                                <?php 
+                                                if (!empty($chk_club) || $chk_club != '') { ?>
+                                                <option value="<?php echo htmlentities($chk_club['regionID']); ?>" selected><?php echo htmlentities($chk_club['region']); ?> </option>
+                                                <?php
+                                                foreach ($result as $region_fetch) {?>
+                                                <option value="<?php echo htmlentities($region_fetch['regionID']); ?>"><?php echo htmlentities($region_fetch['region']); ?></option>
+                                                
+                                                <?php } } else {?>
+                                                    <option value="" selected>Select Region </option>
                                                 <?php
 
                                                 foreach ($result as $region_fetch) {
 
                                                     ?>
                                                 <option value="<?php echo htmlentities($region_fetch['regionID']); ?>"><?php echo htmlentities($region_fetch['region']); ?></option>
-                                                <?php } ?>
+                                                <?php } } ?>
 
                                             </select>
                                         </div>
@@ -144,27 +178,39 @@ if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
                                     <div class="form-group">
                                         <label class="col-md-4 control-label">Club Name</label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" value="" name="clubName" placeholder="Enter Club name without LEO CLUB" required>
+                                        <?php 
+                                                if (!empty($chk_club) || $chk_club != '') { ?>
+                                            <input type="text" class="form-control" value="<?php echo htmlentities($chk_club['clubName']); ?>" name="clubName"  required>
+                                         <?php } else  {?> 
+                                            <input type="text" class="form-control" value="" name="clubName" placeholder="Enter Club name without LEO CLUB" required><?php } ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-4 control-label">Club Index No</label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" value="" name="clubNo" required>
+                                        <?php 
+                                                if (!empty($chk_club) || $chk_club != '') { ?>
+                                            <input type="text" class="form-control" value="<?php echo htmlentities($chk_club['indexNo']); ?>" name="clubNo"  required>
+                                         <?php } else  {?> 
+                                            <input type="text" class="form-control" value="" name="clubNo" placeholder="Enter Club Index No" required><?php } ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-4 control-label">Sponsoring Lions</label>
                                         <div class="col-md-8">
-                                            <input type="text" class="form-control" value="" name="sponsorClub" placeholder="Enter Club name without LEO CLUB" required>
-                                        </div>
+                                        <?php 
+                                                if (!empty($chk_club) || $chk_club != '') { ?>
+                                            <input type="text" class="form-control" value="<?php echo htmlentities($chk_club['SponsorLions']); ?>" name="sponsorClub"  required>
+                                         <?php } else  {?> 
+                                            <input type="text" class="form-control" value="" name="sponsorClub" placeholder="Enter Club name without LEO CLUB" required>    <?php } ?>                                    </div>
                                     </div>
+                                   
                                     <div class="form-group">
                                         <label class="col-md-3 control-label"></label>
                                         <div class="col-md-9">
                                             <button type="submit" name="add_club"
                                                 class=" text-center btn btn-success waves-effect waves-light"></i>&nbsp;
-                                                Add Club
+                                                <?php if (!empty($chk_club)) {echo "Update ";}else{?> Add  <?php }?>
                                             </button>
                                         </div>
                                     </div>
