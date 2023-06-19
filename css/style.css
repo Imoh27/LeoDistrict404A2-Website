@@ -70,7 +70,9 @@
     font-weight: normal;
 }
 
-
+.inline{
+    display: inline !important;
+}
 /*** Navbar ***/
 .top-bar {
     height: 75px;
@@ -627,5 +629,55 @@
   .custom-img-size {
     width: 100%; /* Adjust the width as needed */
     height: auto; /* Maintain the aspect ratio */
+  }
+  .container-xxl {
+    padding: 40px;
+  }
+
+  .contact-form {
+    background-color: #f8f8f8;
+    padding: 30px;
+    border-radius: 5px;
+  }
+
+  .contact-form .form-control {
+    border-radius: 0;
+  }
+
+  .contact-form textarea.form-control {
+    resize: none;
+  }
+
+  .contact-form button[type="submit"] {
+    border-radius: 0;
+  }
+
+  .contact-info {
+    margin-top: 40px;
+  }
+
+  .contact-info h4,
+  .contact-info h5 {
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  .contact-info p {
+    margin-bottom: 5px;
+  }
+
+  .region-details {
+    margin-top: 40px;
+  }
+
+  .region-details h5 {
+    font-size: 18px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+  }
+
+  .region-details p {
+    margin-bottom: 5px;
   }
   
