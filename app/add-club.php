@@ -23,6 +23,8 @@ if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
         $added_by = $result->userID;
         // echo $added_by;     exit;
 
+        if ($clubID == '' || empty($clubID)) {
+
         $select_club = "SELECT * From  tblclubs WHERE regionID = $region AND indexNo = '$clubNo'";
         // echo $select_club;     exit;
         $sth = $con->query($select_club);
@@ -42,6 +44,23 @@ if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
                 $error = "Something went wrong . Please try again.";
             }
         }
+    }else{
+        $select_club2 = "SELECT * From  tblclubs";
+        $sth = $con->query($select_club2);
+        $result2 = $sth->fetch(PDO::FETCH_ASSOC);
+        
+        $update = "UPDATE tblclubs set regionID  = '$region', clubName = '$clubName', indexNo = '$clubNo', SponsorLions =  '$sponsorClub', dateUpdated = NOW() WHERE clubID  = $clubID";
+        //  echo $update; exit;
+        $query = $con->query($update);
+        if ($query) {
+            $msg = "Club details successfully Updated ";
+        } else {
+            $error = "Something went wrong . Please try again.";
+        }
+    
+    }
+    
+       
     }
 
 
@@ -191,7 +210,7 @@ if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
                                         <div class="col-md-9">
                                             <button type="submit" name="add_club"
                                                 class=" text-center btn btn-success waves-effect waves-light"></i>&nbsp;
-                                                Add Club
+                                                <?php if (!empty($chk_club)) {echo "Update ";}else{?> Add  <?php }?>
                                             </button>
                                         </div>
                                     </div>

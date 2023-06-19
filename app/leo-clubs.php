@@ -112,7 +112,7 @@ function getBods(val) {
                             <div class="col-md-12">
                                 <div class="demo-box m-t-20">
                                     
-                                    <div class="col-md-7 col-sm-12" style="margin-bottom: 50px">
+                                    <div class="col-md-6 col-sm-12" style="margin-bottom: 50px">
                                         <p class=" text-uppercase font-600 font-secondary text-overflow"
                                                 ><a >All Clubs</a>
                                             <a href="add-club  " style="float: right" title="Add Club Presidents">
@@ -121,7 +121,7 @@ function getBods(val) {
                                                     <i class="mdi mdi-plus-circle-outline"></i></button>
                                             </a>
                                         </p>
-                                        <div class="table-responsive">
+                                        <div class="table-responsive table-wrapper-scroll-y custom-table-scrollbar">
                                             <table class="table m-0 table-colored-bordered table-bordered-primary"
                                                 id="table_filter">
                                                 <thead>
@@ -174,10 +174,10 @@ function getBods(val) {
                                                                 href="add-club?cid=<?php echo htmlentities($row['clubID']); ?>"><i
                                                                     class="fa fa-pencil"
                                                                     style="color: #29b6f6;"></i>&nbsp; </a>
-                                                            <a
+                                                            <!-- <a
                                                                 href="leo-clubs?did=<?php echo htmlentities($row['clubID']); ?> &&action=del"><i
                                                                     class="fa fa-trash-o"
-                                                                    style="color: #f05050;"></i>&nbsp; </a>
+                                                                    style="color: #f05050;"></i>&nbsp; </a> -->
                                                         </td>
                                                     </tr>
                                                     <?php
@@ -189,30 +189,31 @@ function getBods(val) {
                                             </table>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 col-sm-12 ms-5 ">
+                                    <div class="col-md-5 col-sm-12 ms-5 ">
                                         <p class=" text-uppercase font-600 font-secondary text-overflow"
-                                           ><a >Region Directors</a>
-                                            <a href="add-region-director" title="Add Region Director" style="float: right">
+                                           ><a >Club Presidents</a>
+                                            <a href="add-club-president" title="Add Club President" style="float: right">
                                                 <button id="addToTable"
                                                     class=" btn btn-success waves-effect waves-light">Add
                                                     <i class="mdi mdi-plus-circle-outline"></i></button>
                                             </a>
                                         </p>
-                                        <div class="table-responsive">
+                                        <div class="table-responsive table-wrapper-scroll-y custom-table-scrollbar">
                                             <table class="table m-0 table-colored-bordered table-bordered-primary"
                                                 id="table_filter">
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th> Region Name</th>
-                                                        <th>Region Director</th>
+                                                        <th> Club</th>
+                                                        <th>President</th>
+                                                        <th>Contact</th>
                                                         <!-- <th style="text-align:center">Action</th> -->
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                        $select_query = "Select * from  tblregiondirector rd 
-                                                         JOIN tblmembers m ON m.memberID = rd.memberID INNER JOIN tblregion r ON r.regionID = m.regionID where rd.serviceYrID = $currentLSYID ";
+                                                        $select_query = "Select * from  tblclubpresidents p 
+                                                         JOIN tblmembers m ON m.memberID = p.president INNER JOIN tblclubs c ON c.clubID = m.clubID where p.serviceYr = $currentLSYID ";
                                                         // echo $select_query; exit;
                                                         $query = mysqli_query($con, $select_query);
                                                         $rowcount = mysqli_num_rows($query);
@@ -234,10 +235,13 @@ function getBods(val) {
                                                             <?php echo htmlentities($cnt); ?>
                                                         </th>
                                                         <td>
-                                                            <?php echo htmlentities($row['region']); ?>
+                                                            <?php echo htmlentities($row['clubName']); ?>
                                                         </td>
                                                         <td>
                                                             <?php echo htmlentities($row['firstName'] . ' ' . $row['lastName']); ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo htmlentities($row['phone1']); ?>
                                                         </td>
 
                                                         <!-- <td style="text-align:center">
