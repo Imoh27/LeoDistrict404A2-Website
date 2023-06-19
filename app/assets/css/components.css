@@ -4500,12 +4500,13 @@ table.dataTable thead th.sorting_desc:after {
 
 .profile-img-wrap {
     display: block;
-    border-radius: 0 30px !important;
+    border-radius: 5px !important;
     width: 250px !important;
     height: 300px !important;
     padding: 10px !important;
     border: 2px solid #0d38c058;
     margin-bottom: 30px;
+    /* margin: 0 auto 30px !important; */
 }
 
 .profile-img-wrap .profile-img {
@@ -4515,8 +4516,7 @@ table.dataTable thead th.sorting_desc:after {
 
 @media (max-width: 991px) {
     .profile-img-wrap {
-        margin-left: 30% !important;
-        margin-right: 30% !important;
+        margin: auto;
     }
 }
 

@@ -14,39 +14,8 @@ if (strlen($_SESSION['login']) == 0) {
 
 ?>
 
-    <!DOCTYPE html>
-    <html lang="en">
-
-    <head>
-
-        <title>CPLC -- Official Calabar Paradise Lions Club Website | Manage Members</title>
-        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/core.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/components.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/pages.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/menu.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/responsive.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" href="../plugins/switchery/switchery.min.css">
-        <script src="assets/js/modernizr.min.js"></script>
-        <script>
-            
-            function getmMemId(val) {
-                $.ajax({
-                    type: "POST",
-                    url: "filter_members.php",
-                    data: 'members=' + val,
-                    beforeSend: function() {
-                        $("#table_filter").html('Fetching, Please Wait...');
-                    },
-                    success: function(data) {
-                        $("#table_filter").html(data);
-                    }
-                });
-            }
-        </script>
-    </head>
-
+<?php include('includes/pages-head.php'); ?>
+<title>Leo District 404A2 -- Official Website | Manage Leos</title>
 
     <body class="fixed-left">
 
@@ -79,16 +48,16 @@ if (strlen($_SESSION['login']) == 0) {
                         //   echo $select; exit;
                           $row = mysqli_fetch_array($query)
                             ?>                       
-                                    <h4 class="page-title">Manage members</h4>
+                                    <h4 class="page-title">Manage Leos</h4>
                                     <ol class="breadcrumb p-0 m-0">
                                         <li>
                                             <a href="#">Admin</a>
                                         </li>
                                         <li>
-                                            <a href="#">Members </a>
+                                            <a href="#">Leos </a>
                                         </li>
                                         <li class="active">
-                                            Manage <?php echo $row['member_type']; ?> Member
+                                            Manage Leo
                                         </li>
                                     </ol>
                                     <div class="clearfix"></div>
@@ -128,33 +97,33 @@ if (strlen($_SESSION['login']) == 0) {
                                             <div style="margin-left:20px; display :Inline"> Sort by: </div>
                                             <select name="filter" id="filterBy" onChange="getmMemId(this.value);" style="margin-left:20px; padding:10px">
                                                                 <option value="">All</option>
-                                                        <?php
-                                                // Feching active categories
-                                                $ret = mysqli_query($con, "select id,member_type from tblmembertype LIMIT 2");
-                                                while ($result = mysqli_fetch_array($ret)) {
-                                                ?>
-                                                    <option value="<?php echo htmlentities($result['id']); ?>"><?php echo htmlentities($result['member_type']); ?></option>
-                                                <?php } ?>
+                                                                <option value="club">Club</option>
+                                                                <option value="region">Region</option>
+                                                      
                                             </select>
                                         </div>
 
-                                        <div class="table-responsive">
+                                        <div class="table-responsive table-wrapper-scroll-y custom-table-scrollbar">
                                             <table class="table m-0 table-colored-bordered table-bordered-primary"  id="table_filter">
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
                                                         <th> Name</th>
+                                                        <th> Member No</th>
+                                                        <th>Sex</th>
+                                                        <th> Club</th>
+                                                        <th> Region</th>
                                                         <th>Address</th>
                                                         <th>Email</th>
-                                                        <th>Member Wing</th>
-                                                        <th>Member Since</th>
+                                                        <th> Phone</th>
+                                                        <th>City</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $sql = "Select m.id,m.full_name,m.address,m.e_mail,m.member_since, mt.id as mt_id, mt.member_type from  tblmembers m 
-                                                    JOIN tblmembertype mt ON mt.id = m.member_type_id where m.stat = 1";
+                                                    $sql = "Select * from  tblmembers m 
+                                                    JOIN tblclubs c ON c.clubID = m.clubID INNER JOIN tblregion r ON r.regionID = c.regionID where m.isActive = 1";
                                                     // echo $sql; exit;
                                                     $query = mysqli_query($con, $sql);
                                                     $cnt = 1;
@@ -174,12 +143,16 @@ if (strlen($_SESSION['login']) == 0) {
 
                                                         <tr>
                                                             <th scope="row"><?php echo htmlentities($cnt); ?></th>
-                                                            <td><?php echo htmlentities($row['full_name']); ?></td>
+                                                            <td><?php echo htmlentities($row['firstName'].' '. $row['lastName']); ?></td>
+                                                            <td><?php echo htmlentities($row['membershipNo']); ?></td>
+                                                            <td><?php echo htmlentities($row['gender']); ?></td>
+                                                            <td><?php echo htmlentities($row['clubName']); ?></td>
+                                                            <td><?php echo htmlentities($row['region']); ?></td>
                                                             <td><?php echo htmlentities($row['address']); ?></td>
-                                                            <td><?php echo htmlentities($row['e_mail']); ?></td>
-                                                            <td><?php echo htmlentities($row['member_type']); ?></td>
-                                                            <td><?php echo htmlentities($row['member_since']); ?></td>
-                                                            <td><a href="see-full-profile?mid=<?php echo htmlentities($row['id']); ?>"><i class="fa fa-eye" style="color: #000;" title="View Member Profile"></i></a>
+                                                            <td><?php echo htmlentities($row['memberEmail']); ?></td>
+                                                            <td><?php echo htmlentities($row['phone1']); ?></td>
+                                                            <td><?php echo htmlentities($row['city']); ?></td>
+                                                            <td><a href="details?leo=<?php echo htmlentities($row['firstName'].''.$row['lastName']); ?>&&lid=<?php echo htmlentities($row['memberID']); ?>"><i class="fa fa-eye" style="color: #000;" title="View Member Profile"></i></a>
                                                                 &nbsp; <a href="edit-member?mid=<?php echo htmlentities($row['id']); ?>"><i class="fa fa-pencil" style="color: #29b6f6;" title="Edit this Member details"></i></a>
                                                                 &nbsp;<a href="manage-members?rid=<?php echo htmlentities($row['id']); ?>&&m_tid=<?php echo htmlentities($row['mt_id']); ?>&&action=del"> <i class="fa fa-trash-o" style="color: #f05050" title="Move This Member to Trash"></i></a> </td>
                                                         </tr>

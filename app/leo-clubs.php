@@ -18,8 +18,6 @@ if (strlen($_SESSION['login']) == 0) {
     $currentLSYID = $result['serviceYrID'];
 
     ?>
-<!DOCTYPE html>
-<html lang="en">
 <?php include('includes/pages-head.php'); ?>
 <title>Leo District 404A2 -- Official Website | Manage Leo Clubs</title>
 
