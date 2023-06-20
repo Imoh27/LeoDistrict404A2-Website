@@ -680,4 +680,23 @@
   .region-details p {
     margin-bottom: 5px;
   }
+  .user-info {
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  .amount-container {
+    background-color: #53a93f;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .amount {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  
   
