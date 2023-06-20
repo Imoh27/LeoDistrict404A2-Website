@@ -11,31 +11,22 @@ if (strlen($_SESSION['login']) == 0) {
     $result = mysqli_fetch_assoc($query);
     $session = $result['userID'];
 
-    $isActive = 1;
-
-    if (isset($_POST['addPosition'])) {
-        $position = $_POST['position'];
-        $abbr = $_POST['abbr'];
-
-        $fetchPosition = "SELECT *  From tbldistrictoffices WHERE  position like '%$position%' OR abbr = '$abbr'";
-        // echo $fetchPosition; exit;
-        $query = mysqli_query($con, $fetchPosition);
-        $result = mysqli_fetch_assoc($query);
-        if (!empty($result)) {
-            $delmsg = "Postion Exist";
-        } else {
-            $insert = "INSERT INTO tbldistrictoffices VALUES(NULL, ' $position', '$abbr', NOW(), $session, $isActive)";
-
-            $query = $con->query($insert);
+    if ($_GET['oid']) {
+        $oid = $_GET['oid'];
+        if (isset($_POST['editPosition'])) {
+            $position = $_POST['position'];
+            $abbr = $_POST['abbr'];
+            $update = "update tbldistrictoffices set position='$position', 
+            abbr = '$abbr', dateUpdated = NOW(), updatedBy = $session where dOfficesID ='$oid'";
+            // echo $update; exit;
+            $query = mysqli_query($con, $update);
             if ($query) {
-                $msg = "Position Added";
+                $msg = "Position Updated ";
             } else {
-                $delmsg = "Error Encountered!, Try again";
+                $delmsg = "Error Encountered!, Try again ";
             }
-
         }
     }
-
     ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -71,7 +62,7 @@ if (strlen($_SESSION['login']) == 0) {
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="page-title-box">
-                                    <h4 class="page-title">Manage Office</h4>
+                                    <h4 class="page-title">Edit Centre</h4>
                                     <ol class="breadcrumb p-0 m-0">
                                         <li>
                                             <a href="#">Admin</a>
@@ -80,7 +71,7 @@ if (strlen($_SESSION['login']) == 0) {
                                             <a href="#">District </a>
                                         </li>
                                         <li class="active">
-                                            Offices
+                                            Edit Centre
                                         </li>
                                     </ol>
                                     <div class="clearfix"></div>
@@ -110,85 +101,19 @@ if (strlen($_SESSION['login']) == 0) {
 
                             </div>
 
-
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div class="demo-box m-t-20">
-                                        <div class="col-md-6 col-sm-12 col-md-offset-2" style="margin-bottom: 50px">
-                                            <p class=" text-uppercase font-600 font-secondary text-overflow"><a>District
-                                                    Offices</a>
-
-                                                <button id="addToTable" class=" btn btn-success waves-effect waves-light"
-                                                    style="float: right" title="Add position"
-                                                    onclick="addPositionForm();">Add
-                                                    <i class="mdi mdi-plus-circle-outline"></i></button>
-
-                                            </p>
-                                            <div class="table-responsive table-wrapper-scroll-y custom-table-scrollbar">
-                                                <table
-                                                    class="table m-0 table-colored-bordered table-bordered-primary table-striped"
-                                                    id="table_filter">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th> positions</th>
-                                                            <th> Short Form</th>
-                                                            <th style="text-align:center">Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <?php
-                                                        $select_query = "Select * from  tbldistrictoffices";
-                                                        // echo $select_query; exit;
-                                                        $query = mysqli_query($con, $select_query);
-                                                        $rowcount = mysqli_num_rows($query);
-                                                        $cnt = 1;
-
-                                                        if ($rowcount == 0) { ?>
-                                                            <tr>
-
-                                                                <td colspan="7" align="center">
-                                                                    <h3 style="color:red">No entry yet</h3>
-                                                                </td>
-                                                            <tr>
-                                                            <?php } else {
-                                                            while ($row = mysqli_fetch_array($query)) {
-                                                                ?>
-
-                                                                <tr>
-                                                                    <th scope="row">
-                                                                        <?php echo htmlentities($cnt); ?>
-                                                                    </th>
-                                                                    <td>
-                                                                        <?php echo htmlentities($row['position']); ?>
-                                                                    </td>
-                                                                    <td>
-                                                                        <?php echo htmlentities($row['abbr']); ?>
-                                                                    </td>
-                                                                    <td style="text-align:center">
-                                                                        <a 
-                                                                            href="edit-centre?oid=<?php echo htmlentities($row['dOfficesID']); ?>"><i
-                                                                                class="fa fa-pencil"
-                                                                                style="color: #29b6f6;"></i>&nbsp; </a>
-                                                                    </td>
-                                                                </tr>
-                                                                <?php
-                                                                $cnt++;
-                                                            }
-                                                        } ?>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                                 <?php
-                               
+                                if ($_GET['oid']) {
+                                    $oid = $_GET['oid'];
+
+                                    $officedetails = "SELECT *  From tbldistrictoffices WHERE  dOfficesID  = '$oid'";
+                                    // echo $officedetails; exit;
+                                    $query = mysqli_query($con, $officedetails);
+                                    $result = mysqli_fetch_assoc($query);
                                 ?>
-                                <div class=" col-md-12 " id="addPosition"
-                                    style="display:none; margin-top: -150px !important">
+                                <div class=" col-md-12 m-t-50" id="editPosition">
                                     <div class="col-md-6 col-md-offset-2">
-                                        <p class="text-uppercase font-600 font-secondary text-center"><a>Add Position</a>
+                                        <p class="text-uppercase font-600 font-secondary text-center"><a>Edit Position</a>
 
                                         </p>
                                         <form class="form-horizontal" name="position" method="post">
@@ -216,7 +141,7 @@ if (strlen($_SESSION['login']) == 0) {
 
                                                     <button type="submit"
                                                         class="btn btn-custom waves-effect waves-light btn-md"
-                                                        name="addPosition">
+                                                        name="editPosition">
                                                         Submit
                                                     </button>
                                                 </div>
@@ -225,6 +150,9 @@ if (strlen($_SESSION['login']) == 0) {
                                         </form>
                                     </div>
                                 </div>
+                                <?php } ?>
+
+
                             </div>
                             <!--- end row -->
 

@@ -844,6 +844,9 @@ File: Components
     background-color: rgba(67, 89, 102, 0.08);
 }
 
+.d-inline{
+    display: inline !important;
+}
 
 /* =============
    Checkbox and Radios
@@ -3012,6 +3015,13 @@ input[data-switch="teal"]:checked+label {
 
 .ms-container .ms-selection li.ms-hover {
     background-color: #7fc1fc;
+}
+
+/* MArgin Space */
+
+/* margin-left 10px*/
+.ms-1{
+    margin-left: 10px !important;
 }
 
 
