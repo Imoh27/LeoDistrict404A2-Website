@@ -33,6 +33,16 @@
 
 
                 <li class="has_sub">
+                    <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-sitemap"></i> <span> District
+                        </span> <span class="menu-arrow"></span></a>
+                    <ul class="list-unstyled">
+                        <li><a href="district-offices">District Offices</a></li>
+                        <li><a href="add-region-director">DP Team</a></li>
+                        <li><a href="manage-regions" class="waves-effect"><span>Past Leo Leaders</span></a></li>
+                        <!-- <li ><a href="boards-history">Boards History</a></li> -->
+                    </ul>
+                </li>
+                <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-users"></i> <span> Regions
                         </span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
@@ -44,7 +54,7 @@
                 </li>
 
                 <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-slack"></i><span>Leo Clubs
+                    <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-user-md"></i><span>Leo Clubs
                         </span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
                         <li><a href="add-club">Add Club</a></li>
