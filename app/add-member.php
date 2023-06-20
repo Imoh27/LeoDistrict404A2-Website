@@ -61,18 +61,6 @@ if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
             if (!empty($results)) {
                 $error = "Sorry, Member Already Exist ";
             }
-
-            // elseif($pri_num == $alt_num) {
-            //         $error = "Sorry, Numbers Must not be same ";
-            //     }
-            // elseif ($member_type == 3 && $calc_date >=15 && $calc_date >=30 ) {
-            //     $error = "Sorry, Member Age out of Range for Member Wing";
-            //     exit;
-            // }
-            // elseif ($member_type == 4 && $calc_date >=14) {
-            //     $error = "Sorry, Member Age above Limit of Member Wing Selected ";
-            //     exit;
-            // } 
             else {
                 move_uploaded_file($_FILES["memberDp"]["tmp_name"], "membersimages/" . $imgnewfile);
                 $insert = "INSERT INTO tblmembers VALUES(NULL, $clubs, $region,  '$memberNo','$firstname', '$lastname', '$middlename',

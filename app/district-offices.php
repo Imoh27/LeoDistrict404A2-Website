@@ -22,7 +22,7 @@ if (strlen($_SESSION['login']) == 0) {
         $query = mysqli_query($con, $fetchPosition);
         $result = mysqli_fetch_assoc($query);
         if (!empty($result)) {
-            $delmsg = "Postion Exist";
+            $delmsg = "Position Exist";
         } else {
             $insert = "INSERT INTO tbldistrictoffices VALUES(NULL, ' $position', '$abbr', NOW(), $session, $isActive)";
 
@@ -186,7 +186,7 @@ if (strlen($_SESSION['login']) == 0) {
                                
                                 ?>
                                 <div class=" col-md-12 " id="addPosition"
-                                    style="display:none; margin-top: -150px !important">
+                                    style="display:none; margin-top: -100px !important">
                                     <div class="col-md-6 col-md-offset-2">
                                         <p class="text-uppercase font-600 font-secondary text-center"><a>Add Position</a>
 

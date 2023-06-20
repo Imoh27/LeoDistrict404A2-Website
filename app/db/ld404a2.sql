@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 17, 2023 at 03:49 AM
+-- Generation Time: Jun 20, 2023 at 12:03 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -73,7 +73,8 @@ CREATE TABLE `tblclubpresidents` (
 --
 
 INSERT INTO `tblclubpresidents` (`presidentID`, `president`, `clubID`, `serviceYr`, `dateUpdated`, `updatedBy`, `isActive`) VALUES
-(1, 1, 1, 1, '2023-06-16 16:03:31', 1, 0);
+(1, 1, 1, 1, '2023-06-16 16:03:31', 1, 1),
+(2, 2, 2, 1, '2023-06-19 09:20:32', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -98,7 +99,7 @@ CREATE TABLE `tblclubs` (
 
 INSERT INTO `tblclubs` (`clubID`, `regionID`, `clubName`, `indexNo`, `SponsorLions`, `dateUpdated`, `updatedBy`, `isActive`) VALUES
 (1, 4, 'Calabar Paradise', '12345', 'Calabar Paradise', '2023-06-15 17:02:56', 1, 1),
-(2, 4, 'Prestigious Tinapa', '12335', 'Calabar Tinapa', '2023-06-15 17:03:29', 1, 1),
+(2, 4, 'Prestigious Tinapa', '12335', 'Calabar Tinapa', '2023-06-19 15:45:15', 1, 1),
 (3, 4, 'Akpabuyo Isand', '16145', 'Akpabuyo Isand', '2023-06-15 17:04:14', 1, 1),
 (4, 1, 'Abuja Unity', '13421', 'Abuja Unity', '2023-06-15 17:07:32', 1, 1),
 (5, 4, 'Calabar Paradise', '12345', 'Calabar Paradise', '2023-06-15 17:02:56', 1, 1),
@@ -130,11 +131,77 @@ CREATE TABLE `tbldistrictofficers` (
 
 CREATE TABLE `tbldistrictoffices` (
   `dOfficesID` int(11) NOT NULL,
-  `dOffices` varchar(50) NOT NULL,
+  `position` varchar(50) NOT NULL,
+  `abbr` varchar(10) NOT NULL,
   `dateUpdated` datetime DEFAULT current_timestamp(),
   `updatedBy` int(11) DEFAULT NULL,
   `isActive` int(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbldistrictoffices`
+--
+
+INSERT INTO `tbldistrictoffices` (`dOfficesID`, `position`, `abbr`, `dateUpdated`, `updatedBy`, `isActive`) VALUES
+(1, ' District President', 'DP', '2023-06-20 14:28:48', 1, 1),
+(2, ' Immediate Past DP', 'IPDP', '2023-06-20 17:25:01', 1, 1),
+(3, ' 1st Vice District President', 'FVDP', '2023-06-20 14:32:27', 1, 1),
+(4, ' 2nd Vice District President', '2VDP', '2023-06-20 14:33:26', 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbldpsteam`
+--
+
+CREATE TABLE `tbldpsteam` (
+  `teamID` int(11) NOT NULL,
+  `memberName` varchar(60) NOT NULL,
+  `dOfficesID` int(11) NOT NULL,
+  `fbProfile` varchar(50) NOT NULL,
+  `lnProfile` varchar(50) NOT NULL,
+  `igProfile` varchar(50) NOT NULL,
+  `foto` varchar(100) NOT NULL,
+  `serviceYrID` int(11) NOT NULL,
+  `dateUpdated` datetime DEFAULT current_timestamp(),
+  `updatedBy` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbldpsteam`
+--
+
+INSERT INTO `tbldpsteam` (`teamID`, `memberName`, `dOfficesID`, `fbProfile`, `lnProfile`, `igProfile`, `foto`, `serviceYrID`, `dateUpdated`, `updatedBy`) VALUES
+(1, 'Esther Esua', 2, 'bbakawu', 'bbakawu', 'bbakawu', '7bbd8e8a0995ddbbc872bc206661fe8e.jpeg', 1, '2023-06-20 17:53:14', 1),
+(2, 'Ikoh Unoh', 1, 'bbakawu', 'bbakawu', 'bbakawu', '5cb045762ec3cfe9a11205ed20e23401.jpeg', 1, '2023-06-20 17:53:58', 1),
+(3, 'Ekpeita Edet', 3, 'bbakawu', 'bbakawu', 'bbakawu', '8d015894e7c7115dab1fcaccaa04e53f.jpeg', 1, '2023-06-20 17:54:55', 1),
+(4, 'Joyce Eduebuk', 4, 'bbakawu', 'bbakawu', 'bbakawu', '240bba13a2af431fa6ae586dc96f8dc3.jpeg', 1, '2023-06-20 17:55:31', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbldpteam`
+--
+
+CREATE TABLE `tbldpteam` (
+  `teamID` int(11) NOT NULL,
+  `memberID` int(11) NOT NULL,
+  `dOfficesID` int(11) NOT NULL,
+  `fbProfile` varchar(50) NOT NULL,
+  `lnProfile` varchar(50) NOT NULL,
+  `igProfile` varchar(50) NOT NULL,
+  `foto` varchar(100) NOT NULL,
+  `serviceYrID` int(11) NOT NULL,
+  `dateUpdated` datetime DEFAULT current_timestamp(),
+  `updatedBy` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbldpteam`
+--
+
+INSERT INTO `tbldpteam` (`teamID`, `memberID`, `dOfficesID`, `fbProfile`, `lnProfile`, `igProfile`, `foto`, `serviceYrID`, `dateUpdated`, `updatedBy`) VALUES
+(1, 1, 1, 'bbakawu', 'bbakawu', 'bbakawu', '', 1, '2023-06-20 16:58:34', 1);
 
 -- --------------------------------------------------------
 
@@ -966,7 +1033,23 @@ CREATE TABLE `tblmembers` (
 --
 
 INSERT INTO `tblmembers` (`memberID`, `clubID`, `regionID`, `membershipNo`, `firstName`, `lastName`, `middleName`, `memberEmail`, `gender`, `phone1`, `phone2`, `address`, `maritalStatus`, `occupation`, `city`, `state`, `stateOfOrigin`, `lgaOfOrigin`, `memberSince`, `dob`, `memberPhoto`, `dateUpdated`, `updatedBy`, `isActive`) VALUES
-(1, 1, 4, '5353040', 'Benjamin', 'Akawu', '', 'akawuben@gmail.com', 'Male', '08133314846', '09069351146', '11 Bassey Street ', 'Single', 'Business', 'Calabar', 9, 9, 182, ' 2019', '1996-04-21', 'f48fc3e869a4c26811dad2449dd563f8.jpg', '2023-06-15 20:22:35', 1, 1);
+(1, 1, 4, '5353040', 'Benjamin', 'Akawu', '', 'akawuben@gmail.com', 'Male', '08133314846', '09069351146', '11 Bassey Street ', 'Single', 'Business', 'Calabar', 9, 9, 182, ' 2019', '1996-04-21', 'f48fc3e869a4c26811dad2449dd563f8.jpg', '2023-06-15 20:22:35', 1, 1),
+(2, 2, 4, '5352040', 'MIchael', 'Okon', '', 'mikeokon@gmail.com', 'Male', '08144640312', '09069351146', 'someWhere in Calabar', 'Single', 'Student', 'Calabar', 9, 9, 171, ' 2016', '1994-01-13', 'edf8c765c54d669360bbe30274480fa5.jpg', '2023-06-19 09:19:52', 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblpdp`
+--
+
+CREATE TABLE `tblpdp` (
+  `pdpID` int(11) NOT NULL,
+  `fullName` varchar(60) NOT NULL,
+  `serviceSlogan` varchar(50) DEFAULT NULL,
+  `serviceYR` varchar(15) NOT NULL,
+  `dateUpdated` datetime DEFAULT current_timestamp(),
+  `updatedBy` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1232,6 +1315,25 @@ ALTER TABLE `tbldistrictoffices`
   ADD KEY `updatedBy` (`updatedBy`);
 
 --
+-- Indexes for table `tbldpsteam`
+--
+ALTER TABLE `tbldpsteam`
+  ADD PRIMARY KEY (`teamID`),
+  ADD KEY `dOfficesID` (`dOfficesID`),
+  ADD KEY `serviceYrID` (`serviceYrID`),
+  ADD KEY `updatedBy` (`updatedBy`);
+
+--
+-- Indexes for table `tbldpteam`
+--
+ALTER TABLE `tbldpteam`
+  ADD PRIMARY KEY (`teamID`),
+  ADD KEY `dOfficesID` (`dOfficesID`),
+  ADD KEY `serviceYrID` (`serviceYrID`),
+  ADD KEY `updatedBy` (`updatedBy`),
+  ADD KEY `memberID` (`memberID`);
+
+--
 -- Indexes for table `tbllga`
 --
 ALTER TABLE `tbllga`
@@ -1249,6 +1351,13 @@ ALTER TABLE `tblmembers`
   ADD KEY `updatedBy` (`updatedBy`),
   ADD KEY `stateOfOrigin` (`stateOfOrigin`),
   ADD KEY `lgaOfOrigin` (`lgaOfOrigin`);
+
+--
+-- Indexes for table `tblpdp`
+--
+ALTER TABLE `tblpdp`
+  ADD PRIMARY KEY (`pdpID`),
+  ADD KEY `updatedBy` (`updatedBy`);
 
 --
 -- Indexes for table `tblpost`
@@ -1329,7 +1438,7 @@ ALTER TABLE `tblactivitycategory`
 -- AUTO_INCREMENT for table `tblclubpresidents`
 --
 ALTER TABLE `tblclubpresidents`
-  MODIFY `presidentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `presidentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tblclubs`
@@ -1347,7 +1456,19 @@ ALTER TABLE `tbldistrictofficers`
 -- AUTO_INCREMENT for table `tbldistrictoffices`
 --
 ALTER TABLE `tbldistrictoffices`
-  MODIFY `dOfficesID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `dOfficesID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `tbldpsteam`
+--
+ALTER TABLE `tbldpsteam`
+  MODIFY `teamID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `tbldpteam`
+--
+ALTER TABLE `tbldpteam`
+  MODIFY `teamID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbllga`
@@ -1359,7 +1480,13 @@ ALTER TABLE `tbllga`
 -- AUTO_INCREMENT for table `tblmembers`
 --
 ALTER TABLE `tblmembers`
-  MODIFY `memberID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `memberID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `tblpdp`
+--
+ALTER TABLE `tblpdp`
+  MODIFY `pdpID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tblpost`
@@ -1458,6 +1585,23 @@ ALTER TABLE `tbldistrictoffices`
   ADD CONSTRAINT `tbldistrictoffices_ibfk_1` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`);
 
 --
+-- Constraints for table `tbldpsteam`
+--
+ALTER TABLE `tbldpsteam`
+  ADD CONSTRAINT `tbldpsteam_ibfk_1` FOREIGN KEY (`dOfficesID`) REFERENCES `tbldistrictoffices` (`dOfficesID`),
+  ADD CONSTRAINT `tbldpsteam_ibfk_2` FOREIGN KEY (`serviceYrID`) REFERENCES `tblserviceyr` (`serviceYrID`),
+  ADD CONSTRAINT `tbldpsteam_ibfk_3` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`);
+
+--
+-- Constraints for table `tbldpteam`
+--
+ALTER TABLE `tbldpteam`
+  ADD CONSTRAINT `tbldpteam_ibfk_1` FOREIGN KEY (`dOfficesID`) REFERENCES `tbldistrictoffices` (`dOfficesID`),
+  ADD CONSTRAINT `tbldpteam_ibfk_2` FOREIGN KEY (`serviceYrID`) REFERENCES `tblserviceyr` (`serviceYrID`),
+  ADD CONSTRAINT `tbldpteam_ibfk_3` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`),
+  ADD CONSTRAINT `tbldpteam_ibfk_4` FOREIGN KEY (`memberID`) REFERENCES `tblmembers` (`memberID`);
+
+--
 -- Constraints for table `tbllga`
 --
 ALTER TABLE `tbllga`
@@ -1473,6 +1617,12 @@ ALTER TABLE `tblmembers`
   ADD CONSTRAINT `tblmembers_ibfk_4` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`),
   ADD CONSTRAINT `tblmembers_ibfk_5` FOREIGN KEY (`lgaOfOrigin`) REFERENCES `tbllga` (`lgaID`),
   ADD CONSTRAINT `tblmembers_ibfk_6` FOREIGN KEY (`stateOfOrigin`) REFERENCES `tblstates` (`stateID`);
+
+--
+-- Constraints for table `tblpdp`
+--
+ALTER TABLE `tblpdp`
+  ADD CONSTRAINT `tblpdp_ibfk_1` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`);
 
 --
 -- Constraints for table `tblpost`

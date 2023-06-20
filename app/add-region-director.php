@@ -158,7 +158,7 @@ function getMembers(val) {
                                             $results = $sth->FetchAll(PDO::FETCH_ASSOC);
                                             // echo  $id = $results['id']; exit;
                                             ?>
-                                        <label class="col-md-4 control-label" for="member_type">Select Region</label>
+                                        <label class="col-md-4 control-label" for="region">Select Region</label>
                                         <div class="col-md-8">
                                             <?php 
                                             
