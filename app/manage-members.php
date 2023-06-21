@@ -94,13 +94,6 @@ if (strlen($_SESSION['login']) == 0) {
                                             <a href="manage-members">
                                                 <button class="btn btn-danger waves-effect waves-light">Refesh Page <i class="mdi mdi-reload"></i></button>
                                             </a>
-                                            <div style="margin-left:20px; display :Inline"> Sort by: </div>
-                                            <select name="filter" id="filterBy" onChange="getmMemId(this.value);" style="margin-left:20px; padding:10px">
-                                                                <option value="">All</option>
-                                                                <option value="club">Club</option>
-                                                                <option value="region">Region</option>
-                                                      
-                                            </select>
                                         </div>
 
                                         <div class="table-responsive table-wrapper-scroll-y custom-table-scrollbar">
@@ -153,7 +146,7 @@ if (strlen($_SESSION['login']) == 0) {
                                                             <td><?php echo htmlentities($row['phone1']); ?></td>
                                                             <td><?php echo htmlentities($row['city']); ?></td>
                                                             <td><a href="details?leo=<?php echo htmlentities($row['firstName'].''.$row['lastName']); ?>&&lid=<?php echo htmlentities($row['memberID']); ?>"><i class="fa fa-eye" style="color: #000;" title="View Member Profile"></i></a>
-                                                                &nbsp; <a href="add-member?leo=<?php echo htmlentities($row['firstName'].''.$row['lastName']); ?>&&lid=<?php echo htmlentities($row['memberID']); ?>"><i class="fa fa-pencil" style="color: #29b6f6;" title="Edit this Member details"></i></a>
+                                                                &nbsp; <a href="add-member?editLeo=<?php echo htmlentities($row['firstName'].''.$row['lastName']); ?>&&lid=<?php echo htmlentities($row['memberID']); ?>"><i class="fa fa-pencil" style="color: #29b6f6;" title="Edit this Member details"></i></a>
                                                                 &nbsp;<a href="manage-members?rid=<?php echo htmlentities($row['id']); ?>&&m_tid=<?php echo htmlentities($row['mt_id']); ?>&&action=del"> <i class="fa fa-trash-o" style="color: #f05050" title="Move This Member to Trash"></i></a> </td>
                                                         </tr>
                                                 <?php
