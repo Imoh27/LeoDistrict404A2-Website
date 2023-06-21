@@ -78,6 +78,82 @@ if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
             }
         }
     }
+
+    // END ADD MEMBERS 
+
+    // START EDIT MEMBERS
+    if (isset($_POST['edit_member'])) {
+        global $con;
+
+        $region = $_POST['region'];
+        $clubs = $_POST['clubs'];
+        $memberNo = $_POST['memberNo'];
+        $firstname = $_POST['firstname'];
+        $middlename = $_POST['middlename'];
+        $lastname = $_POST['lastname'];
+        $email = $_POST['email'];
+        $phone = $_POST['phone'];
+        $altPhone = $_POST['altPhone'];
+        $residence = $_POST['residence'];
+        $memberSince = $_POST['memberSince'];
+        $gender = $_POST['gender'];
+        $stateOrigin = $_POST['stateOrigin'];
+        $lga = $_POST['lga'];
+        $stateResidence = $_POST['stateResidence'];
+        $city = $_POST['city'];
+        $dob = $_POST['dob'];
+        $occupation = $_POST['occupation'];
+        $maritalStatus = $_POST['maritalStatus'];
+        $imgfile = $_FILES["memberDp"]["name"];
+        $added_by = $_SESSION['login'];
+        $isActive = 1;
+
+        $session_user = "SELECT *  From tblusers WHERE loginID = '$added_by'";
+        $sth = $con->query($session_user);
+        $result = $sth->fetch(PDO::FETCH_OBJ);
+        $added_by = $result->userID;
+
+        // get the image extension
+        $extension = substr($imgfile, strlen($imgfile) - 4, strlen($imgfile));
+        // allowed extensions
+        $allowed_extensions = array(".jpg", "jpeg", ".png", ".gif");
+        $curr_date = date('Y-m-d');
+        $calc_date = date('Y', strtotime($curr_date)) - date('Y', strtotime($dob));
+        // Validation for allowed extensions .in_array() function searches an array for a specific value.
+        if (!in_array($extension, $allowed_extensions)) {
+            $error = "Invalid format. Only jpg / jpeg/ png /gif format allowed";
+            // echo "<script>alert('Invalid format. Only jpg / jpeg/ png /gif format allowed');</script>";
+        } else {
+            //rename the image file
+            $imgnewfile = md5($imgfile) . $extension;
+            // Code for move image into directory
+            // move_uploaded_file($_FILES["member_dp"]["tmp_name"],"membersimages/".$imgnewfile);
+
+            $select = "SELECT * FROM tblmembers where membershipNo  = $memberNo";
+            // echo $select; exit;
+            $sth = $con->query($select);
+            $results = $sth->fetchAll(PDO::FETCH_ASSOC);
+            // echo  $calc_date; exit;
+            if (!empty($results)) {
+                $error = "Sorry, Member Already Exist ";
+            }
+            else {
+                move_uploaded_file($_FILES["memberDp"]["tmp_name"], "membersimages/" . $imgnewfile);
+                $insert = "INSERT INTO tblmembers VALUES(NULL, $clubs, $region,  '$memberNo','$firstname', '$lastname', '$middlename',
+                '$email', '$gender', '$phone', '$altPhone', '$residence', '$maritalStatus',  '$occupation', '$city', '$stateResidence', '$stateOrigin', '$lga', ' $memberSince', '$dob',
+                      '$imgnewfile', NOW(), '$added_by', $isActive)";
+                // echo $insert; exit;
+                $query = $con->query($insert);
+
+                //  echo $query; exit;
+                if ($query) {
+                    $msg = "Member successfully added ";
+                } else {
+                    $error = "Something went wrong . Please try again.";
+                }
+            }
+        }
+    }
     ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -144,6 +220,19 @@ if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
         </script>
     </head>
 
+    <?php
+    $leoID = intval($_GET['lid']);
+    // echo $leoID; exit;
+    global $con;
+
+    $select = "SELECT * from  tblmembers m JOIN tblclubs c ON c.clubID = m.clubID
+    INNER JOIN tblregion r ON r.regionID = c.regionID JOIN tbllga l ON l.lgaID = m.lgaOfOrigin 
+    INNER JOIN  tblstates s ON s.stateID  = l.stateID where m.memberID = $leoID";
+    $sth = $con->query($select);
+    $fetchresult = $sth->fetch(PDO::FETCH_ASSOC);
+ 
+
+    ?>
 
     <body class="fixed-left">
 
@@ -170,7 +259,7 @@ if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="page-title-box">
-                                    <h4 class="page-title">Add Member </h4>
+                                    <h4 class="page-title">Member </h4>
                                     <ol class="breadcrumb p-0 m-0">
                                         <li>
                                             <a href="#">Member</a>
@@ -227,10 +316,15 @@ if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
                                             <label for="member_type">Select Region</label>
                                             <select class="form-control" name="region" id="region"
                                                 onChange="getClubs(this.value);" required>
+                                                <?php
+                                                if (!empty($fetchresult) || $leoID) {?>
+                                                   
+                                                    <option value="<?php echo htmlentities($fetchresult['regionID'])?>" selected><?php echo htmlentities($fetchresult['region'])?> </option>
+                                               
+                                                <?php } else{?>
                                                 <option value="" selected>Select Region </option>
                                                 <?php
-                                                // Feching active categories
-                                            
+                                                }
 
                                                 foreach ($results as $regions) {
 
@@ -248,15 +342,24 @@ if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
                                         <div class="form-group m-b-20" style="width:50% !important;">
 
                                             <label for="club">Select Clubs</label>
+                                            <?php
+                                             if (!empty($fetchresult) || $leoID) {?>
+                                              <select class="form-control" name="clubs" id="clubs" required>
+
+                                                  <option value="<?php echo htmlentities($fetchresult['clubID'])?>" selected><?php echo htmlentities($fetchresult['clubName'])?> </option>
+                                                </select>      
+                                           
+                                            <?php } else{?>
                                             <select class="form-control" name="clubs" id="clubs" required>
 
                                             </select>
+                                            <?php } ?>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-12 col-sm-12">
                                         <div class="form-group m-b-20" style="width:50% !important;">
                                             <h4 class=" header-title"><b>Membership No: <B>*</B> </b></h4>
-                                            <input type="text" class="form-control" name="memberNo" required>
+                                            <input type="text" class="form-control" value="<?php echo htmlentities($fetchresult['membershipNo'])?>" name="memberNo" required>
                                         </div>
                                     </div>
 
@@ -265,22 +368,22 @@ if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
                             </div>
                             <div class="col-md-4 col-sm-12  col-md-offset-1">
                                 <div class="card-box">
-                                    <h4 class="m-b-30 m-t-0 header-title"><b>Firstname: <B>*</B> </b></h4>
-                                    <input type="text" class="form-control" name="firstname" required>
+                                    <h4 class="m-b-30 m-t-0 header-title">Firstname: <B>*</B></h4>
+                                    <input type="text" class="form-control" value="<?php echo htmlentities($fetchresult['firstName'])?>" name="firstname" required>
                                 </div>
                             </div>
 
                             <div class="col-md-3 col-sm-12">
                                 <div class="card-box">
-                                    <h4 class="m-b-30 m-t-0 header-title"><b>Middlename: <B></h4>
-                                    <input type="text" class="form-control" name="middlename">
+                                    <h4 class="m-b-30 m-t-0 header-title">Middlename: </h4>
+                                    <input type="text" class="form-control"  value="<?php echo htmlentities($fetchresult['middleName'])?>" name="middlename">
                                 </div>
                             </div>
 
                             <div class="col-md-3 col-sm-12">
                                 <div class="card-box">
-                                    <h4 class="m-b-30 m-t-0 header-title"><b>Lastname: <B></B> </b></h4>
-                                    <input type="text" class="form-control" name="lastname" required>
+                                    <h4 class="m-b-30 m-t-0 header-title">Lastname: </h4>
+                                    <input type="text" class="form-control" value="<?php echo htmlentities($fetchresult['lastName'])?>" name="lastname" required>
                                 </div>
                             </div>
 
@@ -288,34 +391,35 @@ if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
 
                             <div class="col-md-4 col-sm-6  col-md-offset-1">
                                 <div class="card-box">
-                                    <h4 class="m-b-30 m-t-0 header-title"><b>Email: <B>*</B> </b></h4>
-                                    <input type="email" class="form-control" name="email" required>
+                                    <h4 class="m-b-30 m-t-0 header-title">Email: <B>*</B> </h4>
+                                    <input type="email" class="form-control" value="<?php echo htmlentities($fetchresult['memberEmail'])?>" name="email" required>
                                 </div>
                             </div>
 
                             <div class="col-md-3 col-sm-4">
                                 <div class="card-box">
-                                    <h4 class="m-b-30 m-t-0 header-title"><b>Phone No: <B>*</B> </b></h4>
-                                    <input type="text" class="form-control" name="phone" required>
+                                    <h4 class="m-b-30 m-t-0 header-title">Phone No: <B>* </B></h4>
+                                    <input type="text" class="form-control" value="<?php echo htmlentities($fetchresult['phone1'])?>" name="phone" required>
                                 </div>
                             </div>
                             <div class="col-md-3 col-sm-4">
                                 <div class="card-box">
-                                    <h4 class="m-b-30 m-t-0 header-title"><b>Alt Phone: </b></h4>
-                                    <input type="text" class="form-control" name="altPhone">
+                                    <h4 class="m-b-30 m-t-0 header-title">Alt Phone:</h4>
+                                    <input type="text" class="form-control" value="<?php echo htmlentities($fetchresult['phone2'])?>" name="altPhone">
                                 </div>
                             </div>
                             <div class="col-md-4 col-sm-6 col-md-offset-1">
                                 <div class="card-box">
-                                    <h4 class="m-b-30 m-t-0 header-title"><b>Residence Address: <B>*</B> </b></h4>
-                                    <input type="text" class="form-control" name="residence" required>
+                                    <h4 class="m-b-30 m-t-0 header-title">Residence Address: <B>*</B></h4>
+                                    <input type="text" class="form-control" value="<?php echo htmlentities($fetchresult['address'])?>" name="residence" required>
                                 </div>
                             </div>
 
                             <div class="col-md-3 col-sm-4 ">
                                 <div class="card-box">
-                                    <h4 class="m-b-30 m-t-0 header-title"><b>Member Since: *</b></h4>
+                                    <h4 class="m-b-30 m-t-0 header-title">Member Since: <b>*</b></h4>
                                     <!-- <input type="text" class="form-control" name="alt_phone" required> -->
+                                    
                                         <select name="memberSince" class="form-control">
                                             <?PHP
 
@@ -335,7 +439,11 @@ if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
                                     <div class="card-box">
                                         <h4 class="m-b-30 m-t-0 header-title"><b>Gender: </b></h4>
                                         <select name="gender" id="" class="form-control">
-                                            <option value="Select Gender">Select Gender</option>
+                                            <?php
+                                             if (!empty($fetchresult) || $leoID) {?>
+                                            <option value="<?php echo htmlentities($fetchresult['gender'])?> selected"><?php echo htmlentities($fetchresult['gender'])?></option>
+                                            <?php } else {?>
+                                            <option value="Select Gender">Select Gender</option><?php }?>
                                             <option value="Male">Male</option>
                                             <option value="Female">Female</option>
                                             <!-- <option value="Other">Other</option> -->
@@ -355,8 +463,12 @@ if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
                                         ?>
                                         <select class="form-control" name="stateOrigin" id="stateOrigin"
                                             onChange="getLga(this.value);" required>
+                                            <?php 
+                                             if (!empty($fetchresult) || $leoID) {?>
+                                                <option value="<?php echo htmlentities($fetchresult['stateOfOrigin '])?> selected"><?php echo htmlentities($fetchresult['stateName'])?></option>
+                                                <?php } else {?>
                                             <option value="" selected>Select State </option>
-                                            <?php
+                                            <?php }
                                             // Feching active categories
                                         
 
@@ -375,10 +487,16 @@ if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
                                 <div class="col-md-3 col-sm-4 ">
                                     <div class="card-box">
                                         <h4 class="m-b-30 m-t-0 header-title"><b>Lga: *</b></h4>
-
+                                        <?php 
+                                             if (!empty($fetchresult) || $leoID) {?>
+                                               <select class="form-control" name="lga" id="lga" required>
+                                                   <option value="<?php echo htmlentities($fetchresult['lgaOfOrigin'])?>"selected><?php echo htmlentities($fetchresult['lgaName'])?></option>
+                                                </select>   
+                                                <?php } else {?>      
                                         <select class="form-control" name="lga" id="lga" required>
 
                                         </select>
+                                        <?php } ?>
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-sm-4">
@@ -392,11 +510,12 @@ if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
                                         // echo  $id = $results['id']; exit;
                                         ?>
                                         <select class="form-control" name="stateResidence" id="stateResidence" required>
+                                        <?php 
+                                             if (!empty($fetchresult) || $leoID) {?>
+                                                <option value="<?php echo htmlentities($fetchresult['stateOfOrigin'])?> "selected><?php echo htmlentities($fetchresult['stateName'])?></option>
+                                                <?php } else {?>
                                             <option value="" selected>Select State </option>
-                                            <?php
-                                            // Feching active categories
-                                        
-
+                                            <?php }
                                             foreach ($results as $states) {
 
                                                 // $ret = mysqli_query($con, "select id,states from  tblmembertype where Stat=1");
@@ -413,20 +532,20 @@ if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
                                 <div class="col-md-4 col-sm-6 col-md-offset-1 ">
                                     <div class="card-box">
                                         <h4 class="m-b-30 m-t-0 header-title"><b>City * </b></h4>
-                                        <input type="text" class="form-control" name="city" required>
+                                        <input type="text" class="form-control" value="<?php echo htmlentities($fetchresult['city'])?>" name="city" required>
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-sm-4 ">
                                     <div class="card-box">
                                         <h4 class="m-b-30 m-t-0 header-title"><b>Date of Birth * </b></h4>
-                                        <input type="date" class="form-control" name="dob" required>
+                                        <input type="date" class="form-control" value="<?php echo htmlentities($fetchresult['dob'])?>" name="dob" required>
                                     </div>
                                 </div>
 
                                 <div class="col-md-3 col-sm-4 ">
                                     <div class="card-box">
                                         <h4 class="m-b-30 m-t-0 header-title"><b>Occupation * </b></h4>
-                                        <input type="text" class="form-control" name="occupation" required>
+                                        <input type="text" class="form-control" value="<?php echo htmlentities($fetchresult['occupation'])?>" name="occupation" required>
                                     </div>
                                 </div>
 
@@ -435,7 +554,13 @@ if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
                                     <div class="card-box">
                                         <h4 class="m-b-30 m-t-0 header-title"><b>Marital Status: </b></h4>
                                         <select name="maritalStatus" id="" class="form-control">
-                                            <option value="Select Status">Select Status</option>
+                                            <?php
+                                             if (!empty($fetchresult) || $leoID) {?>
+                                                <option value="<?php echo htmlentities($fetchresult['maritalStatus'])?> "selected><?php echo htmlentities($fetchresult['maritalStatus'])?></option>
+                                                <?php } else {?>
+                                            <option value="" selected>Select Status </option>
+                                            <?php } ?>
+
                                             <option value="Single">Single</option>
                                             <option value="Married">Married</option>
                                             <option value="Other">Other</option>
@@ -475,8 +600,10 @@ if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
 
 
                                 <div class="col-sm-10 col-md-offset-1">
-                                    <button type="submit" name="add_member"
-                                        class="btn btn-success waves-effect waves-light">Add Member</button>
+                                    <button type="submit" name="<?php
+                                             if (!empty($fetchresult) || $leoID) { echo 'editMember'; }else{?>add_member<?php } ?>"
+                                        class="btn btn-success waves-effect waves-light"><?php
+                                             if (!empty($fetchresult) || $leoID) { echo 'Edit'; }else{?> Add <?php } ?></button>
                                     <a type="button" class="btn btn-danger waves-effect waves-light"
                                         href="manage-members">Return</a>
                                 </div>

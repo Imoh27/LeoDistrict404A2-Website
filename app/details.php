@@ -9,8 +9,9 @@ if (strlen($_SESSION['login']) == 0) {
     $leoID = intval($_GET['lid']);
     global $con;
 
-    $select = "Select * from  tblmembers m JOIN tblclubs c ON c.clubID = m.clubID
-    INNER JOIN tblregion r ON r.regionID = c.regionID where m.memberID = $leoID";
+    $select = "SELECT * from  tblmembers m JOIN tblclubs c ON c.clubID = m.clubID
+    INNER JOIN tblregion r ON r.regionID = c.regionID JOIN tbllga l ON l.lgaID = m.lgaOfOrigin 
+    INNER JOIN  tblstates s ON s.stateID  = l.stateID where m.memberID = $leoID";
 
     // echo $sql; exit;
     // $select = "SELECT * FROM tblmembers JOIN tblmembertype ON tblmembertype.id = tblmembers.member_type_id where tblmembers.id =$memid";
@@ -74,7 +75,7 @@ if (strlen($_SESSION['login']) == 0) {
                         <!-- end row -->
 
                         <?php
-                        $select = "SELECT memberPhoto FROM tblmembers where memberID =  $leoID";
+                        $select = "SELECT memberPhoto FROM tblmembers  where memberID =  $leoID";
                         //    echo $select; exit;
                         $sth = $con->query($select);
                         $result = $sth->fetch(PDO::FETCH_ASSOC);
@@ -101,85 +102,127 @@ if (strlen($_SESSION['login']) == 0) {
                                 <div class="col-md-3 col-sm-12">
                                     <div class="card-box">
                                         <h6 class=" m-t-0 header-title"><b>Full Name: </b></h6>
-                                        <?php echo $full_name; ?>
+                                        <?php echo $results['firstName'] .' '. $results['lastName']; ?>
                                     </div>
                                 </div>
 
                                 <div class="col-md-3 col-sm-12 ">
                                     <div class="card-box">
-                                        <h4 class="m-t-0 header-title"><b>Residence Address: </b></h4>
-                                        <?php echo $results['address']; ?>
+                                        <h4 class="m-t-0 header-title"><b>Memberhip No: </b></h4>
+                                        <?php echo $results['membershipNo']; ?>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-12 ">
+                                    <div class="card-box">
+                                        <h4 class="m-t-0 header-title"><b>Club: </b></h4>
+                                        <?php echo $results['clubName']; ?>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-12 ">
+                                    <div class="card-box">
+                                        <h4 class="m-t-0 header-title"><b>Region: </b></h4>
+                                        <?php echo $results['region']; ?>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3 col-sm-12 ">
+                                    <div class="card-box">
+                                    <h4 class=" m-t-0 header-title"><b>Member Since:</b></h4>
+                                            <?php echo $results['memberSince']; ?>
+                                        
                                     </div>
                                 </div>
 
                                 <div class="col-md-3 col-sm-6  ">
                                     <div class="card-box">
                                         <h4 class="m-t-0 header-title"><b>Email: </b></h4>
-                                        <?php echo $results['e_mail']; ?>
+                                        <?php echo $results['memberEmail']; ?>
                                     </div>
                                 </div>
 
-                                <div class="col-md-3 col-sm-4">
-                                    <div class="card-box">
-                                        <h4 class=" m-t-0 header-title"><b>Phone No: </b></h4>
-                                        <?php echo $results['pri_num']; ?>
+                                <div class="col-md-12 ">
+                                    <div class="col-md-3 col-sm-4 col-md-offset-1">
+                                        <div class="card-box">
+                                            <h4 class=" m-t-0 header-title"><b>Phone No: </b></h4>
+                                            <?php echo $results['phone1']; ?>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-4">
+                                        <div class="card-box">
+                                            <h4 class=" m-t-0 header-title"><b>Other No: </b></h4>
+                                            <?php echo $results['phone2']; ?>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-sm-4 ">
+                                        <div class="card-box">
+                                            <h4 class=" m-t-0 header-title"><b>Marital Status:</b></h4>
+                                            <?php echo $results['maritalStatus']; ?>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="col-md-12 ">
 
-                                <div class="col-md-3 col-sm-4 ">
-                                    <div class="card-box">
-                                        <h4 class=" m-t-0 header-title"><b>Member Since:</b></h4>
-                                        <?php echo $results['member_since']; ?>
+                                    <div class="col-md-3 col-sm-3 col-md-offset-1">
+                                        <div class="card-box m-b-30">
+                                            <h4 class=" m-t-0 header-title"><b>Gender </b></h4>
+                                            <?php echo $results['gender']; ?>
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div class="col-md-3 col-sm-3">
-                                    <div class="card-box m-b-30">
-                                        <h4 class=" m-t-0 header-title"><b>Gender </b></h4>
-                                        <?php echo $results['gender']; ?>
+    
+                                    <div class="col-md-3 col-sm-3">
+                                        <div class="card-box">
+                                            <h4 class="m-t-0 header-title"><b>State of Origin</b></h4>
+                                            <?php echo $results['stateName']; ?>
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div class="col-md-3 col-sm-5 col-md-offset-1">
-                                    <div class="card-box">
-                                        <h4 class="m-t-0 header-title"><b>State of Origin</b></h4>
-                                        <?php echo $results['state_origin']; ?>
+                                    <div class="col-md-3 col-sm-3">
+                                        <div class="card-box">
+                                            <h4 class="m-t-0 header-title"><b>LGA</b></h4>
+                                            <?php echo $results['lgaName']; ?>
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div class="col-md-3 col-sm-5 ">
-                                    <div class="card-box">
-                                        <h4 class="m-t-0 header-title"><b>City </b></h4>
-                                        <?php echo $results['city']; ?>
                                     </div>
-                                </div>
+                                <div class="col-md-12 ">
 
-
-                                <div class="col-md-3 col-sm-4">
-                                    <div class="card-box">
-                                        <h4 class="m-t-0 header-title"><b>Date of Birth </b></h4>
-                                        <?php echo $results['dob']; ?>
+                                    <div class="col-md-3 col-sm-3 col-md-offset-1">
+                                        <div class="card-box">
+                                            <h4 class="m-t-0 header-title"><b>State of Residence</b></h4>
+                                            <?php echo $results['stateName']; ?>
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div class="col-md-4 col-md-offset-1 col-sm-4 ">
-                                    <div class="card-box">
-                                        <h4 class="m-t-0 header-title"><b>Occupation </b></h4>
-                                        <?php echo $results['occupation']; ?>
+                                    
+                                    <div class="col-md-3 col-sm-5 ">
+                                        <div class="card-box">
+                                            <h4 class="m-t-0 header-title"><b>City </b></h4>
+                                            <?php echo $results['city']; ?>
+                                        </div>
                                     </div>
-                                </div>
-
-
-                                <div class="col-md-3 col-sm-3">
-                                    <div class="card-box">
-                                        <h4 class="m-t-0 header-title"><b>Marital Status: </b></h4>
-                                        <?php echo $results['marital_status']; ?>
+                                    
+                                    <div class="col-md-3 col-sm-3 ">
+                                        <div class="card-box">
+                                        <h4 class="m-t-0 header-title"><b>Address: </b></h4>
+                                        <?php echo $results['address']; ?>
+                                        </div>
+                                    </div>
+    
+                                    <div class="col-md-3 col-sm-4 col-md-offset-1">
+                                        <div class="card-box">
+                                            <h4 class="m-t-0 header-title"><b>Date of Birth </b></h4>
+                                            <?php echo $results['dob']; ?>
+                                        </div>
+                                    </div>
+    
+                                    <div class="col-md-4 col-sm-4 ">
+                                        <div class="card-box">
+                                            <h4 class="m-t-0 header-title"><b>Occupation </b></h4>
+                                            <?php echo $results['occupation']; ?>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="col-sm-10 text-center">
                                     <a class="btn btn-success waves-effect waves-light"
-                                        href="edit-member?mid=<?php echo htmlentities($memid); ?>"><i class="fa fa-pencil"
+                                        href="add-member?leo=<?php echo htmlentities($results['firstName'].''.$results['lastName']); ?>&&lid=<?php echo htmlentities($results['memberID']); ?>"><i class="fa fa-pencil"
                                             style="color: #fff;" title="Edit this Member details"></i> Edit Member</a>
                                     <!-- <a class="btn btn-danger waves-effect waves-light" href="manage-omega-leos"> <i class="fa fa-arrow-left " style="color: #fff" title="Go Back"> Back</i></a> -->
                                     <!-- <button type="button" class="btn btn-danger waves-effect waves-light">Discard</button> -->

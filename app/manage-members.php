@@ -153,7 +153,7 @@ if (strlen($_SESSION['login']) == 0) {
                                                             <td><?php echo htmlentities($row['phone1']); ?></td>
                                                             <td><?php echo htmlentities($row['city']); ?></td>
                                                             <td><a href="details?leo=<?php echo htmlentities($row['firstName'].''.$row['lastName']); ?>&&lid=<?php echo htmlentities($row['memberID']); ?>"><i class="fa fa-eye" style="color: #000;" title="View Member Profile"></i></a>
-                                                                &nbsp; <a href="edit-member?mid=<?php echo htmlentities($row['id']); ?>"><i class="fa fa-pencil" style="color: #29b6f6;" title="Edit this Member details"></i></a>
+                                                                &nbsp; <a href="add-member?leo=<?php echo htmlentities($row['firstName'].''.$row['lastName']); ?>&&lid=<?php echo htmlentities($row['memberID']); ?>"><i class="fa fa-pencil" style="color: #29b6f6;" title="Edit this Member details"></i></a>
                                                                 &nbsp;<a href="manage-members?rid=<?php echo htmlentities($row['id']); ?>&&m_tid=<?php echo htmlentities($row['mt_id']); ?>&&action=del"> <i class="fa fa-trash-o" style="color: #f05050" title="Move This Member to Trash"></i></a> </td>
                                                         </tr>
                                                 <?php
