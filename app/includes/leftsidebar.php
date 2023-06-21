@@ -38,7 +38,8 @@
                     <ul class="list-unstyled">
                         <li><a href="district-offices">District Offices</a></li>
                         <li><a href="dp-team">DP Team</a></li>
-                        <li><a href="manage-regions" class="waves-effect"><span>Past Leo Leaders</span></a></li>
+                        <li><a href="lci-leaders.php">LCI Leaders</a></li>
+                        <li><a href="past-dp.php" class="waves-effect"><span>Past Leo Leaders</span></a></li>
                         <!-- <li ><a href="boards-history">Boards History</a></li> -->
                     </ul>
                 </li>

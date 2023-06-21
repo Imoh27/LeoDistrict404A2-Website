@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 //Database Configuration File
 include('includes/config.php');
 //error_reporting(0);
@@ -15,6 +15,7 @@ if (isset($_POST['login'])) {
         // $hashpassword=$num['AdminPassword']; // Hashed password fething from database
 //verifying Password
 // if (password_verify($password, $hashpassword)) {
+         session_start();
         $_SESSION['login'] = $_POST['username'];
         echo "<script type='text/javascript'> document.location = 'dashboard'; </script>";
         //   } else {

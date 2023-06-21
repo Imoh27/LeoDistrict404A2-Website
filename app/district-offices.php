@@ -182,11 +182,12 @@ if (strlen($_SESSION['login']) == 0) {
                                         </div>
                                     </div>
                                 </div>
-                                <?php
-                               
-                                ?>
-                                <div class=" col-md-12 " id="addPosition"
-                                    style="display:none; margin-top: -100px !important">
+                            </div>
+                            <!--- end row -->
+
+                            <!--- Start Add Offices -->
+                            <div class=" col-md-12 " id="addPosition"
+                                    style="display:none; !important">
                                     <div class="col-md-6 col-md-offset-2">
                                         <p class="text-uppercase font-600 font-secondary text-center"><a>Add Position</a>
 
@@ -225,8 +226,7 @@ if (strlen($_SESSION['login']) == 0) {
                                         </form>
                                     </div>
                                 </div>
-                            </div>
-                            <!--- end row -->
+                                <!-- End Add Offices -->
 
 
 

@@ -27,6 +27,94 @@ if (strlen($_SESSION['login']) == 0) {
             }
         }
     }
+
+    if ($_GET['dptid']) {
+        $dptid = $_GET['dptid'];
+        if (isset($_POST['editDPteam'])) {
+            $memberName = $_POST['leoName'];
+            $position = $_POST['positions'];
+            $fbProfile = $_POST['fbProfile'];
+            $lnProfile = $_POST['lnProfile'];
+            $igProfile = $_POST['igProfile'];
+            $imgfile = $_FILES["memberDp"]["name"];
+            
+            if ($imgfile) {
+                // get the image extension
+                $extension = substr($imgfile, strlen($imgfile) - 4, strlen($imgfile));
+                // allowed extensions
+                $allowed_extensions = array(".jpg", "jpeg", ".png", ".gif");
+                // Validation for allowed extensions .in_array() function searches an array for a specific value.
+                if (!in_array($extension, $allowed_extensions)) {
+                    $error = "Invalid format. Only jpg / jpeg/ png /gif format allowed";
+                    // echo "<script>alert('Invalid format. Only jpg / jpeg/ png /gif format allowed');</script>";
+                } else {
+                    //rename the image file
+                    $imgnewfile = md5($imgfile) . '.' . $extension;
+                    // echo $imgnewfile; exit;
+                    // Code for move image into directory
+                    move_uploaded_file($_FILES["memberDp"]["tmp_name"], "dp_team/" . $imgnewfile);
+                }}
+                $update = "UPDATE tbldpsteam SET memberName = '$memberName', dOfficesID = $position, fbProfile = '$fbProfile', 
+                lnProfile = '$lnProfile', igProfile = '$igProfile', dateUpdated = NOW(), updatedBy  = $session";
+                    if ($imgfile) {
+                        $update .= ", foto = '$imgnewfile' ";
+                    }
+                    $update .= " WHERE teamID  = $dptid";
+                    // echo $update; exit;
+                    $query = $con->query($update);
+                if ($query) {
+                    $msg = "Successfully Updated";
+                } else {
+                    $delmsg = "Error Encountered!, Try again";
+                }
+
+            }
+            
+        }
+
+        // HANDLE LCI LEADERS
+    if ($_GET['lid']) {
+        $lid = $_GET['lid'];
+        if (isset($_POST['editLCIleader'])) {
+            $leaderName = $_POST['leaderName'];
+            $position = $_POST['positions'];
+            $imgfile = $_FILES["memberDp"]["name"];
+            
+            if ($imgfile) {
+                // get the image extension
+                $extension = substr($imgfile, strlen($imgfile) - 4, strlen($imgfile));
+                // allowed extensions
+                $allowed_extensions = array(".jpg", "jpeg", ".png", ".gif");
+                // Validation for allowed extensions .in_array() function searches an array for a specific value.
+                if (!in_array($extension, $allowed_extensions)) {
+                    $error = "Invalid format. Only jpg / jpeg/ png /gif format allowed";
+                    // echo "<script>alert('Invalid format. Only jpg / jpeg/ png /gif format allowed');</script>";
+                } else {
+                    //rename the image file
+                    $imgnewfile = md5($imgfile) . '.' . $extension;
+                    // echo $imgnewfile; exit;
+                    // Code for move image into directory
+                    move_uploaded_file($_FILES["memberDp"]["tmp_name"], "leaders_dp/" . $imgnewfile);
+                }}
+                $update = "UPDATE tbllcileaders SET leaderName = '$leaderName', dOfficesID = $position, dateUpdated = NOW(), updatedBy  = $session";
+                    if ($imgfile) {
+                        $update .= ", foto = '$imgnewfile' ";
+                    }
+                    $update .= " WHERE leaderID  = $lid";
+                    // echo $update; exit;
+                    $query = $con->query($update);
+                if ($query) {
+                    $msg = "Successfully Updated";
+                } else {
+                    $delmsg = "Error Encountered!, Try again";
+                }
+
+            }
+            
+        }
+    
+
+
     ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -151,8 +239,195 @@ if (strlen($_SESSION['login']) == 0) {
                                 </div>
                             </div>
                             <?php } ?>
+                            <!-- End District Officers Edit -->
 
-                            
+                            <!-- Edit DP's Team -->
+                            <?php
+                                if ($_GET['dptid']) {
+                                    $dptid = $_GET['dptid'];
+
+                                    $dpteam = "SELECT *  From tbldpsteam d JOIN tbldistrictoffices o ON o.dOfficesID = d.dOfficesID WHERE  teamID   = '$dptid'";
+                                    // echo $dpteam; exit;
+                                    $query = mysqli_query($con, $dpteam);
+                                    $dptresult = mysqli_fetch_assoc($query);
+                                    ?>
+                            <div class=" col-md-12 m-t-50" id="editTeam">
+                                <div class="col-md-6 col-md-offset-2">
+                                    <p class="text-uppercase font-600 font-secondary text-center"><a>Edit Team</a>
+
+                                    </p>
+                                    <form class="form-horizontal" method="POST" name="dpteam"
+                                        enctype="multipart/form-data">
+
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Full Name </label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control"
+                                                    value="<?php echo htmlentities($dptresult['memberName']); ?>"
+                                                    name="leoName">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <?php
+                                                    $select = "SELECT * FROM tbldistrictoffices";
+                                                    $query = mysqli_query($con, $select);
+                                                    ?>
+                                            <label class="col-md-4 control-label" for="position">Select Position</label>
+                                            <div class="col-md-8">
+                                                <select class="form-control" name="positions" id="position" required>
+                                                    <?php
+                                                            if ($dptresult) { ?>
+                                                    <option
+                                                        value="<?php echo htmlentities($dptresult['dOfficesID']); ?>"
+                                                        selected><?php echo htmlentities($dptresult['position']); ?>
+                                                    </option>
+
+                                                    <?php } else { ?>
+                                                    <option value="" selected>Select Position </option>
+                                                    <?php }
+                                                            // Feching active categories
+                                                            while ($row = mysqli_fetch_array($query)) {
+                                                                ?>
+                                                    <option value="<?php echo htmlentities($row['dOfficesID']); ?>">
+                                                        <?php echo htmlentities($row['position']); ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Facebook </label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control"
+                                                    value="<?php echo htmlentities($dptresult['fbProfile']); ?>"
+                                                    name="fbProfile">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">LinkedIn </label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control"
+                                                    value="<?php echo htmlentities($dptresult['lnProfile']); ?>"
+                                                    name="lnProfile">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Instagram </label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control"
+                                                    value="<?php echo htmlentities($dptresult['igProfile']); ?>"
+                                                    name="igProfile">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Feature Image </label>
+                                            <div class="col-md-8">
+                                                <input type="file" class="form-control" id="memberDp" name="memberDp">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">&nbsp;</label>
+                                            <div class="col-md-8 text-center">
+
+                                                <button type="submit"
+                                                    class="btn btn-primary waves-effect waves-light btn-md"
+                                                    name="editDPteam">
+                                                    Submit
+                                                </button>
+                                                &nbsp; 
+                                                    <button class="btn btn-custom waves-effect waves-light"><a href="dp-team"> <i
+                                                            class="fa fa-arrow-left text-white"></i> Return</a></button>
+                                                
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                            <?php } ?>
+                            <!-- END  Edit DP's Team -->
+
+                            <!-- Start Edit LCI Leaders -->
+                            <?php
+                                if ($_GET['lid']) {
+                                    $lid = $_GET['lid'];
+
+                                    $LCIleader = "SELECT *  From tbllcileaders l JOIN tbldistrictoffices o ON o.dOfficesID = l.dOfficesID WHERE  leaderID   = '$lid'";
+                                    // echo $LCIleader; exit;
+                                    $query = mysqli_query($con, $LCIleader);
+                                    $dptresult = mysqli_fetch_assoc($query);
+                                    ?>
+                            <div class=" col-md-12 m-t-50" id="editTeam">
+                                <div class="col-md-6 col-md-offset-2">
+                                    <p class="text-uppercase font-600 font-secondary text-center"><a>Edit Lions Leader</a>
+
+                                    </p>
+                                    <form class="form-horizontal" method="POST" name="LCIleader"
+                                        enctype="multipart/form-data">
+
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Full Name </label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control"
+                                                    value="<?php echo htmlentities($dptresult['leaderName']); ?>"
+                                                    name="leaderName">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <?php
+                                                    $select = "SELECT * FROM tbldistrictoffices";
+                                                    $query = mysqli_query($con, $select);
+                                                    ?>
+                                            <label class="col-md-4 control-label" for="position">Select Position</label>
+                                            <div class="col-md-8">
+                                                <select class="form-control" name="positions" id="position" required>
+                                                    <?php
+                                                            if ($dptresult) { ?>
+                                                    <option
+                                                        value="<?php echo htmlentities($dptresult['dOfficesID']); ?>"
+                                                        selected><?php echo htmlentities($dptresult['position']); ?>
+                                                    </option>
+
+                                                    <?php } else { ?>
+                                                    <option value="" selected>Select Position </option>
+                                                    <?php }
+                                                            // Feching active categories
+                                                            while ($row = mysqli_fetch_array($query)) {
+                                                                ?>
+                                                    <option value="<?php echo htmlentities($row['dOfficesID']); ?>">
+                                                        <?php echo htmlentities($row['position']); ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Feature Image </label>
+                                            <div class="col-md-8">
+                                                <input type="file" class="form-control" id="memberDp" name="memberDp">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">&nbsp;</label>
+                                            <div class="col-md-8 text-center">
+
+                                                <button type="submit"
+                                                    class="btn btn-primary waves-effect waves-light btn-md"
+                                                    name="editLCIleader">
+                                                    Submit
+                                                </button>
+                                                &nbsp; 
+                                                    <button class="btn btn-custom waves-effect waves-light"><a href="lci-leaders"> <i
+                                                            class="fa fa-arrow-left text-white"></i> Return</a></button>
+                                                
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                            <?php } ?>
+
+
 
                         </div>
                         <!--- end row -->
@@ -199,6 +474,7 @@ if (strlen($_SESSION['login']) == 0) {
         function addPositionForm() {
             document.getElementById('addPosition').style.display = "block"
         }
+
         function getClubs(val) {
             $.ajax({
                 type: "POST",

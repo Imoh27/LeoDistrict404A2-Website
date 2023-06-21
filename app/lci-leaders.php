@@ -18,13 +18,10 @@ if (strlen($_SESSION['login']) == 0) {
 
     $isActive = 1;
 
-    if (isset($_POST['addDPteam'])) {
-        $memberName = $_POST['leoName'];
+    if (isset($_POST['addLeader'])) {
+        $leaderName = $_POST['leaderName'];
         $position = $_POST['positions'];
         // echo $position; exit;
-        $fbProfile = $_POST['fbProfile'];
-        $lnProfile = $_POST['lnProfile'];
-        $igProfile = $_POST['igProfile'];
         $imgfile = $_FILES["memberDp"]["name"];
 
         // get the image extension
@@ -39,7 +36,7 @@ if (strlen($_SESSION['login']) == 0) {
             //rename the image file
             $imgnewfile = md5($imgfile).'.'.$extension;
 
-            $fetchPosition = "SELECT *  From tbldpsteam WHERE  memberID like '%$memberName%' OR dOfficesID  = '$position'";
+            $fetchPosition = "SELECT *  From  tbllcileaders WHERE  leaderName like '%$leaderName%' OR dOfficesID  = '$position'";
             // echo $fetchPosition; exit;
             $query = mysqli_query($con, $fetchPosition);
             $result = mysqli_fetch_assoc($query);
@@ -47,8 +44,8 @@ if (strlen($_SESSION['login']) == 0) {
                 $delmsg = "Duplicate Entry! Already Exists";
             } else {
                 // Code for move image into directory
-                move_uploaded_file($_FILES["memberDp"]["tmp_name"], "dp_team/" .$imgnewfile);
-                $insert = "INSERT INTO tbldpsteam VALUES(NULL,'$memberName', $position, '$fbProfile', '$lnProfile', '$igProfile', '$imgnewfile', $currentLSYID, NOW(), $session)";
+                move_uploaded_file($_FILES["memberDp"]["tmp_name"], "leaders_dp/" .$imgnewfile);
+                $insert = "INSERT INTO  tbllcileaders VALUES(NULL,'$leaderName', '$imgnewfile', $position,  $currentLSYID, NOW(), $session)";
                 // echo $insert; exit;
                 $query = $con->query($insert);
                 if ($query) {
@@ -60,12 +57,12 @@ if (strlen($_SESSION['login']) == 0) {
 
         }
     }
-    if ($_GET['deldptid']) {
-        $teamID = $_GET['deldptid'];
-        $elete = "DELETE FROM tbldpsteam WHERE teamID =  $teamID";
+    if ($_GET['dellid']) {
+        $leaderID = $_GET['dellid'];
+        $elete = "DELETE FROM  tbllcileaders WHERE leaderID =  $leaderID";
         $query = $con->query($elete);
         if ($query) {
-            echo ('Location: ');
+            header ('Location: lci-leaders');
             $msg = "Successfully Deleted";
         } else {
             $delmsg = "Error Encountered!, Try again";
@@ -78,7 +75,7 @@ if (strlen($_SESSION['login']) == 0) {
 <!DOCTYPE html>
 <html lang="en">
 <?php include('includes/pages-head.php'); ?>
-<title>Leo District 404A2 -- Official Website | DP Team</title>
+<title>Leo District 404A2 -- Official Website | LCI Learders</title>
 
 
 
@@ -113,7 +110,7 @@ if (strlen($_SESSION['login']) == 0) {
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="page-title-box">
-                                <h4 class="page-title">DP's Team (
+                                <h4 class="page-title">LCI Leaders (
                                     <?php echo $currentLSYID; ?>)
                                 </h4>
                                 <ol class="breadcrumb p-0 m-0">
@@ -124,7 +121,7 @@ if (strlen($_SESSION['login']) == 0) {
                                         <a href="#">District </a>
                                     </li>
                                     <li class="active">
-                                        DP's Team
+                                        LCi Leaders
                                     </li>
                                 </ol>
                                 <div class="clearfix"></div>
@@ -158,10 +155,8 @@ if (strlen($_SESSION['login']) == 0) {
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="demo-box m-t-20">
-                                    <div class="col-md-6 col-sm-12 col-md-offset-2" style="margin-bottom: 50px">
-                                        <p class=" text-uppercase font-600 font-secondary text-overflow"><a>District
-                                                President's
-                                                Team</a>
+                                    <div class="col-md-6 col-sm-12 col-md-offset-2">
+                                        <p class=" text-uppercase font-600 font-secondary text-overflow"><a>LCI Leaders</a>
 
                                             <button id="addToTable" class=" btn btn-success waves-effect waves-light"
                                                 style="float: right" title="Add position"
@@ -183,8 +178,8 @@ if (strlen($_SESSION['login']) == 0) {
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                        $select_query = "SELECT * from  tbldpsteam d JOIN tbldistrictoffices o ON o.dOfficesID = d.dOfficesID
-                                                         JOIN tblserviceyr s ON s.serviceYrID  = d.serviceYrID ";
+                                                        $select_query = "SELECT * from  tbllcileaders l JOIN tbldistrictoffices o ON o.dOfficesID = l.dOfficesID
+                                                         JOIN tblserviceyr s ON s.serviceYrID  = l.serviceYrID ";
                                                         // echo $select_query; exit;
                                                         $query = mysqli_query($con, $select_query);
                                                         $rowcount = mysqli_num_rows($query);
@@ -206,16 +201,16 @@ if (strlen($_SESSION['login']) == 0) {
                                                             <?php echo htmlentities($cnt); ?>
                                                         </th>
                                                         <td>
-                                                            <?php echo htmlentities($row['memberName']); ?>
+                                                            <?php echo htmlentities($row['leaderName']); ?>
                                                         </td>
                                                         <td>
                                                             <?php echo htmlentities($row['position']); ?>
                                                         </td>
                                                         <td style="text-align:center">
-                                                        <a href="edit-centre?dptid=<?php echo htmlentities($row['teamID']); ?>"><i class="fa fa-pencil" style="color: #29b6f6;" title="Edit this Member details"></i></a>
+                                                        <a href="edit-centre?lid=<?php echo htmlentities($row['leaderID']); ?>"><i class="fa fa-pencil" style="color: #29b6f6;" title="Edit this Member details"></i></a>
                                                             &nbsp; 
                                                             <a
-                                                                href="?deldptid=<?php echo htmlentities($row['teamID']); ?>"><i
+                                                                href="?dellid=<?php echo htmlentities($row['leaderID']); ?>"><i
                                                                     class="fa fa-trash-o"
                                                                     style="color: #f05050;"></i>&nbsp; </a>
                                                         </td>
@@ -237,7 +232,7 @@ if (strlen($_SESSION['login']) == 0) {
                         <div class=" col-md-12 " id="addPosition"
                                 style="display:none; !important">
                                 <div class="col-md-6 col-md-offset-2">
-                                    <p class="text-uppercase font-600 font-secondary text-center"><a>Add DP's Team</a>
+                                    <p class="text-uppercase font-600 font-secondary text-center"><a>Add LCI Leaders</a>
 
                                     </p>
                                     <form class="form-horizontal" method="POST" name="dpteam"
@@ -246,7 +241,7 @@ if (strlen($_SESSION['login']) == 0) {
                                         <div class="form-group">
                                             <label class="col-md-4 control-label">Full Name </label>
                                             <div class="col-md-8">
-                                                <input type="text" class="form-control" value="" name="leoName">
+                                                <input type="text" class="form-control" value="" name="leaderName">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -269,24 +264,6 @@ if (strlen($_SESSION['login']) == 0) {
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-md-4 control-label">Facebook </label>
-                                            <div class="col-md-8">
-                                                <input type="text" class="form-control" value="" name="fbProfile">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-4 control-label">LinkedIn </label>
-                                            <div class="col-md-8">
-                                                <input type="text" class="form-control" value="" name="lnProfile">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-4 control-label">Instagram </label>
-                                            <div class="col-md-8">
-                                                <input type="text" class="form-control" value="" name="igProfile">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
                                             <label class="col-md-4 control-label">Feature Image </label>
                                             <div class="col-md-8">
                                                 <input type="file" class="form-control" id="memberDp" name="memberDp"
@@ -301,7 +278,7 @@ if (strlen($_SESSION['login']) == 0) {
 
                                                 <button type="submit"
                                                     class="btn btn-custom waves-effect waves-light btn-md"
-                                                    name="addDPteam">
+                                                    name="addLeader">
                                                     Submit
                                                 </button>
                                             </div>

@@ -113,7 +113,7 @@ if (strlen($_SESSION['login']) == 0) {
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="page-title-box">
-                                <h4 class="page-title">DP's Team (
+                                <h4 class="page-title">DP'd Team (
                                     <?php echo $currentLSYID; ?>)
                                 </h4>
                                 <ol class="breadcrumb p-0 m-0">
