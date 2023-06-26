@@ -66,7 +66,9 @@ if (strlen($_SESSION['login']) == 0) {
                         </div>
                         <!-- end row -->
 
-
+                        <?php 
+                            if ($page == 'active' || !$page) {?>
+                        <!-- Start Active member row -->
                         <div class="row">
                             <div class="col-sm-6">
 
@@ -91,7 +93,9 @@ if (strlen($_SESSION['login']) == 0) {
                                             <a href="add-member.php">
                                                 <button id="addToTable" class="btn btn-success waves-effect waves-light">Add <i class="mdi mdi-plus-circle-outline"></i></button>
                                             </a>
-                                            <a href="manage-members">
+                                            <a href="<?php if ($page != '') {?>manage-members?page=<?php echo $page; ?>
+                                               
+                                            <?php } else{?>manage-members<?php } ?>">
                                                 <button class="btn btn-danger waves-effect waves-light">Refesh Page <i class="mdi mdi-reload"></i></button>
                                             </a>
                                         </div>
@@ -103,7 +107,7 @@ if (strlen($_SESSION['login']) == 0) {
                                                         <th>#</th>
                                                         <th> Name</th>
                                                         <th> Member No</th>
-                                                        <th>Sex</th>
+                                                        <!-- <th>Sex</th> -->
                                                         <th> Club</th>
                                                         <th> Region</th>
                                                         <th>Address</th>
@@ -138,16 +142,16 @@ if (strlen($_SESSION['login']) == 0) {
                                                             <th scope="row"><?php echo htmlentities($cnt); ?></th>
                                                             <td><?php echo htmlentities($row['firstName'].' '. $row['lastName']); ?></td>
                                                             <td><?php echo htmlentities($row['membershipNo']); ?></td>
-                                                            <td><?php echo htmlentities($row['gender']); ?></td>
-                                                            <td><?php echo htmlentities($row['clubName']); ?></td>
-                                                            <td><?php echo htmlentities($row['region']); ?></td>
-                                                            <td><?php echo htmlentities($row['address']); ?></td>
-                                                            <td><?php echo htmlentities($row['memberEmail']); ?></td>
+                                                            <!-- <td><?php echo htmlentities($row['gender']); ?></td> -->
+                                                            <td width="40"><?php echo htmlentities($row['clubName']); ?></td>
+                                                            <td>Region  <?php echo htmlentities($row['region']); ?></td>
+                                                            <td width="40"><?php echo htmlentities($row['address']); ?></td>
+                                                            <td ><?php echo htmlentities($row['memberEmail']); ?></td>
                                                             <td><?php echo htmlentities($row['phone1']); ?></td>
                                                             <td><?php echo htmlentities($row['city']); ?></td>
                                                             <td><a href="details?leo=<?php echo htmlentities($row['firstName'].''.$row['lastName']); ?>&&lid=<?php echo htmlentities($row['memberID']); ?>"><i class="fa fa-eye" style="color: #000;" title="View Member Profile"></i></a>
                                                                 &nbsp; <a href="add-member?editLeo=<?php echo htmlentities($row['firstName'].''.$row['lastName']); ?>&&lid=<?php echo htmlentities($row['memberID']); ?>"><i class="fa fa-pencil" style="color: #29b6f6;" title="Edit this Member details"></i></a>
-                                                                &nbsp;<a href="manage-members?rid=<?php echo htmlentities($row['id']); ?>&&m_tid=<?php echo htmlentities($row['mt_id']); ?>&&action=del"> <i class="fa fa-trash-o" style="color: #f05050" title="Move This Member to Trash"></i></a> </td>
+                                                                &nbsp;<a href="manage-members?leo=<?php echo htmlentities($row['firstName'].''.$row['lastName']); ?>&&lid=<?php echo htmlentities($row['memberID']); ?>&&action=del"> <i class="fa fa-trash-o" style="color: #f05050" title="Are you sure you want to delete?"></i></a> </td>
                                                         </tr>
                                                 <?php
                                                                 $cnt++;
@@ -167,7 +171,97 @@ if (strlen($_SESSION['login']) == 0) {
 
 
                             </div>
-                            <!--- end row -->
+                            <?php  } ?>
+
+                            <!--- end Active member row -->
+
+
+                            <?php 
+                            if ($page == 'inactive') {?>
+                             <!-- Start Inactive member row -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="demo-box m-t-20">
+                                      
+                                        <div class="m-b-30">
+                                            <a href="manage-members?page=<?php echo $page; ?>">
+                                                <button class="btn btn-danger waves-effect waves-light">Refesh Page <i class="mdi mdi-reload"></i></button>
+                                            </a>
+                                        </div>
+
+                                        <div class="table-responsive table-wrapper-scroll-y custom-table-scrollbar">
+                                            <table class="table m-0 table-colored-bordered table-bordered-primary"  id="table_filter">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th> Name</th>
+                                                        <th> Member No</th>
+                                                        <!-- <th>Sex</th> -->
+                                                        <th> Club</th>
+                                                        <th> Region</th>
+                                                        <th>Address</th>
+                                                        <th>Email</th>
+                                                        <th> Phone</th>
+                                                        <th>City</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $sql = "Select * from  tblmembers m 
+                                                    JOIN tblclubs c ON c.clubID = m.clubID INNER JOIN tblregion r ON r.regionID = c.regionID where m.isActive = 0";
+                                                    // echo $sql; exit;
+                                                    $query = mysqli_query($con, $sql);
+                                                    $cnt = 1;
+                                                    $rowcount = mysqli_num_rows($query);
+                                                    if ($rowcount == 0) {
+                                                    ?>
+                                                        <tr>
+
+                                                            <td colspan="7" align="center">
+                                                                <h3 style="color:red">No record found</h3>
+                                                            </td>
+                                                        <tr>
+                                                            <?php
+                                                        } else {
+                                                            while ($row = mysqli_fetch_array($query)) {
+                                                            ?>
+
+                                                        <tr>
+                                                            <th scope="row"><?php echo htmlentities($cnt); ?></th>
+                                                            <td><?php echo htmlentities($row['firstName'].' '. $row['lastName']); ?></td>
+                                                            <td><?php echo htmlentities($row['membershipNo']); ?></td>
+                                                            <!-- <td><?php echo htmlentities($row['gender']); ?></td> -->
+                                                            <td width="40"><?php echo htmlentities($row['clubName']); ?></td>
+                                                            <td>Region  <?php echo htmlentities($row['region']); ?></td>
+                                                            <td width="40"><?php echo htmlentities($row['address']); ?></td>
+                                                            <td ><?php echo htmlentities($row['memberEmail']); ?></td>
+                                                            <td><?php echo htmlentities($row['phone1']); ?></td>
+                                                            <td><?php echo htmlentities($row['city']); ?></td>
+                                                            <td><a href="details?leo=<?php echo htmlentities($row['firstName'].''.$row['lastName']); ?>&&lid=<?php echo htmlentities($row['memberID']); ?>"><i class="fa fa-eye" style="color: #000;" title="View Member Profile"></i></a>
+                                                                &nbsp; <a href="manage-members?leo=<?php echo htmlentities($row['firstName'].''.$row['lastName']); ?>&&lid=<?php echo htmlentities($row['memberID']); ?>&&action=restore"><i class="mdi mdi-reload" style="color: #29b6f6;" title="Restore member"></i></a>
+                                                                <!-- &nbsp;<a href="manage-members?leo=<?php echo htmlentities($row['firstName'].''.$row['lastName']); ?>&&lid=<?php echo htmlentities($row['memberID']); ?>&&action=permdel"> <i class="fa fa-trash-o" style="color: #f05050" title="Are you sure you want to delete parmanently?"></i></a> </td> -->
+                                                        </tr>
+                                                <?php
+                                                                $cnt++;
+                                                            }
+                                                        } ?>
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+
+
+
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                            <?php } ?>
+                            <!--- end inactive member row -->
 
 
 

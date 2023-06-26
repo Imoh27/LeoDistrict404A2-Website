@@ -16,9 +16,9 @@
                         <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
                         <li><a href="add-member">Add Members</a></li>
-                        <li><a href="manage-members"><span>Manage Members</span></a></li>
+                        <li><a href="manage-members?page=active"><span>Manage Members</span></a></li>
                         <li><a href="message-members"><span>Send SMS</span></a></li>
-                        <li><a href="inactive-members">Inactive Members</a></li>
+                        <li><a href="manage-members?page=inactive">Removed Members</a></li>
                         <!-- <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><span> Dues </span> <span
                                     class="menu-arrow"></span></a>
