@@ -11,68 +11,68 @@ if (strlen($_SESSION['login']) == 0) {
     $result = mysqli_fetch_assoc($query);
     $currentLSYID = $result['serviceYrID'];
     ?>
-    <?php include('includes/pages-head.php'); ?>
-    <title>Leo District 404A2 -- Official Website | Dashboard</title>
+<?php include('includes/pages-head.php'); ?>
+<title>Leo District 404A2 -- Official Website | Dashboard</title>
 
 
-    <body class="fixed-left">
+<body class="fixed-left">
 
-        <!-- Begin page -->
-        <div id="wrapper">
+    <!-- Begin page -->
+    <div id="wrapper">
 
-            <!-- Top Bar Start -->
-            <div class="topbar">
+        <!-- Top Bar Start -->
+        <div class="topbar">
 
-                <!-- LOGO -->
-                <div class="topbar-left">
-                    <!-- <a href="index.html" class="logo"><span>Admin</span></span><i class="mdi mdi-layers"></i></a> -->
+            <!-- LOGO -->
+            <div class="topbar-left">
+                <!-- <a href="index.html" class="logo"><span>Admin</span></span><i class="mdi mdi-layers"></i></a> -->
 
-                </div>
-
-                <!-- Button mobile view to collapse sidebar menu -->
-                <?php include('includes/topheader.php'); ?>
             </div>
-            <!-- Top Bar End -->
+
+            <!-- Button mobile view to collapse sidebar menu -->
+            <?php include('includes/topheader.php'); ?>
+        </div>
+        <!-- Top Bar End -->
 
 
-            <!-- ========== Left Sidebar Start ========== -->
-            <?php include('includes/leftsidebar.php'); ?>
-            <!-- Left Sidebar End -->
+        <!-- ========== Left Sidebar Start ========== -->
+        <?php include('includes/leftsidebar.php'); ?>
+        <!-- Left Sidebar End -->
 
 
 
-            <!-- ============================================================== -->
-            <!-- Start right Content here -->
-            <!-- ============================================================== -->
-            <div class="content-page">
-                <!-- Start content -->
-                <div class="content">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="page-title-box">
-                                    <h4 class="page-title">Dashboard</h4>
-                                    <ol class="breadcrumb p-0 m-0">
-                                        <li>
-                                            <a href="#">Leo District 404A2</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Admin</a>
-                                        </li>
-                                        <li class="active">
-                                            Dashboard
-                                        </li>
-                                    </ol>
-                                    <div class="clearfix"></div>
-                                </div>
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="content-page">
+            <!-- Start content -->
+            <div class="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="page-title-box">
+                                <h4 class="page-title">Dashboard</h4>
+                                <ol class="breadcrumb p-0 m-0">
+                                    <li>
+                                        <a href="#">Leo District 404A2</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Admin</a>
+                                    </li>
+                                    <li class="active">
+                                        Dashboard
+                                    </li>
+                                </ol>
+                                <div class="clearfix"></div>
                             </div>
                         </div>
-                        <!-- end row -->
+                    </div>
+                    <!-- end row -->
 
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-12 text-center">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 text-center">
 
-                                <?php
+                            <?php
                                 $query = mysqli_query($con, "select * from tblregion");
                                 $countregion = mysqli_num_rows($query);
 
@@ -94,59 +94,59 @@ if (strlen($_SESSION['login']) == 0) {
                                 );
 
                                 ?>
-                                <!DOCTYPE HTML>
+                            <!DOCTYPE HTML>
 
-                                <script>
-                                    window.onload = function () {
-                                        var chart = new CanvasJS.Chart("chartContainer", {
-                                            animationEnabled: true,
-                                            exportEnabled: true,
-                                            title: {
-                                                text: "General Statistics"
-                                            },
-                                            subtitles: [{
-                                                text: "for 2023/2024 Lions Service Year"
-                                            }],
-                                            data: [{
-                                                type: "pie",
-                                                showInLegend: "true",
-                                                legendText: "{label}",
-                                                indexLabelFontSize: 16,
-                                                indexLabel: "{label} - #percent%",
-                                                yValueFormatString: "##0",
-                                                dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
-                                            }]
-                                        });
-                                        chart.render();
+                            <script>
+                            window.onload = function() {
+                                var chart = new CanvasJS.Chart("chartContainer", {
+                                    animationEnabled: true,
+                                    exportEnabled: true,
+                                    title: {
+                                        text: "General Statistics"
+                                    },
+                                    subtitles: [{
+                                        text: "for 2023/2024 Lions Service Year"
+                                    }],
+                                    data: [{
+                                        type: "pie",
+                                        showInLegend: "true",
+                                        legendText: "{label}",
+                                        indexLabelFontSize: 16,
+                                        indexLabel: "{label} - #percent%",
+                                        yValueFormatString: "##0",
+                                        dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+                                    }]
+                                });
+                                chart.render();
 
-                                    }
-                                </script>
-
-
-                                <div id="chartContainer" style="height: 400px; width: 100%;"></div>
-                            </div>
+                            }
+                            </script>
 
 
-                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                <div class="card-box widget-box-one">
-                                    <i class="mdi mdi-layers widget-one-icon"></i>
-                                    <div class="wigdet-one-content">
-                                        <p class="m-0 text-uppercase font-600 font-secondary text-overflow"
-                                            title="All Regions"><a href="manage-members">All Regions</a></p>
-                                        <div class="table-responsive table-wrapper-scroll-y custom-table-scrollbar">
-                                            <table
-                                                class="table m-0 table-colored-bordered table-bordered-primary table-striped"
-                                                id="table_filter">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th> Region</th>
-                                                        <th style="width: 45%;">Region Direrctor</th>
-                                                        <th>Contact</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php
+                            <div id="chartContainer" style="height: 400px; width: 100%;"></div>
+                        </div>
+
+
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="card-box widget-box-one">
+                                <i class="mdi mdi-layers widget-one-icon"></i>
+                                <div class="wigdet-one-content">
+                                    <p class="m-0 text-uppercase font-600 font-secondary text-overflow"
+                                        title="All Regions"><a href="manage-members">All Regions</a></p>
+                                    <div class="table-responsive table-wrapper-scroll-y custom-table-scrollbar">
+                                        <table
+                                            class="table m-0 table-colored-bordered table-bordered-primary table-striped"
+                                            id="table_filter">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th> Region</th>
+                                                    <th style="width: 45%;">Region Direrctor</th>
+                                                    <th>Contact</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
                                                    
                                                     // $curr_yr = date('Y');
                                                 
@@ -158,91 +158,92 @@ if (strlen($_SESSION['login']) == 0) {
                                                     $rowcount = mysqli_num_rows($query);
                                                     if ($rowcount == 0) {
                                                         ?>
-                                                        <tr>
+                                                <tr>
 
-                                                            <td colspan="7" align="center">
-                                                                <h3 style="color:red">No record found</h3>
-                                                            </td>
-                                                        <tr>
-                                                            <?php
+                                                    <td colspan="7" align="center">
+                                                        <h3 style="color:red">No record found</h3>
+                                                    </td>
+                                                <tr>
+                                                    <?php
                                                     } else {
                                                         while ($row = mysqli_fetch_array($query)) {
                                                             ?>
 
-                                                            <tr>
-                                                                <th scope="row">
-                                                                    <?php echo htmlentities($cnt); ?>
-                                                                </th>
-                                                                <!-- <td><a href="see-full-profile?mid=<?php echo htmlentities($row['id']); ?> " target="__blank"><?php echo htmlentities($row['full_name']); ?></a></td> -->
-                                                                <td>
-                                                                    <?php echo htmlentities($row['region']); ?>
-                                                                </td>
-                                                                <td>
-                                                                    <?php echo htmlentities($row['firstName'] . ' ' . $row['lastName']); ?>
-                                                                </td>
-                                                                <td>
-                                                                    <?php echo htmlentities($row['phone1']); ?>
-                                                                </td>
+                                                <tr>
+                                                    <th scope="row">
+                                                        <?php echo htmlentities($cnt); ?>
+                                                    </th>
+                                                    <!-- <td><a href="see-full-profile?mid=<?php echo htmlentities($row['id']); ?> " target="__blank"><?php echo htmlentities($row['full_name']); ?></a></td> -->
+                                                    <td>
+                                                        <?php echo htmlentities($row['region']); ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php echo htmlentities($row['firstName'] . ' ' . $row['lastName']); ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php echo htmlentities($row['phone1']); ?>
+                                                    </td>
 
-                                                            </tr>
-                                                            <?php
+                                                </tr>
+                                                <?php
                                                             $cnt++;
                                                         }
                                                     } ?>
-                                                </tbody>
+                                            </tbody>
 
-                                            </table>
-                                        </div>
-
+                                        </table>
                                     </div>
+
                                 </div>
                             </div>
-                            <!-- end col -->
-
-
                         </div>
-                        <!-- end row -->
-                        <div class="row">
-                             <div class="col-lg-5 col-md-5 col-sm-12">
-                                <div class="card-box widget-box-one">
-                                    <i class="mdi mdi-layers widget-one-icon"></i>
-                                    <div class="wigdet-one-content">
-                                        <h1 class="m-0 text-uppercase font-600 font-secondary text-overflow"
-                                            title="User This Month"> <a href="manage-posts.php">News Update</a></h1>
-                                            <a href="#"><img class="img-responsive" src="images/hhh.jpg" alt=""></a>
-                            <h3><a href="" #="">Medical Mission in Southern Kenya</a></h3>
-                            <span class="posted_by">Sep. 15th</span>
-                            <span class="comment"><a href="">21<i class="icon-bubble2"></i></a></span>
-                            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,
-                                there live the blind texts.</p>
-                            <p><a href="#">Learn More...</a></p>
-                                    </div>
+                        <!-- end col -->
+
+
+                    </div>
+                    <!-- end row -->
+                    <div class="row">
+                        <div class="col-lg-5 col-md-5 col-sm-12">
+                            <div class="card-box widget-box-one">
+                                <i class="mdi mdi-layers widget-one-icon"></i>
+                                <div class="wigdet-one-content">
+                                    <h1 class="m-0 text-uppercase font-600 font-secondary text-overflow"
+                                        title="User This Month"> <a href="manage-posts.php">News Update</a></h1>
+                                    <a href="#"><img class="img-responsive" src="images/hhh.jpg" alt=""></a>
+                                    <h3><a href="" #="">Medical Mission in Southern Kenya</a></h3>
+                                    <span class="posted_by">Sep. 15th</span>
+                                    <span class="comment"><a href="">21<i class="icon-bubble2"></i></a></span>
+                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and
+                                        Consonantia,
+                                        there live the blind texts.</p>
+                                    <p><a href="#">Learn More...</a></p>
                                 </div>
                             </div>
+                        </div>
 
 
-                            <div class="col-lg-7 col-md-7 col-sm-12">
-                                <div class="card-box widget-box-one">
-                                    <i class="mdi mdi-layers widget-one-icon"></i>
-                                    <div class="wigdet-one-content">
-                                        <p class="m-0 text-uppercase font-600 font-secondary text-overflow"
-                                            title="Clubs in the District"><a href="manage-activity">Clubs in the
-                                                District</a></p>
-                                        <div class="table-responsive table-wrapper-scroll-y custom-table-scrollbar">
-                                            <table class="table m-0 table-colored-bordered table-bordered-success"
-                                                id="table_filter">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th> Club</th>
-                                                        <th>IndexNo</th>
-                                                        <th>Region</th>
-                                                        <th>Lions Family</th>
-                                                        <!-- <th>Contact</th> -->
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php
+                        <div class="col-lg-7 col-md-7 col-sm-12">
+                            <div class="card-box widget-box-one">
+                                <i class="mdi mdi-layers widget-one-icon"></i>
+                                <div class="wigdet-one-content">
+                                    <p class="m-0 text-uppercase font-600 font-secondary text-overflow"
+                                        title="Clubs in the District"><a href="manage-activity">Clubs in the
+                                            District</a></p>
+                                    <div class="table-responsive table-wrapper-scroll-y custom-table-scrollbar">
+                                        <table class="table m-0 table-colored-bordered table-bordered-success"
+                                            id="table_filter">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th> Club</th>
+                                                    <th>IndexNo</th>
+                                                    <th>Region</th>
+                                                    <th>Lions Family</th>
+                                                    <!-- <th>Contact</th> -->
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
 
                                                     $curr_yr = date('Y');
 
@@ -254,63 +255,63 @@ if (strlen($_SESSION['login']) == 0) {
                                                     $rowcount = mysqli_num_rows($query);
                                                     if ($rowcount == 0) {
                                                         ?>
-                                                        <tr>
+                                                <tr>
 
-                                                            <td colspan="7" align="center">
-                                                                <h3 style="color:red">No record found</h3>
-                                                            </td>
-                                                        <tr>
-                                                            <?php
+                                                    <td colspan="7" align="center">
+                                                        <h3 style="color:red">No record found</h3>
+                                                    </td>
+                                                <tr>
+                                                    <?php
                                                     } else {
                                                         while ($row = mysqli_fetch_array($query)) {
                                                             ?>
 
-                                                            <tr>
-                                                                <th scope="row">
-                                                                    <?php echo htmlentities($cnt); ?>
-                                                                </th>
-                                                                <td>
-                                                                    <?php echo htmlentities($row['clubName']); ?>
-                                                                </td>
-                                                                <td>
-                                                                    <?php echo htmlentities($row['indexNo']); ?>
-                                                                </td>
-                                                                <td>
-                                                                    <?php echo htmlentities($row['region']); ?>
-                                                                </td>
-                                                                <td>
-                                                                    <?php echo htmlentities($row['SponsorLions']); ?>
-                                                                </td>
+                                                <tr>
+                                                    <th scope="row">
+                                                        <?php echo htmlentities($cnt); ?>
+                                                    </th>
+                                                    <td>
+                                                        <?php echo htmlentities($row['clubName']); ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php echo htmlentities($row['indexNo']); ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php echo htmlentities($row['region']); ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php echo htmlentities($row['SponsorLions']); ?>
+                                                    </td>
 
-                                                            </tr>
-                                                            <?php
+                                                </tr>
+                                                <?php
                                                             $cnt++;
                                                         }
                                                     } ?>
-                                                </tbody>
+                                            </tbody>
 
-                                            </table>
-                                        </div>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                    </div> <!-- container -->
+                </div> <!-- container -->
 
-                </div> <!-- content -->
-                <?php include('includes/footer.php'); ?>
+            </div> <!-- content -->
+            <?php include('includes/footer.php'); ?>
 
-            </div>
-
-
-            <!-- ============================================================== -->
-            <!-- End Right content here -->
-            <!-- ============================================================== -->
+        </div>
 
 
-            <!-- Right Sidebar -->
-            <!-- <div class="side-bar right-bar">
+        <!-- ============================================================== -->
+        <!-- End Right content here -->
+        <!-- ============================================================== -->
+
+
+        <!-- Right Sidebar -->
+        <!-- <div class="side-bar right-bar">
                 <a href="javascript:void(0);" class="right-bar-toggle">
                     <i class="mdi mdi-close-circle-outline"></i>
                 </a>
@@ -357,45 +358,45 @@ if (strlen($_SESSION['login']) == 0) {
                     </div>
                 </div>
             </div> -->
-            <!-- /Right-bar -->
+        <!-- /Right-bar -->
 
-        </div>
-        <!-- END wrapper -->
+    </div>
+    <!-- END wrapper -->
 
 
 
-        <script>
-            var resizefunc = [];
-        </script>
+    <script>
+    var resizefunc = [];
+    </script>
 
-        <!-- jQuery  -->
-        <script src="assets/js/jquery.min.js"></script>
-        <script src="assets/js/bootstrap.min.js"></script>
-        <script src="assets/js/detect.js"></script>
-        <script src="assets/js/fastclick.js"></script>
-        <script src="assets/js/jquery.blockUI.js"></script>
-        <script src="assets/js/waves.js"></script>
-        <script src="assets/js/jquery.slimscroll.js"></script>
-        <script src="assets/js/jquery.scrollTo.min.js"></script>
-        <script src="../plugins/switchery/switchery.min.js"></script>
+    <!-- jQuery  -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/detect.js"></script>
+    <script src="assets/js/fastclick.js"></script>
+    <script src="assets/js/jquery.blockUI.js"></script>
+    <script src="assets/js/waves.js"></script>
+    <script src="assets/js/jquery.slimscroll.js"></script>
+    <script src="assets/js/jquery.scrollTo.min.js"></script>
+    <script src="../plugins/switchery/switchery.min.js"></script>
 
-        <!-- Counter js  -->
-        <script src="../plugins/waypoints/jquery.waypoints.min.js"></script>
-        <script src="../plugins/counterup/jquery.counterup.min.js"></script>
+    <!-- Counter js  -->
+    <script src="../plugins/waypoints/jquery.waypoints.min.js"></script>
+    <script src="../plugins/counterup/jquery.counterup.min.js"></script>
 
-        <!--Morris Chart-->
-        <script src="../plugins/morris/morris.min.js"></script>
-        <script src="../plugins/raphael/raphael-min.js"></script>
+    <!--Morris Chart-->
+    <script src="../plugins/morris/morris.min.js"></script>
+    <script src="../plugins/raphael/raphael-min.js"></script>
 
-        <!-- Dashboard init -->
-        <script src="assets/pages/jquery.dashboard.js"></script>
+    <!-- Dashboard init -->
+    <script src="assets/pages/jquery.dashboard.js"></script>
 
-        <!-- App js -->
-        <script src="assets/js/jquery.core.js"></script>
-        <script src="assets/js/jquery.app.js"></script>
-        <script src="assets/js/chart.min.js"></script>
+    <!-- App js -->
+    <script src="assets/js/jquery.core.js"></script>
+    <script src="assets/js/jquery.app.js"></script>
+    <script src="assets/js/chart.min.js"></script>
 
-    </body>
+</body>
 
-    </html>
+</html>
 <?php } ?>

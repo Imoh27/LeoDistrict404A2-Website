@@ -5,6 +5,7 @@ error_reporting(0);
 if (strlen($_SESSION['login']) == 0) {
     header('location:index');
 } else {
+    $page = $_GET['page'];
     if ($_GET['action'] == 'del' && $_GET['rid']) {
         $id = intval($_GET['rid']);
         $mt_id = intval($_GET['m_tid']);
@@ -177,7 +178,9 @@ if (strlen($_SESSION['login']) == 0) {
 
 
                             <?php 
-                            if ($page == 'inactive') {?>
+                            if ($page == 'inactive') {
+                                // echo $page; exit;
+                                ?>
                              <!-- Start Inactive member row -->
                             <div class="row">
                                 <div class="col-md-12">

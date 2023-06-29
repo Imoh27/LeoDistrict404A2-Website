@@ -633,6 +633,23 @@
   .container-xxl {
     padding: 40px;
   }
+  .slide-icon{
+    height: 60px !important;
+    width: 60px !important
+}
+.slide-icon .image-wrap{
+    position: absolute !important;
+    width: 100% !important;
+    height: auto !important;
+}
+.blog-image{
+    width: 100% !important;
+    height: 150px !important;
+}
+.blog-image .wrap{
+    width: 100% !important;
+    height: auto !important;
+}
 
   .contact-form {
     background-color: #f8f8f8;
