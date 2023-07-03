@@ -7,8 +7,8 @@ if (strlen($_SESSION['login']) == 0) {
 } else {
     if ($_GET['action'] == 'del' && $_GET['rid']) {
         $id = intval($_GET['rid']);
-        $query = mysqli_query($con, "update tblcategory set Is_Active='0' where id='$id'");
-        $msg = "Category deleted ";
+        $query = mysqli_query($con, "update tblcategory set isActive='0' where postCatID='$id'");
+        $msg = "Category remooved ";
     }
    
 
@@ -99,14 +99,14 @@ if (strlen($_SESSION['login']) == 0) {
                                                         <th>#</th>
                                                         <th> Category</th>
                                                         <th>Description</th>
-                                                        <th>Posting Date</th>
+                                                        <th>Date Added</th>
                                                         <!-- <th>Last updation Date</th> -->
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $query = mysqli_query($con, "Select * from  tblpostcategory where isActive=1");
+                                                    $query = mysqli_query($con, "Select * from  tblcategory where isActive=1");
                                                     $cnt = 1;
                                                     while ($row = mysqli_fetch_array($query)) {
                                                         // $update_date = ($row['UpdationDate'] ? date('Y-m-d',strtotime($row['UpdationDate'])): "");
@@ -119,7 +119,7 @@ if (strlen($_SESSION['login']) == 0) {
                                                             <td><?php echo htmlentities(date('Y-m-d', strtotime($row['dateUpdated']))); ?></td>
                                                             <!-- <td><?php echo htmlentities($update_date); ?></td> -->
                                                             <td><a href="add-category.php?cid=<?php echo htmlentities($row['postCatID']); ?>"><i class="fa fa-pencil" style="color: #29b6f6;"></i></a>
-                                                                &nbsp;<a href="manage-categories.php?rid=<?php echo htmlentities($row['postCatID']); ?>&&action=del"> <i class="fa fa-trash-o" style="color: #f05050"></i></a> </td>
+                                                                &nbsp;<a href="manage-categories.php?rid=<?php echo htmlentities($row['postCatID']); ?>&&action=del" onclick="return confirm('Do you really want to delete ?')"> <i class="fa fa-trash-o" style="color: #f05050"></i></a> </td>
                                                         </tr>
                                                     <?php
                                                         $cnt++;

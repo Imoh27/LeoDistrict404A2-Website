@@ -152,7 +152,7 @@ if (strlen($_SESSION['login']) == 0) {
                                                             <td><?php echo htmlentities($row['city']); ?></td>
                                                             <td><a href="details?leo=<?php echo htmlentities($row['firstName'].''.$row['lastName']); ?>&&lid=<?php echo htmlentities($row['memberID']); ?>"><i class="fa fa-eye" style="color: #000;" title="View Member Profile"></i></a>
                                                                 &nbsp; <a href="add-member?editLeo=<?php echo htmlentities($row['firstName'].''.$row['lastName']); ?>&&lid=<?php echo htmlentities($row['memberID']); ?>"><i class="fa fa-pencil" style="color: #29b6f6;" title="Edit this Member details"></i></a>
-                                                                &nbsp;<a href="manage-members?leo=<?php echo htmlentities($row['firstName'].''.$row['lastName']); ?>&&lid=<?php echo htmlentities($row['memberID']); ?>&&action=del"> <i class="fa fa-trash-o" style="color: #f05050" title="Are you sure you want to delete?"></i></a> </td>
+                                                                &nbsp;<a href="manage-members?leo=<?php echo htmlentities($row['firstName'].''.$row['lastName']); ?>&&lid=<?php echo htmlentities($row['memberID']); ?>&&action=del" onclick="return confirm('Do you really want to delete ?')"> <i class="fa fa-trash-o" style="color: #f05050" title="Are you sure you want to delete?"></i></a> </td>
                                                         </tr>
                                                 <?php
                                                                 $cnt++;
@@ -242,7 +242,7 @@ if (strlen($_SESSION['login']) == 0) {
                                                             <td><?php echo htmlentities($row['phone1']); ?></td>
                                                             <td><?php echo htmlentities($row['city']); ?></td>
                                                             <td><a href="details?leo=<?php echo htmlentities($row['firstName'].''.$row['lastName']); ?>&&lid=<?php echo htmlentities($row['memberID']); ?>"><i class="fa fa-eye" style="color: #000;" title="View Member Profile"></i></a>
-                                                                &nbsp; <a href="manage-members?leo=<?php echo htmlentities($row['firstName'].''.$row['lastName']); ?>&&lid=<?php echo htmlentities($row['memberID']); ?>&&action=restore"><i class="mdi mdi-reload" style="color: #29b6f6;" title="Restore member"></i></a>
+                                                                &nbsp; <a href="manage-members?leo=<?php echo htmlentities($row['firstName'].''.$row['lastName']); ?>&&lid=<?php echo htmlentities($row['memberID']); ?>&&action=restore" onclick="return confirm('Do you want to reinstate this Leo ?')"><i class="mdi mdi-reload" style="color: #29b6f6;" title="Restore member"></i></a>
                                                                 <!-- &nbsp;<a href="manage-members?leo=<?php echo htmlentities($row['firstName'].''.$row['lastName']); ?>&&lid=<?php echo htmlentities($row['memberID']); ?>&&action=permdel"> <i class="fa fa-trash-o" style="color: #f05050" title="Are you sure you want to delete parmanently?"></i></a> </td> -->
                                                         </tr>
                                                 <?php

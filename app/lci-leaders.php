@@ -22,7 +22,7 @@ if (strlen($_SESSION['login']) == 0) {
         $leaderName = $_POST['leaderName'];
         $position = $_POST['positions'];
         // echo $position; exit;
-        $imgfile = $_FILES["memberDp"]["name"];
+        $imgfile = strtolower($_FILES["memberDp"]["name"]);
 
         // get the image extension
         $extension = substr($imgfile, strlen($imgfile) - 4, strlen($imgfile));

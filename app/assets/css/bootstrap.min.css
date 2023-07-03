@@ -2457,9 +2457,6 @@ pre code {
     .col-sm-offset-0 {
         margin-left: 0
     }
-    .sm-mb-5{
-        margin-bottom: 150px !important;
-      }
 }
 
 @media (min-width:992px) {
@@ -2630,9 +2627,6 @@ pre code {
     .col-md-offset-0 {
         margin-left: 0
     }
-    .ms-5{
-        margin-left: 50px !important;
-      }
 }
 
 @media (min-width:1200px) {

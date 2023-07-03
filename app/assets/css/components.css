@@ -844,9 +844,6 @@ File: Components
     background-color: rgba(67, 89, 102, 0.08);
 }
 
-.d-inline{
-    display: inline !important;
-}
 
 /* =============
    Checkbox and Radios
@@ -3017,13 +3014,6 @@ input[data-switch="teal"]:checked+label {
     background-color: #7fc1fc;
 }
 
-/* MArgin Space */
-
-/* margin-left 10px*/
-.ms-1{
-    margin-left: 10px !important;
-}
-
 
 /* Select 2 */
 
@@ -4510,13 +4500,12 @@ table.dataTable thead th.sorting_desc:after {
 
 .profile-img-wrap {
     display: block;
-    border-radius: 5px !important;
+    border-radius: 0 30px !important;
     width: 250px !important;
     height: 300px !important;
     padding: 10px !important;
     border: 2px solid #0d38c058;
     margin-bottom: 30px;
-    /* margin: 0 auto 30px !important; */
 }
 
 .profile-img-wrap .profile-img {
@@ -4526,7 +4515,8 @@ table.dataTable thead th.sorting_desc:after {
 
 @media (max-width: 991px) {
     .profile-img-wrap {
-        margin: auto;
+        margin-left: 30% !important;
+        margin-right: 30% !important;
     }
 }
 

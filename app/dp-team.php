@@ -25,7 +25,7 @@ if (strlen($_SESSION['login']) == 0) {
         $fbProfile = $_POST['fbProfile'];
         $lnProfile = $_POST['lnProfile'];
         $igProfile = $_POST['igProfile'];
-        $imgfile = $_FILES["memberDp"]["name"];
+        $imgfile = strtolower($_FILES["memberDp"]["name"]);
 
         // get the image extension
         $extension = substr($imgfile, strlen($imgfile) - 4, strlen($imgfile));
@@ -217,7 +217,7 @@ if (strlen($_SESSION['login']) == 0) {
                                                             <a
                                                                 href="?deldptid=<?php echo htmlentities($row['teamID']); ?>"><i
                                                                     class="fa fa-trash-o"
-                                                                    style="color: #f05050;"></i>&nbsp; </a>
+                                                                    style="color: #f05050;" onclick="return confirm('Do you really want to delete ?')"></i>&nbsp; </a>
                                                         </td>
                                                     </tr>
                                                     <?php

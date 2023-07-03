@@ -155,7 +155,7 @@ function getBods(val) {
                                                             <?php echo htmlentities($cnt); ?>
                                                         </th>
                                                         <td>
-                                                            <?php echo htmlentities($row['region']); ?>
+                                                           Region  <?php echo htmlentities($row['region']); ?>
                                                         </td>
                                                         <td style="text-align:center">
                                                             <a

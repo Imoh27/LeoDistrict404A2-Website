@@ -202,6 +202,12 @@ if (strlen($_SESSION['login']) == 0) {
 
                     </div>
                     <!-- end row -->
+
+                    <?php 
+                    $postSelect = "SELECT * FROM tblpost ORDER BY postID DESC LIMIT 1";
+                    $query = mysqli_query($con, $postSelect);
+                    $post = mysqli_fetch_array($query);
+                    ?>
                     <div class="row">
                         <div class="col-lg-5 col-md-5 col-sm-12">
                             <div class="card-box widget-box-one">
@@ -209,13 +215,11 @@ if (strlen($_SESSION['login']) == 0) {
                                 <div class="wigdet-one-content">
                                     <h1 class="m-0 text-uppercase font-600 font-secondary text-overflow"
                                         title="User This Month"> <a href="manage-posts.php">News Update</a></h1>
-                                    <a href="#"><img class="img-responsive" src="images/hhh.jpg" alt=""></a>
-                                    <h3><a href="" #="">Medical Mission in Southern Kenya</a></h3>
-                                    <span class="posted_by">Sep. 15th</span>
-                                    <span class="comment"><a href="">21<i class="icon-bubble2"></i></a></span>
-                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and
-                                        Consonantia,
-                                        there live the blind texts.</p>
+                                    <a href="#"><img class="img-responsive" src="postimages/<?php echo $post['postPhoto']?>" alt="" height="60" width="auto"></a>
+                                    <h3><a href="#"><?php echo $post['postTitle']?></a></h3>
+                                    <span class="posted_by"><?php echo date('m-d-Y', strtotime($post['dateUpdated']))?></span>
+                                    <span class="comment"> &nbsp; comments <a href="">21<i class="icon-bubble2"></i></a></span>
+                                    <p><?php echo substr(strip_tags(stripcslashes($post['postDetails'])), 0, 200)?>...</p>
                                     <p><a href="#">Learn More...</a></p>
                                 </div>
                             </div>

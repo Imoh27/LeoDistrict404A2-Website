@@ -10,36 +10,20 @@ if (strlen($_SESSION['login']) == 0) {
     // Code for restore
     if ($_GET['resid']) {
         $id = intval($_GET['resid']);
-        $query = mysqli_query($con, "update  tblsubcategory set Is_Active='1', UpdationDate = NOW() where SubCategoryId='$id'");
-        $msg = "Category restored successfully";
+        $query = mysqli_query($con, "update  tblsubcategory set isActive='1', dateUpdated = NOW() where subCatID ='$id'");
+        $msg = "Sub Category restored successfully";
     }
 
     // Code for Forever deletionparmdel
     if ($_GET['action'] == 'perdel' && $_GET['scid']) {
         $id = intval($_GET['scid']);
-        $query = mysqli_query($con, "delete from   tblsubcategory  where SubCategoryId='$id'");
+        $query = mysqli_query($con, "delete from tblsubcategory  where subCatID ='$id'");
         $delmsg = "Category deleted forever";
     }
 
 ?>
-    <!DOCTYPE html>
-    <html lang="en">
-
-    <head>
-
-        <title>CPLC -- Official Calabar Paradise Lions Club Website | Manage Categories</title>
-        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/core.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/components.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/pages.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/menu.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/responsive.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" href="../plugins/switchery/switchery.min.css">
-        <script src="assets/js/modernizr.min.js"></script>
-
-    </head>
-
+    <?php include('includes/pages-head.php'); ?>
+    <title>Leo District 404A2 -- Official Website | Trashed Category</title>
 
     <body class="fixed-left">
 
@@ -108,7 +92,7 @@ if (strlen($_SESSION['login']) == 0) {
                                     <div class="demo-box m-t-20">
                                         <div class="m-b-30">
 
-                                            <h4><i class="fa fa-trash-o"></i> Deleted Subcategories</h4>
+                                            <h4><i class="fa fa-trash-o"></i> Trashed Subcategories</h4>
                                             <a href="trashed-subcategories">
                                                 <button class="btn btn-danger waves-effect waves-light">Refesh Page <i class="mdi mdi-reload"></i></button>
                                             </a>
@@ -123,15 +107,15 @@ if (strlen($_SESSION['login']) == 0) {
                                                         <th> Category</th>
                                                         <th>Sub Category</th>
                                                         <th>Description</th>
-
-                                                        <th>Posting Date</th>
-                                                        <th>Last updation Date</th>
+                                                        <th>Date Updated</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $query = mysqli_query($con, "Select tblcategory.CategoryName as catname,tblsubcategory.Subcategory as subcatname,tblsubcategory.SubCatDescription as SubCatDescription,tblsubcategory.PostingDate as subcatpostingdate,tblsubcategory.UpdationDate as subcatupdationdate,tblsubcategory.SubCategoryId as subcatid from tblsubcategory join tblcategory on tblsubcategory.CategoryId=tblcategory.id where tblsubcategory.Is_Active=0");
+                                                    $select = "Select * from tblsubcategory s join tblcategory c on s.categoryID  = c.postCatID   where s.isActive = 0";
+                                                    // echo $select; exit;
+                                                    $query = mysqli_query($con, $select);
                                                     $cnt = 1;
                                                     $rowcount = mysqli_num_rows($query);
                                                     if ($rowcount == 0) {
@@ -150,13 +134,12 @@ if (strlen($_SESSION['login']) == 0) {
 
                                                         <tr>
                                                             <th scope="row"><?php echo htmlentities($cnt); ?></th>
-                                                            <td><?php echo htmlentities($row['catname']); ?></td>
-                                                            <td><?php echo htmlentities($row['subcatname']); ?></td>
-                                                            <td><?php echo htmlentities($row['SubCatDescription']); ?></td>
-                                                            <td><?php echo htmlentities($row['subcatpostingdate']); ?></td>
-                                                            <td><?php echo htmlentities($row['subcatupdationdate']); ?></td>
-                                                            <td><a href="trashed-subcategories.php?resid=<?php echo htmlentities($row['subcatid']); ?>"><i class="ion-arrow-return-right" title="Restore this SubCategory"></i></a>
-                                                                &nbsp;<a href="trashed-subcategories.php?scid=<?php echo htmlentities($row['subcatid']); ?>&&action=perdel"> <i class="fa fa-trash-o" style="color: #f05050"></i></a> </td>
+                                                            <td><?php echo htmlentities($row['postCategory']); ?></td>
+                                                            <td><?php echo htmlentities($row['subcategory']); ?></td>
+                                                            <td><?php echo htmlentities($row['subCatDescription']); ?></td>
+                                                            <td><?php echo htmlentities(date('Y-m-d', strtotime($row['dateUpdated']))); ?></td>
+                                                            <td><a href="trashed-subcategories.php?resid=<?php echo htmlentities($row['subCatID']); ?>"><i class="ion-arrow-return-right" title="Restore this SubCategory"></i></a>
+                                                                &nbsp;<a href="trashed-subcategories.php?scid=<?php echo htmlentities($row['subCatID']); ?>&&action=perdel"> <i class="fa fa-trash-o" style="color: #f05050"></i></a> </td>
                                                         </tr>
                                                 <?php
                                                                 $cnt++;

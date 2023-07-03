@@ -17,7 +17,7 @@ File: Menu
     background: #ffffff;
     float: left;
     text-align: center;
-    height: 50px;
+    height: 70px;
     position: relative;
     width: 235px;
     z-index: 1;
@@ -36,7 +36,7 @@ File: Menu
     line-height: 68px;
 }
 
-/* .logo {
+.logo {
     color: #ffffff !important;
     font-size: 24px;
     text-transform: uppercase;
@@ -44,14 +44,8 @@ File: Menu
     font-weight: 600;
     letter-spacing: 1px;
     line-height: 70px;
-} */
-
-.logo{
-    width: 100% !important;
-    height: 50% !important;
-    z-index: 99;
-    margin:  auto;
 }
+
 .logo i {
     display: none;
 }

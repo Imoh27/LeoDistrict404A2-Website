@@ -7,8 +7,8 @@ if (strlen($_SESSION['login']) == 0) {
 } else {
     if ($_GET['action'] == 'del' && $_GET['scid']) {
         $id = intval($_GET['scid']);
-        $query = mysqli_query($con, "update  tblsubcategory set Is_Active='0' where SubCategoryId='$id'");
-        $msg = "Category deleted ";
+        $query = mysqli_query($con, "update  tblsubcategory set isActive='0' where subCatID ='$id'");
+        $msg = "Sub Category Trashed ";
     }
    
 
@@ -16,21 +16,8 @@ if (strlen($_SESSION['login']) == 0) {
     <!DOCTYPE html>
     <html lang="en">
 
-    <head>
-
-        <title> News | Manage SubCategories</title>
-        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/core.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/components.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/pages.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/menu.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/responsive.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" href="../plugins/switchery/switchery.min.css">
-        <script src="assets/js/modernizr.min.js"></script>
-
-    </head>
-
+    <?php include('includes/pages-head.php'); ?>
+    <title>Leo District 404A2 -- Official Website | Manage Sub Category</title>
 
     <body class="fixed-left">
 
@@ -97,11 +84,6 @@ if (strlen($_SESSION['login']) == 0) {
 
 
 
-
-
-
-
-
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="demo-box m-t-20">
@@ -119,15 +101,13 @@ if (strlen($_SESSION['login']) == 0) {
                                                         <th> Category</th>
                                                         <th>Sub Category</th>
                                                         <th>Description</th>
-
-                                                        <th>Posting Date</th>
-                                                        <th>Last updation Date</th>
+                                                        <th>Date Added</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $query = mysqli_query($con, "Select tblcategory.CategoryName as catname,tblsubcategory.Subcategory as subcatname,tblsubcategory.SubCatDescription as SubCatDescription,tblsubcategory.PostingDate as subcatpostingdate,tblsubcategory.UpdationDate as subcatupdationdate,tblsubcategory.SubCategoryId as subcatid from tblsubcategory join tblcategory on tblsubcategory.CategoryId=tblcategory.id where tblsubcategory.Is_Active=1");
+                                                    $query = mysqli_query($con, "Select * from tblsubcategory s join tblcategory c on s.categoryID =c.postCatID  where s.isActive=1");
                                                     $cnt = 1;
                                                     $rowcount = mysqli_num_rows($query);
                                                     if ($rowcount == 0) {
@@ -142,19 +122,18 @@ if (strlen($_SESSION['login']) == 0) {
                                                         } else {
 
                                                             while ($row = mysqli_fetch_array($query)) {
-                                                                $update_date = ($row['subcatupdationdate'] ? date('Y-m-d',strtotime($row['subcatupdationdate'])): "");
+                                                                // $update_date = ($row['subcatupdationdate'] ? date('Y-m-d',strtotime($row['subcatupdationdate'])): "");
                                                             ?>
 
 
                                                         <tr>
                                                             <th scope="row"><?php echo htmlentities($cnt); ?></th>
-                                                            <td><?php echo htmlentities($row['catname']); ?></td>
-                                                            <td><?php echo htmlentities($row['subcatname']); ?></td>
-                                                            <td><?php echo htmlentities($row['SubCatDescription']); ?></td>
-                                                            <td><?php echo htmlentities(date('Y-m-d', strtotime($row['subcatpostingdate']))); ?></td>
-                                                            <td><?php echo htmlentities( $update_date); ?></td>
-                                                            <td><a href="edit-subcategory.php?scid=<?php echo htmlentities($row['subcatid']); ?>"><i class="fa fa-pencil" style="color: #29b6f6;"></i></a>
-                                                                &nbsp;<a href="manage-subcategories.php?scid=<?php echo htmlentities($row['subcatid']); ?>&&action=del"> <i class="fa fa-trash-o" style="color: #f05050"></i></a> </td>
+                                                            <td><?php echo htmlentities($row['postCategory']); ?></td>
+                                                            <td><?php echo htmlentities($row['subcategory']); ?></td>
+                                                            <td><?php echo htmlentities($row['subCatDescription']); ?></td>
+                                                            <td><?php echo htmlentities(date('Y-m-d', strtotime($row['dateUpdated']))); ?></td>
+                                                            <td><a href="add-subcategory.php?scid=<?php echo htmlentities($row['subCatID']); ?>"><i class="fa fa-pencil" style="color: #29b6f6;"></i></a>
+                                                                &nbsp;<a href="manage-subcategories.php?scid=<?php echo htmlentities($row['subCatID']); ?>&&action=del" onclick="return confirm('Do you really want to delete ?')"> <i class="fa fa-trash-o" style="color: #f05050"></i></a> </td>
                                                         </tr>
                                                 <?php
                                                                 $cnt++;

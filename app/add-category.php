@@ -14,24 +14,24 @@ if (strlen($_SESSION['login']) == 0) {
     $addedBy = $result['userID'];
 
 
-    $lsyQuery = "SELECT *  From tblserviceyr ORDER BY serviceYrID  desc";
-    $sth = $con->query($lsyQuery);
-    $result = mysqli_fetch_array($sth);
-    $currentLSYID = $result['serviceYrID'];
+    // $lsyQuery = "SELECT *  From tblserviceyr ORDER BY serviceYrID  desc";
+    // $sth = $con->query($lsyQuery);
+    // $result = mysqli_fetch_array($sth);
+    // $currentLSYID = $result['serviceYrID'];
     // echo $currentLSYID; exit;
     $category = $_POST['category'];
     $description = $_POST['description'];
     $isActive = 1;
     if (isset($_POST['submit'])) {
         
-        $lastEntry = "SELECT *  From tblpostcategory Where postCategory = '$category' AND CatDescription = '$description'";
+        $lastEntry = "SELECT *  From tblcategory Where postCategory = '$category' AND CatDescription = '$description'";
         $sth = $con->query($lastEntry);
         $result = mysqli_fetch_array($sth);
         
         if (!empty($result) || $result) {
             $error = "Error . Entry already exists.";
         } else {
-            $insert = "INSERT into tblpostcategory values(NULL, '$category','$description', NOW(),$addedBy, '$isActive')";
+            $insert = "INSERT into tblcategory values(NULL, '$category','$description', NOW(),$addedBy, '$isActive')";
             $query = mysqli_query($con, $insert);
             
             if ($query) {
@@ -43,7 +43,7 @@ if (strlen($_SESSION['login']) == 0) {
     }
     
     if (isset($_POST['update'])) {
-        $update = "UPDATE tblpostcategory SET postCategory = '$category', CatDescription = '$description', dateUpdated = NOW(), updatedBy = $addedBy WHERE postCatID  = $catID";
+        $update = "UPDATE tblcategory SET postCategory = '$category', CatDescription = '$description', dateUpdated = NOW(), updatedBy = $addedBy WHERE postCatID  = $catID";
         // echo $update; exit;
         $query = mysqli_query($con, $update);
         if ($query) {
@@ -136,7 +136,7 @@ if (strlen($_SESSION['login']) == 0) {
 
 
                                 <?php
-                                $selectCats = "SELECT *  From tblpostcategory Where postCatID  = $catID";
+                                $selectCats = "SELECT *  From tblcategory Where postCatID  = $catID";
                                 $sth = $con->query($selectCats);
                                 $results = mysqli_fetch_array($sth);
 

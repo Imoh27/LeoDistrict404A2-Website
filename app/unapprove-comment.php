@@ -137,7 +137,9 @@ if($_GET['action']=='del' && $_GET['rid'])
                                                         </thead>
                                                         <tbody>
 <?php 
-$query=mysqli_query($con,"Select tblcomments.id,  tblcomments.name,tblcomments.email,tblcomments.postingDate,tblcomments.comment,tblposts.id as postid,tblposts.PostTitle from  tblcomments join tblposts on tblposts.id=tblcomments.postId where tblcomments.status=0");
+$comment = "Select * from  tblcomments c join tblpost p on p.postID=c.post WHERE c.isActive= 0";
+// echo $comment; exit;
+$query=mysqli_query($con, $comment);
 $cnt=1;
 while($row=mysqli_fetch_array($query))
 {
@@ -148,8 +150,8 @@ while($row=mysqli_fetch_array($query))
 <td><?php echo htmlentities($row['name']);?></td>
 <td><?php echo htmlentities($row['email']);?></td>
 <td><?php echo htmlentities($row['comment']);?></td>
-<td><?php $st=$row['status'];
-if($st=='0'):
+<td><?php 
+if($row):
 echo "Wating for approval";
 else:
 echo "Approved";
@@ -157,13 +159,13 @@ endif;
 ?></td>
 
 
-<td><a href="edit-post.php?pid=<?php echo htmlentities($row['postid']);?>"><?php echo htmlentities($row['PostTitle']);?></a> </td>
-<td><?php echo htmlentities($row['postingDate']);?></td>
+<td><a href="add-post.php?pid=<?php echo htmlentities($row['post']);?>"><?php echo htmlentities($row['postTitle']);?></a> </td>
+<td><?php echo htmlentities(date('d-m-Y', strtotime($row['commentDATE'])));?></td>
 <td>
-<?php if($st=='0'):?>
-    <a href="unapprove-comment.php?disid=<?php echo htmlentities($row['id']);?>" title="Disapprove this comment"><i class="ion-arrow-return-right" style="color: #29b6f6;"></i></a> 
+<?php if(!$row):?>
+    <a href="unapprove-comment.php?disid=<?php echo htmlentities($row['id']);?>" onclick="return confirm('Do you wish to unapprove this comment')" title="Disapprove this comment"><i class="ion-arrow-return-right" style="color: #29b6f6;"></i></a> 
 <?php else :?>
-  <a href="unapprove-comment.php?appid=<?php echo htmlentities($row['id']);?>" title="Approve this comment"><i class="ion-arrow-return-right" style="color: #29b6f6;"></i></a> 
+  <a href="unapprove-comment.php?appid=<?php echo htmlentities($row['id']);?>" onclick="return confirm('Do you wish to approve this comment?')" title="Approve this comment"><i class="ion-arrow-return-right" style="color: #29b6f6;"></i></a> 
 <?php endif;?>
 
 	&nbsp;<a href="unapprove-comment.php?rid=<?php echo htmlentities($row['id']);?>&&action=del"> <i class="fa fa-trash-o" style="color: #f05050"></i></a> </td>

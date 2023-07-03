@@ -15,7 +15,7 @@
                         active<?php } ?>">Home</a>
                     <a href="about?page=about" class="nav-item nav-link <?php if ($_GET['page'] == 'about') {?>
                         active<?php } ?>">About</a>
-                    <a href="blog?page=blog" class="nav-item nav-link <?php if ($_GET['page'] == 'blog') {?>
+                    <a href="news-update?page=blog" class="nav-item nav-link <?php if ($_GET['page'] == 'blog') {?>
                         active<?php } ?>">Blog</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link" data-bs-toggle="dropdown">Activities</a>

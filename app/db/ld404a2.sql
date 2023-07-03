@@ -1072,10 +1072,10 @@ CREATE TABLE `tblpost` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblpostcategory`
+-- Table structure for table `tblcategory`
 --
 
-CREATE TABLE `tblpostcategory` (
+CREATE TABLE `tblcategory` (
   `postCatID` int(11) NOT NULL,
   `postCategory` varchar(100) NOT NULL,
   `CatDescription` longtext NOT NULL,
@@ -1368,9 +1368,9 @@ ALTER TABLE `tblpost`
   ADD KEY `updatedBy` (`updatedBy`);
 
 --
--- Indexes for table `tblpostcategory`
+-- Indexes for table `tblcategory`
 --
-ALTER TABLE `tblpostcategory`
+ALTER TABLE `tblcategory`
   ADD PRIMARY KEY (`postCatID`),
   ADD KEY `updatedBy` (`updatedBy`);
 
@@ -1495,9 +1495,9 @@ ALTER TABLE `tblpost`
   MODIFY `postID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `tblpostcategory`
+-- AUTO_INCREMENT for table `tblcategory`
 --
-ALTER TABLE `tblpostcategory`
+ALTER TABLE `tblcategory`
   MODIFY `postCatID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -1628,14 +1628,14 @@ ALTER TABLE `tblpdp`
 -- Constraints for table `tblpost`
 --
 ALTER TABLE `tblpost`
-  ADD CONSTRAINT `tblpost_ibfk_1` FOREIGN KEY (`postCatID`) REFERENCES `tblpostcategory` (`postCatID`),
+  ADD CONSTRAINT `tblpost_ibfk_1` FOREIGN KEY (`postCatID`) REFERENCES `tblcategory` (`postCatID`),
   ADD CONSTRAINT `tblpost_ibfk_2` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`);
 
 --
--- Constraints for table `tblpostcategory`
+-- Constraints for table `tblcategory`
 --
-ALTER TABLE `tblpostcategory`
-  ADD CONSTRAINT `tblpostcategory_ibfk_1` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`);
+ALTER TABLE `tblcategory`
+  ADD CONSTRAINT `tblcategory_ibfk_1` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`);
 
 --
 -- Constraints for table `tblregiondirector`

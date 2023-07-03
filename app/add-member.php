@@ -28,7 +28,7 @@ if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
         $dob = $_POST['dob'];
         $occupation = $_POST['occupation'];
         $maritalStatus = $_POST['maritalStatus'];
-        $imgfile = $_FILES["memberDp"]["name"];
+        $imgfile = strtolower($_FILES["memberDp"]["name"]);
         $added_by = $_SESSION['login'];
         $isActive = 1;
 
@@ -106,7 +106,7 @@ if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
         $dob = $_POST['dob'];
         $occupation = $_POST['occupation'];
         $maritalStatus = $_POST['maritalStatus'];
-        $imgfile = $_FILES["memberDp"]["name"];
+        $imgfile = strtolower($_FILES["memberDp"]["name"]);
         $added_by = $_SESSION['login'];
         $isActive = 1;
 

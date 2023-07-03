@@ -8,7 +8,7 @@ if (strlen($_SESSION['login']) == 0) {
 
     if ($_GET['action'] = 'restore') {
         $postid = intval($_GET['pid']);
-        $query = mysqli_query($con, "update tblposts set Is_Active=1 where id='$postid'");
+        $query = mysqli_query($con, "update tblpost set isActive=1 where postID='$postid'");
         if ($query) {
             $msg = "Post restored successfully ";
         } else {
@@ -20,7 +20,7 @@ if (strlen($_SESSION['login']) == 0) {
     // Code for Forever deletionparmdel
     if ($_GET['presid']) {
         $id = intval($_GET['presid']);
-        $query = mysqli_query($con, "delete from  tblposts  where id='$id'");
+        $query = mysqli_query($con, "delete from  tblpost  where postID='$id'");
         $delmsg = "Post deleted forever";
     }
 
@@ -29,44 +29,8 @@ if (strlen($_SESSION['login']) == 0) {
     <!DOCTYPE html>
     <html lang="en">
 
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
-        <meta name="author" content="Coderthemes">
-
-        <!-- App favicon -->
-        <link rel="shortcut icon" href="assets/images/favicon.ico">
-        <!-- App title -->
-        <title>CPLC -- Official Calabar Paradise Lions Club Website | Trashed Posts</title>
-
-        <!--Morris Chart CSS -->
-        <link rel="stylesheet" href="../plugins/morris/morris.css">
-
-        <!-- jvectormap -->
-        <link href="../plugins/jvectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
-
-        <!-- App css -->
-        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/core.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/components.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/pages.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/menu.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/responsive.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" href="../plugins/switchery/switchery.min.css">
-
-        <!-- HTML5 Shiv and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-        <![endif]-->
-
-        <script src="assets/js/modernizr.min.js"></script>
-
-    </head>
-
+    <?php include('includes/pages-head.php'); ?>
+<title>Leo District 404A2 -- Official Website | Trashed Post</title>
 
     <body class="fixed-left">
 
@@ -131,9 +95,9 @@ if (strlen($_SESSION['login']) == 0) {
                                     <div class="card-box">
                                         <div class="m-b-30">
                                         
-                                        <a href="trash-posts">
+                                        <!-- <a href="trash-posts">
                                             <button class="btn btn-danger waves-effect waves-light">Refesh Page <i class="mdi mdi-reload"></i></button>
-                                        </a>
+                                        </a> -->
                                     </div>
 
                                         <div class="table-responsive">
@@ -141,17 +105,21 @@ if (strlen($_SESSION['login']) == 0) {
                                                 <thead>
                                                     <tr>
 
-                                                        <th>Title</th>
-                                                        <th>Category</th>
-                                                        <th>Subcategory</th>
-                                                        <th>Action</th>
+                                                    <th>Title</th>
+                                                    <th>Description</th>
+                                                    <th>Category</th>
+                                                    <th>Subcategory</th>
+                                                    <th>Posted on</th>
+                                                    <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
 
                                                     <?php
-                                                    $query = mysqli_query($con, "select tblposts.id as postid,tblposts.PostTitle as title,tblcategory.CategoryName as category,tblsubcategory.Subcategory as subcategory from tblposts left join tblcategory on tblcategory.id=tblposts.CategoryId left join tblsubcategory on tblsubcategory.SubCategoryId=tblposts.SubCategoryId where tblposts.Is_Active=0");
-                                                    $rowcount = mysqli_num_rows($query);
+                                                   $select = "SELECT * from tblpost p join tblsubcategory s on s.subCatID=p.postCatID inner join tblcategory c on c.postCatID =s.categoryID  where p.isActive=0 ";
+
+                                                   $query = mysqli_query($con, $select);
+                                                   $rowcount = mysqli_num_rows($query);
                                                     if ($rowcount == 0) {
                                                     ?>
                                                         <tr>
@@ -165,14 +133,26 @@ if (strlen($_SESSION['login']) == 0) {
                                                             while ($row = mysqli_fetch_array($query)) {
                                                             ?>
                                                         <tr>
-                                                            <td><b><?php echo htmlentities($row['title']); ?></b></td>
-                                                            <td><?php echo htmlentities($row['category']) ?></td>
-                                                            <td><?php echo htmlentities($row['subcategory']) ?></td>
-
+                                                        <td><b>
+                                                                    <?php echo htmlentities($row['postTitle']); ?>
+                                                                </b>
+                                                            </td>
                                                             <td>
-                                                                <a href="trash-posts.php?pid=<?php echo htmlentities($row['postid']); ?>&&action=restore" onclick="return confirm('Do you really want to restore ?')"> <i class="ion-arrow-return-right" title="Restore this Post"></i></a>
+                                                                <?php echo htmlentities(strip_tags($row['postDetails'])); ?>
+                                                            </td>
+                                                            <td>
+                                                                <?php echo htmlentities($row['postCategory']) ?>
+                                                            </td>
+                                                            <td>
+                                                                <?php echo htmlentities($row['subcategory']) ?>
+                                                            </td>
+                                                            <td>
+                                                                <?php echo $row['postUpdated'] ?>
+                                                            </td>
+                                                            <td>
+                                                                <a href="trash-posts.php?pid=<?php echo htmlentities($row['postID']); ?>&&action=restore" onclick="return confirm('Do you really want to restore ?')"> <i class="ion-arrow-return-right" title="Restore this Post"></i></a>
                                                                 &nbsp;
-                                                                <a href="trash-posts.php?presid=<?php echo htmlentities($row['postid']); ?>&&action=perdel" onclick="return confirm('Do you really want to delete ?')"><i class="fa fa-trash-o" style="color: #f05050" title="Permanently delete this post"></i></a>
+                                                                <a href="trash-posts.php?presid=<?php echo htmlentities($row['postID']); ?>&&action=perdel" onclick="return confirm('Do you really want to delete ?')"><i class="fa fa-trash-o" style="color: #f05050" title="Permanently delete this post"></i></a>
                                                             </td>
                                                         </tr>
                                                 <?php }

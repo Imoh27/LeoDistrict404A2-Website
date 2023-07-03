@@ -8,55 +8,43 @@ if (strlen($_SESSION['login']) == 0) {
 
     if ($_GET['action'] = 'del') {
         $postid = intval($_GET['pid']);
-        $query = mysqli_query($con, "update tblposts set Is_Active=0 where id='$postid'");
+        $trash = "update tblpost set isActive=0 where postID ='$postid'";
+        // echo $trash; exit;
+        $query = mysqli_query($con, $trash);
         if ($query) {
-            $msg = "Post deleted ";
+            $msg = "Post Trashed ";
         } else {
             $error = "Something went wrong . Please try again.";
         }
     }
-?>
+    ?>
 
-    <!DOCTYPE html>
-    <html lang="en">
+    <?php include('includes/pages-head.php'); ?>
+    <!-- Summernote css -->
+    <link href="../plugins/summernote/summernote.css" rel="stylesheet" />
 
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
-        <meta name="author" content="Coderthemes">
+    <!-- Select2 -->
+    <link href="../plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
 
-        <!-- App favicon -->
-        <link rel="shortcut icon" href="assets/images/favicon.ico">
-        <!-- App title -->
-        <title>CPLC -- Official Calabar Paradise Lions Club Website | Manage Posts</title>
+    <!-- Jquery filer css -->
+    <link href="../plugins/jquery.filer/css/jquery.filer.css" rel="stylesheet" />
+    <link href="../plugins/jquery.filer/css/themes/jquery.filer-dragdropbox-theme.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../plugins/switchery/switchery.min.css">
+    <title>Leo District 404A2 -- Official Website | Manage Post</title>
 
-        <!--Morris Chart CSS -->
-        <link rel="stylesheet" href="../plugins/morris/morris.css">
 
-        <!-- jvectormap -->
-        <link href="../plugins/jvectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
-
-        <!-- App css -->
-        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/core.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/components.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/pages.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/menu.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/responsive.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" href="../plugins/switchery/switchery.min.css">
-
-        <!-- HTML5 Shiv and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-        <![endif]-->
-
-        <script src="assets/js/modernizr.min.js"></script>
-
-    </head>
+    <script>
+        function getSubCat(val) {
+            $.ajax({
+                type: "POST",
+                url: "get_subcategory.php",
+                data: 'catid=' + val,
+                success: function (data) {
+                    $("#subcategory").html(data);
+                }
+            });
+        }
+    </script>
 
 
     <body class="fixed-left">
@@ -108,30 +96,32 @@ if (strlen($_SESSION['login']) == 0) {
                             <div class="col-sm-12">
                                 <div class="card-box">
                                     <div class="m-b-30">
-                                       
+
                                         <a href="manage-posts">
-                                            <button class="btn btn-danger waves-effect waves-light">Refesh Page <i class="mdi mdi-reload"></i></button>
+                                            <button class="btn btn-danger waves-effect waves-light">Refesh Page <i
+                                                    class="mdi mdi-reload"></i></button>
                                         </a>
                                     </div>
-
                                     <div class="table-responsive">
-                                        <table class="table table-colored table-centered table-inverse m-0">
+                                        <table class="table m-0 table-colored-bordered table-bordered-primary">
                                             <thead>
                                                 <tr>
-
                                                     <th>Title</th>
+                                                    <th>Description</th>
                                                     <th>Category</th>
                                                     <th>Subcategory</th>
+                                                    <th>Posted on</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-
                                                 <?php
-                                                $query = mysqli_query($con, "select tblposts.id as postid,tblposts.PostTitle as title,tblcategory.CategoryName as category,tblsubcategory.Subcategory as subcategory from tblposts left join tblcategory on tblcategory.id=tblposts.CategoryId left join tblsubcategory on tblsubcategory.SubCategoryId=tblposts.SubCategoryId where tblposts.Is_Active=1 ");
+                                                $select = "SELECT * from tblpost p join tblsubcategory s on s.subCatID=p.postCatID inner join tblcategory c on c.postCatID =s.categoryID  where p.isActive=1 ";
+
+                                                $query = mysqli_query($con, $select);
                                                 $rowcount = mysqli_num_rows($query);
                                                 if ($rowcount == 0) {
-                                                ?>
+                                                    ?>
                                                     <tr>
 
                                                         <td colspan="4" align="center">
@@ -139,21 +129,43 @@ if (strlen($_SESSION['login']) == 0) {
                                                         </td>
                                                     <tr>
                                                         <?php
-                                                    } else {
-                                                        while ($row = mysqli_fetch_array($query)) {
+                                                } else {
+                                                    while ($row = mysqli_fetch_array($query)) {
+                                                        $cnt = 1;
                                                         ?>
-                                                    <tr>
-                                                        <td><b><?php echo htmlentities($row['title']); ?></b></td>
-                                                        <td><?php echo htmlentities($row['category']) ?></td>
-                                                        <td><?php echo htmlentities($row['subcategory']) ?></td>
 
-                                                        <td><a href="edit-post.php?pid=<?php echo htmlentities($row['postid']); ?>"><i class="fa fa-pencil" style="color: #29b6f6;"></i></a>
-                                                            &nbsp;<a href="manage-posts.php?pid=<?php echo htmlentities($row['postid']); ?>&&action=del" onclick="return confirm('Do you reaaly want to delete ?')"> <i class="fa fa-trash-o" style="color: #f05050"></i></a> </td>
-                                                    </tr>
-                                            <?php }
-                                                    } ?>
+                                                        <tr>
+                                                            <td><b>
+                                                                    <?php echo htmlentities($row['postTitle']); ?>
+                                                                </b>
+                                                            </td>
+                                                            <td>
+                                                                <?php echo htmlentities(strip_tags($row['postDetails'])); ?>
+                                                            </td>
+                                                            <td>
+                                                                <?php echo htmlentities($row['postCategory']) ?>
+                                                            </td>
+                                                            <td>
+                                                                <?php echo htmlentities($row['subcategory']) ?>
+                                                            </td>
+                                                            <td>
+                                                                <?php echo $row['postUpdated'] ?>
+                                                            </td>
 
+                                                            <td><a
+                                                                    href="add-post.php?pid=<?php echo htmlentities($row['postID']); ?>"><i
+                                                                        class="fa fa-pencil" style="color: #29b6f6;"></i></a>
+                                                                &nbsp;<a
+                                                                    href="manage-posts.php?pid=<?php echo htmlentities($row['postID']); ?>&&action=del"
+                                                                    onclick="return confirm('Do you reaaly want to delete ?')"> <i
+                                                                        class="fa fa-trash-o" style="color: #f05050"></i></a>
+                                                            </td>
+                                                        </tr>
+                                                        <?php
+                                                    }
+                                                } ?>
                                             </tbody>
+
                                         </table>
                                     </div>
                                 </div>

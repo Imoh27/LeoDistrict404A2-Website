@@ -11,6 +11,7 @@ $currentLSYID = $result['serviceYrID'];
 // echo $page; exit;
 include('assets/header.php'); 
 ?>
+  <title>Leo District 404A2 -- Official Website</title>
 
 <body>
     <!-- Spinner Start -->
@@ -457,6 +458,12 @@ include('assets/header.php');
     </div>
     <!-- Project End -->
 
+    <?php
+    $selectNews = "SELECT * from tblpost ORDER BY postID DESC limit 3";
+    $query = $con->query($selectNews);
+    $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+    ?>
     <!-- Blog News -->
     <div class="container-fluid py-5 px-4 px-lg-0">
         <div class="row g-0">
@@ -468,155 +475,27 @@ include('assets/header.php');
                         <h1 class="mb-5">Recent News Update</h1>
                     </div>
                     <div class="row me-lg-3 justify-content-center">
-
+                        <?php
+                        foreach ($res as $news) {?>
                         <div class="col-lg-4 col-md-6 col-sm-12">
                             <div class="card-box widget-box-one">
                                 <i class="mdi mdi-layers widget-one-icon"></i>
                                 <div class="wigdet-one-content">
 
-                                    <a href="#"><img class="blog-image wrap" src="app/images/hhh.jpg" alt=""></a>
-                                    <h5><a href="" #="">Medical Mission in Southern Kenya</a></h5>
-                                    <span class="posted_by">Sep. 15th</span>
-                                    <span class="comment"><a href="">21<i class="icon-bubble2"></i></a></span>
-                                    <p style="text-align:justify" >Far far away, behind the word mountains, far from the countries Vokalia and
-                                        Consonantia,
-                                        there live the blind texts.</p>
-                                    <p><a href="#">Learn More...</a></p>
+                                    <a href="#"><img class="blog-image wrap" src="app/postimages/<?php echo $news['postPhoto']; ?>" alt=""></a>
+                                    <h6><a href="" #=""><?php echo htmlentities($news['postTitle']); ?></a></h6>
+                                    <span class="posted_by">Posted on: <?php echo htmlentities(date('m-d-Y', strtotime($news['postUpdated']))); ?></span>
+                                    <!-- <span class="comment"><a href="">21<i class="icon-bubble2"></i></a></span> -->
+                                    <p style="text-align:justify" ><?php echo substr(strip_tags(stripcslashes($news['postDetails'])), 0, 200); ?>...</p>
+                                    <!-- <p><a href="#">Learn More...</a></p> -->
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-6 col-sm-12">
-                            <div class="card-box widget-box-one">
-                                <i class="mdi mdi-layers widget-one-icon"></i>
-                                <div class="wigdet-one-content">
-
-                                    <a href="#"><img class="blog-image wrap" src="app/images/hhh.jpg" alt=""></a>
-                                    <h5><a href="" #="">Medical Mission in Southern Kenya</a></h5>
-                                    <span class="posted_by">Sep. 15th</span>
-                                    <span class="comment"><a href="">21<i class="icon-bubble2"></i></a></span>
-                                    <p style="text-align:justify" >Far far away, behind the word mountains, far from the countries Vokalia and
-                                        Consonantia,
-                                        there live the blind texts.</p>
-                                    <p><a href="#">Learn More...</a></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-12">
-                            <div class="card-box widget-box-one">
-                                <i class="mdi mdi-layers widget-one-icon"></i>
-                                <div class="wigdet-one-content">
-
-                                    <a href="#"><img class="blog-image wrap" src="app/images/hhh.jpg" alt=""></a>
-                                    <h5><a href="" #="">Medical Mission in Southern Kenya</a></h5>
-                                    <span class="posted_by">Sep. 15th</span>
-                                    <span class="comment"><a href="">21<i class="icon-bubble2"></i></a></span>
-                                    <p style="text-align:justify" >Far far away, behind the word mountains, far from the countries Vokalia and
-                                        Consonantia,
-                                        there live the blind texts.</p>
-                                    <p><a href="#">Learn More...</a></p>
-                                </div>
-                            </div>
-                        </div>
+                        <?php } ?>
+                        <a class="btn btn-primary" style="width:auto;"  href="news-update?page=blog">See more...</a>
                     </div>
 
 
-                    <!-- <div class="owl-carousel service-carousel position-relative wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="bg-light p-4">
-                            <div class="d-flex align-items-center justify-content-center border border-5 border-white mb-4"
-                                style="width: 200px; height: 200px;">
-                                <img src="img/project-image-1.jpeg" alt="Image" style="width: 100%; height: 100%;">
-                            </div>
-                            <h4 class="mb-3">Food Bank 2022</h4>
-                            <p class="message">On December 26, 2022, the Calabar Crystal Leo Club organized a food bank
-                                project for Mrs. Iquo Etim Willie, who lives at 26 Murray Street in Calabar, Cross River
-                                State. We had to do an evaluative assessment on every prospective beneficiary of this
-                                project in order to choose a qualified applicant. The club selected Mrs. Iquo Etim
-                                Willie as a project beneficiary because she is a mother of three sons who tragically
-                                lost her husband and two of her children in an accident. She is now left with just her
-                                son, who sells ice cream to make ends meet, and a 6-year-old granddaughter. Selling
-                                recycled plastic bottles and cartons is how this woman makes ends meet. We made the
-                                decision to give this woman non-perishable food items that can last up to 6 months
-                                because of this.</p>
-                            <a href="" class="btn bg-white text-primary w-100 mt-2">Read More<i
-                                    class="fa fa-arrow-right text-secondary ms-2"></i></a>
-                        </div>
-                        <div class="bg-light p-4">
-                            <div class="d-flex align-items-center justify-content-center border border-5 border-white mb-4"
-                                style="width: 200px; height: 200px;">
-                                <img src="img/project-image-1.jpeg" alt="Image" style="width: 100%; height: 100%;">
-                            </div>
-                            <h4 class="mb-3">Food Bank 2022</h4>
-                            <p class="message">On December 26, 2022, the Calabar Crystal Leo Club organized a food bank
-                                project for Mrs. Iquo Etim Willie, who lives at 26 Murray Street in Calabar, Cross River
-                                State. We had to do an evaluative assessment on every prospective beneficiary of this
-                                project in order to choose a qualified applicant. The club selected Mrs. Iquo Etim
-                                Willie as a project beneficiary because she is a mother of three sons who tragically
-                                lost her husband and two of her children in an accident. She is now left with just her
-                                son, who sells ice cream to make ends meet, and a 6-year-old granddaughter. Selling
-                                recycled plastic bottles and cartons is how this woman makes ends meet. We made the
-                                decision to give this woman non-perishable food items that can last up to 6 months
-                                because of this.</p>
-                            <a href="" class="btn bg-white text-primary w-100 mt-2">Read More<i
-                                    class="fa fa-arrow-right text-secondary ms-2"></i></a>
-                        </div>
-                        <div class="bg-light p-4">
-                            <div class="d-flex align-items-center justify-content-center border border-5 border-white mb-4"
-                                style="width: 200px; height: 200px;">
-                                <img src="img/project-image-1.jpeg" alt="Image" style="width: 100%; height: 100%;">
-                            </div>
-                            <h4 class="mb-3">Food Bank 2022</h4>
-                            <p class="message">On December 26, 2022, the Calabar Crystal Leo Club organized a food bank
-                                project for Mrs. Iquo Etim Willie, who lives at 26 Murray Street in Calabar, Cross River
-                                State. We had to do an evaluative assessment on every prospective beneficiary of this
-                                project in order to choose a qualified applicant. The club selected Mrs. Iquo Etim
-                                Willie as a project beneficiary because she is a mother of three sons who tragically
-                                lost her husband and two of her children in an accident. She is now left with just her
-                                son, who sells ice cream to make ends meet, and a 6-year-old granddaughter. Selling
-                                recycled plastic bottles and cartons is how this woman makes ends meet. We made the
-                                decision to give this woman non-perishable food items that can last up to 6 months
-                                because of this.</p>
-                            <a href="" class="btn bg-white text-primary w-100 mt-2">Read More<i
-                                    class="fa fa-arrow-right text-secondary ms-2"></i></a>
-                        </div>
-                        <div class="bg-light p-4">
-                            <div class="d-flex align-items-center justify-content-center border border-5 border-white mb-4"
-                                style="width: 200px; height: 200px;">
-                                <img src="img/project-image-1.jpeg" alt="Image" style="width: 100%; height: 100%;">
-                            </div>
-                            <h4 class="mb-3">Food Bank 2022</h4>
-                            <p class="message">On December 26, 2022, the Calabar Crystal Leo Club organized a food bank
-                                project for Mrs. Iquo Etim Willie, who lives at 26 Murray Street in Calabar, Cross River
-                                State. We had to do an evaluative assessment on every prospective beneficiary of this
-                                project in order to choose a qualified applicant. The club selected Mrs. Iquo Etim
-                                Willie as a project beneficiary because she is a mother of three sons who tragically
-                                lost her husband and two of her children in an accident. She is now left with just her
-                                son, who sells ice cream to make ends meet, and a 6-year-old granddaughter. Selling
-                                recycled plastic bottles and cartons is how this woman makes ends meet. We made the
-                                decision to give this woman non-perishable food items that can last up to 6 months
-                                because of this.</p>
-                            <a href="" class="btn bg-white text-primary w-100 mt-2">Read More<i
-                                    class="fa fa-arrow-right text-secondary ms-2"></i></a>
-                        </div>
-                        <div class="bg-light p-4">
-                            <div class="d-flex align-items-center justify-content-center border border-5 border-white mb-4"
-                                style="width: 200px; height: 200px;">
-                                <img src="img/project-image-1.jpeg" alt="Image" style="width: 100%; height: 100%;">
-                            </div>
-                            <h4 class="mb-3">Food Bank 2022</h4>
-                            <p class="message">On December 26, 2022, the Calabar Crystal Leo Club organized a food bank
-                                project for Mrs. Iquo Etim Willie, who lives at 26 Murray Street in Calabar, Cross River
-                                State. We had to do an evaluative assessment on every prospective beneficiary of this
-                                project in order to choose a qualified applicant. The club selected Mrs. Iquo Etim
-                                Willie as a project beneficiary because she is a mother of three sons who tragically
-                                lost her husband and two of her children in an accident. She is now left with just her
-                                son, who sells ice cream to make ends meet, and a 6-year-old granddaughter. Selling
-                                recycled plastic bottles and cartons is how this woman makes ends meet. We made the
-                                decision to give this woman non-perishable food items that can last up to 6 months
-                                because of this.</p>
-                            <a href="" class="btn bg-white text-primary w-100 mt-2">Read More<i
-                                    class="fa fa-arrow-right text-secondary ms-2"></i></a>
-                        </div>
-                    </div> -->
                 </div>
             </div>
             <div class="col-lg-3 d-none d-lg-flex">

@@ -131,8 +131,8 @@
                     <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-comment"></i> <span> Comments
                         </span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="unapprove-comment">Waiting for Approval </a></li>
-                        <li><a href="manage-comments">Approved Comments</a></li>
+                        <li><a href="manage-comments?status=unapproved">Waiting for Approval </a></li>
+                        <li><a href="manage-comments?status=approved">Approved Comments</a></li>
                     </ul>
                 </li>
                 <li class="has_sub">
@@ -140,7 +140,7 @@
                             Settings </span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
 
-                        <li class="has_sub">
+                        <!-- <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><span>Membership Type</span><span
                                     class="menu-arrow"></span></a>
                             <ul class="list-unstyled">
@@ -155,14 +155,14 @@
                                 <li><a href="add-position">Add Position</a></li>
                                 <li><a href="manage-positions">Manage Position</a></li>
                             </ul>
-                        </li>
+                        </li> -->
 
-                        <li><a href="add-lions-leaders">Add Lions Leaders</a></li>
+                        <!-- <li><a href="add-lions-leaders">Add Lions Leaders</a></li>
                         <li><a href="add_level">Add Level</a></li>
-                        <li><a href="update_club_dues">Update Club Dues</a></li>
+                        <li><a href="update_club_dues">Update Club Dues</a></li> -->
                         <li><a href="add-lsy">Add Service Year</a></li>
-                        <li><a href="add-interest-mode">Add Interest Mode</a></li>
-                        <li><a href="contacts-info">Clubs Contact Info</a></li>
+                        <!-- <li><a href="add-interest-mode">Add Interest Mode</a></li>
+                        <li><a href="contacts-info">Clubs Contact Info</a></li> -->
                         <li><a href="sms-config">SMS Config</a></li>
                     </ul>
                 </li>

@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Leo District 404A2 -- Official Website | </title>
+    <!-- <title>Leo District 404A2 -- Official Website | </title> -->
 
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
