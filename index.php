@@ -299,7 +299,7 @@ include('assets/header.php');
                 </div>
                 <div class="col-lg-6 pt-4" style="min-height: 300px;">
                     <div class="position-relative h-100 wow fadeInUp" data-wow-delay="0.5s">
-                        <img class="position-absolute img-fluid w-100 h-100" src="img/jimm.jpeg"
+                        <img class="position-absolute mx-auto img-fluid w-auto h-100" src="img/jimm.jpeg"
                             style="object-fit: cover; padding: 0 0 50px 100px;" alt="">
                         <img class="position-absolute start-0 bottom-0 img-fluid bg-white pt-2 pe-2 w-50 h-50"
                             src="img/jim-coach.jpeg" style="object-fit: cover;" alt="">
@@ -339,7 +339,6 @@ include('assets/header.php');
         </div>
     </div>
     <!-- Fact End -->
-
 
     <!-- Project Start -->
     <div class="container-fluid py-5 px-4 px-lg-0">
@@ -464,7 +463,7 @@ include('assets/header.php');
     $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
     ?>
-    <!-- Blog News -->
+    <!-- Blog News Start -->
     <div class="container-fluid py-5 px-4 px-lg-0">
         <div class="row g-0">
 
@@ -474,16 +473,16 @@ include('assets/header.php');
                         <h6 class="text-secondary text-uppercase">Blog</h6>
                         <h1 class="mb-5">Recent News Update</h1>
                     </div>
-                    <div class="row me-lg-3 justify-content-center">
+                    <div class="row me-lg-3  justify-content-center">
                         <?php
                         foreach ($res as $news) {?>
-                        <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12  mt-4">
                             <div class="card-box widget-box-one">
                                 <i class="mdi mdi-layers widget-one-icon"></i>
                                 <div class="wigdet-one-content">
 
-                                    <a href="#"><img class="blog-image wrap" src="app/postimages/<?php echo $news['postPhoto']; ?>" alt=""></a>
-                                    <h6><a href="" #=""><?php echo htmlentities($news['postTitle']); ?></a></h6>
+                                    <a href="news-details.php?sc=<?php echo htmlentities($news['postCatID']); ?>&&nid=<?php echo htmlentities($news['postID']) ?>"><img class="blog-image wrap" src="app/postimages/<?php echo $news['postPhoto']; ?>" alt="">
+                                    <h6 class="mt-4"><?php echo htmlentities($news['postTitle']); ?></h6></a>
                                     <span class="posted_by">Posted on: <?php echo htmlentities(date('m-d-Y', strtotime($news['postUpdated']))); ?></span>
                                     <!-- <span class="comment"><a href="">21<i class="icon-bubble2"></i></a></span> -->
                                     <p style="text-align:justify" ><?php echo substr(strip_tags(stripcslashes($news['postDetails'])), 0, 200); ?>...</p>
@@ -492,7 +491,10 @@ include('assets/header.php');
                             </div>
                         </div>
                         <?php } ?>
-                        <a class="btn btn-primary" style="width:auto;"  href="news-update?page=blog">See more...</a>
+                        <div class="col-lg-12 col-sm-12 text-center mt-3">
+
+                            <a class="btn btn-primary" style="width:auto;"  href="news-update?page=blog">See more...</a>
+                        </div>
                     </div>
 
 
@@ -505,7 +507,22 @@ include('assets/header.php');
             </div>
         </div>
     </div>
-    <!-- Project End -->
+    <!-- Blog News End -->
+
+        <!-- Call to Action Start -->
+        <div class="container-fluid bg-dark my-5 py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-12 text-center wow fadeIn" data-wow-delay="0.1s">
+                    <i class="fas fa-question fa-2x text-white mb-3"></i>
+                    <h1 class="text-white mb-2">Not already enrolled in our database </h1>
+                    <p class="text-white mb-0">What are you waiting for?</p>
+                    <button class="btn btn-primary my-3"><a target="_blank" class="text-white text-center" href="form?page=enrollment-form">Enrol Now...</a></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Call to Action End -->
 
     <!-- Team Start -->
     <div class="container-xxl py-5">

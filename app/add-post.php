@@ -14,7 +14,7 @@ if (strlen($_SESSION['login']) == 0) {
 
 
     // For adding post  
-    $posttitle = $_POST['posttitle'];
+    $posttitle = strtolower($_POST['posttitle']);
     $catid = $_POST['category'];
     $subcatid = $_POST['subcategory'];
     $postdetails = str_replace(array( '\'', '"',

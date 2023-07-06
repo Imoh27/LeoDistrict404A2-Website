@@ -68,7 +68,10 @@
       <div class="card my-4">
         <h5 class="card-header"></h5>
         <div class="card-body">
-          <h4>Advertise Here</h4>
+          <h4 class="card-header">Advertise Here</h4>
+          <img class="img-fluid" src="/../img/ads.png" alt="" srcset=""><hr>
+          <img class="img-fluid" src="/../img/ads.png" alt="" srcset=""><hr>
+          <img class="img-fluid" src="/../img/ads.png" alt="" srcset="">
         </div>
       </div>
 

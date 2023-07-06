@@ -129,22 +129,22 @@ if (isset($_POST['submit'])) {
                     </div>
                   </div>
                   <div class="col-12">
-                    <button class="btn btn-primary w-100 py-3" type="submit" name="submit">Send Message</button>
+                    <button class="btn btn-dark w-100 py-3" type="submit" name="submit">Send Message</button>
                   </div>
                 </div>
               </form>
             </div>
           </div>
 
-          <div class="col-md-6">
+          <div class="col-md-6 bg-dark">
             <div class="contact-info">
-              <h4>District President</h4>
-              <p>Leo Ikoh Unoh</p>
-              <p>08063652747</p>
+              <h3 class="text-warning">District President</h3>
+              <p class="text-white fs-5 fw-bold" >Leo Ikoh Unoh</p>
+              <p class="text-white" >08063652747</p>
 
-              <h4>District Secretary</h4>
-              <p>Leo Micheal Udoh</p>
-              <p>08134374318</p>
+              <h3 class="text-warning mt-5">District Secretary</h3>
+              <p class="text-white fs-5 fw-bold" >Leo Micheal Isidore</p>
+              <p class="text-white" >08134374318</p>
             </div>
           </div>
         </div>

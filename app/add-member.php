@@ -329,7 +329,7 @@ if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
                                                 foreach ($results as $regions) {
                                                     ?>
                                                 <option value="<?php echo htmlentities($regions['regionID']); ?>">
-                                                    <?php echo htmlentities($regions['region']); ?></option>
+                                                   Region <?php echo htmlentities($regions['region']); ?></option>
                                                 <?php } ?>
 
                                             </select>

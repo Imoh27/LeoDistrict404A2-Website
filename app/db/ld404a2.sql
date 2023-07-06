@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 20, 2023 at 12:03 PM
+-- Generation Time: Jul 06, 2023 at 08:48 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -55,6 +55,30 @@ CREATE TABLE `tblactivitycategory` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tblcategory`
+--
+
+CREATE TABLE `tblcategory` (
+  `postCatID` int(11) NOT NULL,
+  `postCategory` varchar(100) NOT NULL,
+  `CatDescription` longtext NOT NULL,
+  `dateUpdated` datetime DEFAULT current_timestamp(),
+  `updatedBy` int(11) DEFAULT NULL,
+  `isActive` int(11) DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tblcategory`
+--
+
+INSERT INTO `tblcategory` (`postCatID`, `postCategory`, `CatDescription`, `dateUpdated`, `updatedBy`, `isActive`) VALUES
+(1, 'Project', 'Information about Districts Region and Club Projects', '2023-06-30 12:17:03', 1, 1),
+(2, 'Events', 'Information about Various Events within and across Club, Regions, District and Multiple District', '2023-06-29 16:02:33', 1, 1),
+(3, 'Other', 'Other News or stories', '2023-06-30 13:34:34', 1, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tblclubpresidents`
 --
 
@@ -102,10 +126,59 @@ INSERT INTO `tblclubs` (`clubID`, `regionID`, `clubName`, `indexNo`, `SponsorLio
 (2, 4, 'Prestigious Tinapa', '12335', 'Calabar Tinapa', '2023-06-19 15:45:15', 1, 1),
 (3, 4, 'Akpabuyo Isand', '16145', 'Akpabuyo Isand', '2023-06-15 17:04:14', 1, 1),
 (4, 1, 'Abuja Unity', '13421', 'Abuja Unity', '2023-06-15 17:07:32', 1, 1),
-(5, 4, 'Calabar Paradise', '12345', 'Calabar Paradise', '2023-06-15 17:02:56', 1, 1),
-(6, 4, 'Prestigious Tinapa', '12335', 'Calabar Tinapa', '2023-06-15 17:03:29', 1, 1),
-(7, 4, 'Akpabuyo Isand', '16145', 'Akpabuyo Isand', '2023-06-15 17:04:14', 1, 1),
-(8, 1, 'Abuja Unity', '13421', 'Abuja Unity', '2023-06-15 17:07:32', 1, 1);
+(9, 2, 'Oron Anchor Town', '43343', 'Oron Anchor Town', '2023-07-05 15:19:28', 1, 1),
+(10, 3, 'Uyo Le Meridian', '23432', 'Uyo Le Meridian', '2023-07-05 12:52:28', 1, 1),
+(11, 5, 'Calabar Canaan City', '11293', 'Calabar Canaan City', '2023-07-05 12:53:24', 1, 1),
+(12, 1, 'FutMinna', '6534355', 'Abuja Unity', '2023-07-05 13:26:54', 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblcomments`
+--
+
+CREATE TABLE `tblcomments` (
+  `id` int(11) NOT NULL,
+  `post` int(11) DEFAULT NULL,
+  `name` varchar(120) DEFAULT NULL,
+  `email` varchar(150) DEFAULT NULL,
+  `comment` mediumtext DEFAULT NULL,
+  `commentDATE` timestamp NULL DEFAULT current_timestamp(),
+  `isActive` int(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `tblcomments`
+--
+
+INSERT INTO `tblcomments` (`id`, `post`, `name`, `email`, `comment`, `commentDATE`, `isActive`) VALUES
+(1, 2, 'Sirben', 'benjilo4real2010@gmail.com', 'dfbdsiughudsinfsofmf fffd', '2023-07-03 09:08:18', 1),
+(2, 2, 'Bob', 'benjilo4real2010@gmail.com', 'Another Comments on this Same Post', '2023-07-03 10:24:07', 1),
+(3, 5, 'Baba', 'hassanabassey25@gmail.com', 'Ok Lemme Cooment On Another Post Rather', '2023-07-03 10:24:40', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblcontactentry`
+--
+
+CREATE TABLE `tblcontactentry` (
+  `entryID` int(11) NOT NULL,
+  `contactName` varchar(60) NOT NULL,
+  `contactMail` varchar(40) NOT NULL,
+  `subject` varchar(100) DEFAULT NULL,
+  `message` longtext DEFAULT NULL,
+  `entryDate` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tblcontactentry`
+--
+
+INSERT INTO `tblcontactentry` (`entryID`, `contactName`, `contactMail`, `subject`, `message`, `entryDate`) VALUES
+(1, 'Benjamin Akawu', 'benjilo4real2010@gmail.com', 'Just Trying Something', 'Just Trying or testing the contact form', '2023-06-30 10:26:45'),
+(2, 'Sir Ben', 'akawuben@gmail.com', 'Just Trying Something', ' if (!empty($result) || $result) {\r\n            $error = \"Error . Entry already exists.\";\r\n        } else {', '2023-06-30 10:33:31'),
+(3, 'MIchael Okon', 'hassanabassey25@gmail.com', 'Just Trying Something', 'LEts Try again today', '2023-07-03 18:51:55');
 
 -- --------------------------------------------------------
 
@@ -146,7 +219,14 @@ INSERT INTO `tbldistrictoffices` (`dOfficesID`, `position`, `abbr`, `dateUpdated
 (1, ' District President', 'DP', '2023-06-20 14:28:48', 1, 1),
 (2, ' Immediate Past DP', 'IPDP', '2023-06-20 17:25:01', 1, 1),
 (3, ' 1st Vice District President', 'FVDP', '2023-06-20 14:32:27', 1, 1),
-(4, ' 2nd Vice District President', '2VDP', '2023-06-20 14:33:26', 1, 1);
+(4, ' 2nd Vice District President', '2VDP', '2023-06-20 14:33:26', 1, 1),
+(5, ' International President', '', '2023-06-21 10:59:41', 1, 1),
+(6, ' District Governor', 'DG', '2023-06-21 11:00:04', 1, 1),
+(7, ' Multiple Council Chairperson', 'MCC', '2023-06-21 11:00:27', 1, 1),
+(8, ' Multiple District President', 'MDP', '2023-06-21 11:02:44', 1, 1),
+(9, ' District Secretary', 'DS', '2023-06-21 11:03:27', 1, 1),
+(10, ' District Treasurer', 'DT', '2023-06-21 11:03:42', 1, 1),
+(11, ' Leo Program Chairpersom', 'LPC', '2023-06-21 11:57:01', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -161,7 +241,7 @@ CREATE TABLE `tbldpsteam` (
   `fbProfile` varchar(50) NOT NULL,
   `lnProfile` varchar(50) NOT NULL,
   `igProfile` varchar(50) NOT NULL,
-  `foto` varchar(100) NOT NULL,
+  `foto` varchar(100) DEFAULT NULL,
   `serviceYrID` int(11) NOT NULL,
   `dateUpdated` datetime DEFAULT current_timestamp(),
   `updatedBy` int(11) DEFAULT NULL
@@ -172,10 +252,10 @@ CREATE TABLE `tbldpsteam` (
 --
 
 INSERT INTO `tbldpsteam` (`teamID`, `memberName`, `dOfficesID`, `fbProfile`, `lnProfile`, `igProfile`, `foto`, `serviceYrID`, `dateUpdated`, `updatedBy`) VALUES
-(1, 'Esther Esua', 2, 'bbakawu', 'bbakawu', 'bbakawu', '7bbd8e8a0995ddbbc872bc206661fe8e.jpeg', 1, '2023-06-20 17:53:14', 1),
-(2, 'Ikoh Unoh', 1, 'bbakawu', 'bbakawu', 'bbakawu', '5cb045762ec3cfe9a11205ed20e23401.jpeg', 1, '2023-06-20 17:53:58', 1),
-(3, 'Ekpeita Edet', 3, 'bbakawu', 'bbakawu', 'bbakawu', '8d015894e7c7115dab1fcaccaa04e53f.jpeg', 1, '2023-06-20 17:54:55', 1),
-(4, 'Joyce Eduebuk', 4, 'bbakawu', 'bbakawu', 'bbakawu', '240bba13a2af431fa6ae586dc96f8dc3.jpeg', 1, '2023-06-20 17:55:31', 1);
+(1, 'Esther Esua', 2, 'esther_e', 'esther_e', 'esther_e', '7bbd8e8a0995ddbbc872bc206661fe8e.jpeg', 1, '2023-06-21 10:28:40', 1),
+(2, 'Ikoh Unoh', 1, 'ikohunoh', 'ikohunoh', 'ikohunoh', '5cb045762ec3cfe9a11205ed20e23401.jpeg', 1, '2023-06-21 10:36:10', 1),
+(3, 'Ekpeita Edet', 3, 'ekpeita', 'ekpeita', 'ekpeita', '8d015894e7c7115dab1fcaccaa04e53f.jpeg', 1, '2023-06-21 10:36:46', 1),
+(4, 'Joyce Eduebuk', 4, 'jojo', 'jojo_e', 'jojo_e', '240bba13a2af431fa6ae586dc96f8dc3.jpeg', 1, '2023-06-21 10:37:11', 1);
 
 -- --------------------------------------------------------
 
@@ -202,6 +282,32 @@ CREATE TABLE `tbldpteam` (
 
 INSERT INTO `tbldpteam` (`teamID`, `memberID`, `dOfficesID`, `fbProfile`, `lnProfile`, `igProfile`, `foto`, `serviceYrID`, `dateUpdated`, `updatedBy`) VALUES
 (1, 1, 1, 'bbakawu', 'bbakawu', 'bbakawu', '', 1, '2023-06-20 16:58:34', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbllcileaders`
+--
+
+CREATE TABLE `tbllcileaders` (
+  `leaderID` int(11) NOT NULL,
+  `leaderName` varchar(60) NOT NULL,
+  `foto` varchar(150) DEFAULT NULL,
+  `dOfficesID` int(11) DEFAULT NULL,
+  `serviceYrID` int(11) DEFAULT NULL,
+  `dateUpdated` datetime DEFAULT current_timestamp(),
+  `updatedBy` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbllcileaders`
+--
+
+INSERT INTO `tbllcileaders` (`leaderID`, `leaderName`, `foto`, `dOfficesID`, `serviceYrID`, `dateUpdated`, `updatedBy`) VALUES
+(1, 'Someone to Come', '144aae8ec5e27de43814ad910a36c1fd..jpg', 5, 1, '2023-06-26 18:03:36', 1),
+(2, 'Another to Come', '1f56bcdd22b3f370eb18471c18637905..jpg', 7, 1, '2023-06-26 19:35:58', 1),
+(3, 'Charles Itu', '06f5412b11f7ba34e4b1c09cd63a2c65..jpg', 6, 1, '2023-06-26 18:04:37', 1),
+(4, 'Unwana Akpan JP', 'f48fc3e869a4c26811dad2449dd563f8..jpg', 11, 1, '2023-06-26 18:04:50', 1);
 
 -- --------------------------------------------------------
 
@@ -1033,8 +1139,11 @@ CREATE TABLE `tblmembers` (
 --
 
 INSERT INTO `tblmembers` (`memberID`, `clubID`, `regionID`, `membershipNo`, `firstName`, `lastName`, `middleName`, `memberEmail`, `gender`, `phone1`, `phone2`, `address`, `maritalStatus`, `occupation`, `city`, `state`, `stateOfOrigin`, `lgaOfOrigin`, `memberSince`, `dob`, `memberPhoto`, `dateUpdated`, `updatedBy`, `isActive`) VALUES
-(1, 1, 4, '5353040', 'Benjamin', 'Akawu', '', 'akawuben@gmail.com', 'Male', '08133314846', '09069351146', '11 Bassey Street ', 'Single', 'Business', 'Calabar', 9, 9, 182, ' 2019', '1996-04-21', 'f48fc3e869a4c26811dad2449dd563f8.jpg', '2023-06-15 20:22:35', 1, 1),
-(2, 2, 4, '5352040', 'MIchael', 'Okon', '', 'mikeokon@gmail.com', 'Male', '08144640312', '09069351146', 'someWhere in Calabar', 'Single', 'Student', 'Calabar', 9, 9, 171, ' 2016', '1994-01-13', 'edf8c765c54d669360bbe30274480fa5.jpg', '2023-06-19 09:19:52', 1, 1);
+(1, 1, 4, '5353040', 'Benjamin', 'Akawu', '', 'akawuben@gmail.com', 'Male    ', '08133314846', '09069351146', '11 Bassey Street ', 'Single    ', 'Business', 'Calabar', 9, 9, 182, ' 2019', '1996-04-21', '06940303f580ef89805d5242166fb867.jpg', '2023-06-22 10:02:52', 1, 1),
+(2, 2, 4, '5352040', 'MIchael', 'Okon', '', 'mikeokon@gmail.com', 'Male', '08144640312', '09069351146', 'someWhere in Calabar', 'Single', 'Student', 'Calabar', 9, 9, 171, ' 2016', '1994-01-13', 'edf8c765c54d669360bbe30274480fa5.jpg', '2023-06-19 09:19:52', 1, 0),
+(3, 4, 1, '5463844', 'Michael', 'Aderonke', '', 'mikeaderonke@gmail.com', 'Male', '07066556655', '09054342322', 'someWhere in FUT Minna', 'Single', 'Student', 'Minna', 27, 13, 252, ' 2020', '1998-02-12', '347e1cb939a752dbdeae4bf07343648a.jpg', '2023-07-05 12:50:27', 1, 1),
+(4, 9, 2, '6343533', 'Blessing ', 'Okon', '', 'blissokon@yahoo.com', 'Female', '07088787655', '', 'someWhere in Oron', 'Single', 'Business', 'Oron', 3, 3, 63, ' 2017', '1996-07-09', '02a26cbee06173efdef34016424df662.jpg', '2023-07-05 12:55:54', 1, 1),
+(5, 12, 1, '5465463', 'Lovelyn', 'Chinyeaka', '', 'chinyeaka_love@yahoo.com', 'Female', '09166554533', '', 'someWhere in FUT Minna', 'Single', 'Student', 'Minna', 27, 17, 299, ' 2021', '1999-11-09', '61a4dc42165953132180492efdfe11d2.jpg', '2023-07-05 13:28:43', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1064,25 +1173,20 @@ CREATE TABLE `tblpost` (
   `postDetails` longtext NOT NULL,
   `postURL` mediumtext DEFAULT NULL,
   `postPhoto` varchar(250) DEFAULT NULL,
-  `dateUpdated` datetime DEFAULT current_timestamp(),
+  `postUpdated` datetime DEFAULT current_timestamp(),
   `updatedBy` int(11) DEFAULT NULL,
   `isActive` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `tblcategory`
+-- Dumping data for table `tblpost`
 --
 
-CREATE TABLE `tblcategory` (
-  `postCatID` int(11) NOT NULL,
-  `postCategory` varchar(100) NOT NULL,
-  `CatDescription` longtext NOT NULL,
-  `dateUpdated` datetime DEFAULT current_timestamp(),
-  `updatedBy` int(11) DEFAULT NULL,
-  `isActive` int(11) DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `tblpost` (`postID`, `postCatID`, `postTitle`, `postDetails`, `postURL`, `postPhoto`, `postUpdated`, `updatedBy`, `isActive`) VALUES
+(2, 1, 'District Dedication Service 2022', '<p><span style=\"font-size: 14px;\">Jasprit Bumrah ruled out of England T20I series due to injury.&nbsp;Tata Steel, Thyssenkrupp Finalise Landmark Steel Deal&nbsp;UNs Jean Pierre Lacroix thanks India for contribution to peacekeeping.&nbsp;Shah holds meeting with NE states leaders in Manipur</span><br></p>', 'District-Dedication-Service-2022', '76b1350865ab94be4f30089af16e696f.jpg', '2023-06-30 14:41:03', 1, 1),
+(3, 3, 'lions district theme and logo for 2023/2024 lions year', '<div class=\"x11i5rnm xat24cr x1mh8g0r x1vvkbs xtlvy1s x126k92a\" style=\"margin: 0.5em 0px 0px; white-space-collapse: preserve; overflow-wrap: break-word; font-family: &quot;Segoe UI Historic&quot;, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif; color: rgb(5, 5, 5); font-size: 15px;\"><div dir=\"auto\" style=\"font-family: inherit;\">The Logo is in the shape of the human hand with five fingers and our theme is: “For the future of our District”</div></div><div class=\"x11i5rnm xat24cr x1mh8g0r x1vvkbs xtlvy1s x126k92a\" style=\"margin: 0.5em 0px 0px; white-space-collapse: preserve; overflow-wrap: break-word; font-family: &quot;Segoe UI Historic&quot;, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif; color: rgb(5, 5, 5); font-size: 15px;\"><div dir=\"auto\" style=\"font-family: inherit;\">The District Theme and Logo speak to our innate desire to CONNECT with each other and create a greater and better future for our District!</div></div><div class=\"x11i5rnm xat24cr x1mh8g0r x1vvkbs xtlvy1s x126k92a\" style=\"margin: 0.5em 0px 0px; white-space-collapse: preserve; overflow-wrap: break-word; font-family: &quot;Segoe UI Historic&quot;, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif; color: rgb(5, 5, 5); font-size: 15px;\"><div dir=\"auto\" style=\"font-family: inherit;\">The five fingers represent the five different deliverables that are essential for the growth and development of our District - Service, Membership, Innovation, PR &amp; Marcomms and Networking. These elements are  distinct yet interconnected and require coordinated efforts to ensure success and a prosperous future. They also represent our Lions Clubs International Global Causes - Sight, Diabetes, Hunger, Pediatric Cancer and Environment. </div></div><div class=\"x11i5rnm xat24cr x1mh8g0r x1vvkbs xtlvy1s x126k92a\" style=\"margin: 0.5em 0px 0px; white-space-collapse: preserve; overflow-wrap: break-word; font-family: &quot;Segoe UI Historic&quot;, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif; color: rgb(5, 5, 5); font-size: 15px;\"><div dir=\"auto\" style=\"font-family: inherit;\">This is a powerful reminder that as a District we are capable of achieving greatness. By harnessing the power of our hands (our service),we can unleash our full potential and make our aspiration a reality.</div></div><div class=\"x11i5rnm xat24cr x1mh8g0r x1vvkbs xtlvy1s x126k92a\" style=\"margin: 0.5em 0px 0px; white-space-collapse: preserve; overflow-wrap: break-word; font-family: &quot;Segoe UI Historic&quot;, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif; color: rgb(5, 5, 5); font-size: 15px;\"><div dir=\"auto\" style=\"font-family: inherit;\">This represents our commitment to build a better future and serves as a prompt that progress and growth require COLLABORATION, TEAMWORK, UNITY, INCLUSION and that by working together, we can secure a bright and promising future for our District.</div></div>', 'LIONS-DISTRICT-THEME-AND-LOGO-FOR-2023/2024-LIONS-YEAR', 'ea0323f5ac1a2b11042a523c8a2c49a1.jpg', '2023-07-03 09:00:22', 1, 1),
+(4, 3, 'Leo District Upcoming Dedication Service 2023', '<p>Leo Ikoh Unoh Ikoh 100%P  LAH NLEF (DP elect ) takes Leo District 404A2 Nigeria to church  an affiliate of Lions Clubs International NigeriaRemember the phrase  Leadership comes from God  not by man s struggle and to whom much is given expect Excellent and human oriented results.We cordially invite the Lions community  Leos  fellows and Distinguished guests to the Dedication service as we usher in 2023/2024 service year to God Almighty.This dedication service is slated to hold as follows: </p><p>DATE:    9th July 2023</p><p> VENUE:  Mount Zion Gospel church Inc  Ikot  Omin Assembly  8miles by Ekoson filling station  Calaber CRS(Reception follows immediately same venue) </p><p>TIME:      9am</p><p><br></p><p> Leo Samuel Dick</p><p> District chief of staff to DP elect</p><p> Leo Ikoh Unoh Ikoh 100%P LAH  NLEF </p><p>District president Elect</p>', 'Leo-District-Upcoming-Dedication-Service-2023', '61a4dc42165953132180492efdfe11d2.jpg', '2023-07-03 11:09:15', 1, 1),
+(5, 4, 'Borehole Commissioning by Akpabuyo Island Lions', '<p>Calabar Akpabuyo Island Lions Club yesterday 22nd June  2023 commissioned and presented a borehole to the Leo District 404A2  Nigeria Accident and Emergency Centre  Akim-Akim  Odukpani LGA  Cross River State.The borehole is the Club s core project for 2022/2023 Service Year through the leadership of Lion Mbang Itu Olorunisomo as the president and commissioned by the District Governor-elect  Lion Charles Itu.</p><p>The District President  Leo Esther Esua on behalf of Leos of District 404A2  Nigeria appreciated the leadership of Lion Mbang Itu and the entire Calabar Akpabuyo Island Lions for the partnership in service. She further states that the borehole will not only supply the facility with potable water but the entire environs who travel a distance to get water.</p><p>In attendance were Lions and Leo leaders  Lions and Leos within and outside Calabar Akpabuyo Island Lions Family.</p>', 'Borehole-Commissioning-by-Akpabuyo-Island-Lions', '7ed1724c6bf6803ea09eef10aa84439a.jpg', '2023-07-03 14:24:53', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1103,10 +1207,12 @@ CREATE TABLE `tblregion` (
 --
 
 INSERT INTO `tblregion` (`regionID`, `region`, `dateUpdated`, `updatedBy`, `isActive`) VALUES
-(1, 'One', '2023-06-15 07:51:25', 1, 1),
-(2, 'Two', '2023-06-15 08:57:51', 1, 1),
-(3, 'Three', '2023-06-15 08:57:55', 1, 1),
-(4, 'Four', '2023-06-15 08:58:04', 1, 1);
+(1, '1', '2023-06-15 07:51:25', 1, 1),
+(2, '2', '2023-06-15 08:57:51', 1, 1),
+(3, '3', '2023-06-15 08:57:55', 1, 1),
+(4, '4', '2023-06-15 08:58:04', 1, 1),
+(5, '5', '2023-07-05 03:09:10', 1, 1),
+(6, '6', '2023-07-05 03:13:32', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1118,6 +1224,7 @@ CREATE TABLE `tblregiondirector` (
   `regiondirID` int(11) NOT NULL,
   `regionID` int(11) DEFAULT NULL,
   `memberID` int(11) DEFAULT NULL,
+  `ardMemberID` int(11) NOT NULL,
   `serviceYrID` int(11) DEFAULT NULL,
   `dateUpdated` datetime DEFAULT current_timestamp(),
   `updatedBy` int(11) DEFAULT NULL,
@@ -1128,19 +1235,9 @@ CREATE TABLE `tblregiondirector` (
 -- Dumping data for table `tblregiondirector`
 --
 
-INSERT INTO `tblregiondirector` (`regiondirID`, `regionID`, `memberID`, `serviceYrID`, `dateUpdated`, `updatedBy`, `isActive`) VALUES
-(1, 4, 1, 1, '2023-06-16 10:55:50', 1, 1),
-(2, 4, 1, 1, '2023-06-16 10:55:50', 1, 1),
-(3, 4, 1, 1, '2023-06-16 10:55:50', 1, 1),
-(4, 4, 1, 1, '2023-06-16 10:55:50', 1, 1),
-(5, 4, 1, 1, '2023-06-16 10:55:50', 1, 1),
-(6, 4, 1, 1, '2023-06-16 10:55:50', 1, 1),
-(7, 4, 1, 1, '2023-06-16 10:55:50', 1, 1),
-(8, 4, 1, 1, '2023-06-16 10:55:50', 1, 1),
-(9, 4, 1, 1, '2023-06-16 10:55:50', 1, 1),
-(10, 4, 1, 1, '2023-06-16 10:55:50', 1, 1),
-(11, 4, 1, 1, '2023-06-16 10:55:50', 1, 1),
-(12, 4, 1, 1, '2023-06-16 10:55:50', 1, 1);
+INSERT INTO `tblregiondirector` (`regiondirID`, `regionID`, `memberID`, `ardMemberID`, `serviceYrID`, `dateUpdated`, `updatedBy`, `isActive`) VALUES
+(1, 1, 3, 5, 1, '2023-07-05 13:23:54', 1, 1),
+(2, 2, 4, 0, 1, '2023-07-05 13:29:11', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1243,6 +1340,32 @@ INSERT INTO `tblstates` (`stateID`, `stateName`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tblsubcategory`
+--
+
+CREATE TABLE `tblsubcategory` (
+  `subCatID` int(11) NOT NULL,
+  `categoryID` int(11) NOT NULL,
+  `subcategory` varchar(30) NOT NULL,
+  `subCatDescription` varchar(40) DEFAULT NULL,
+  `dateUpdated` datetime DEFAULT current_timestamp(),
+  `updatedBy` int(11) DEFAULT NULL,
+  `isActive` int(11) DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tblsubcategory`
+--
+
+INSERT INTO `tblsubcategory` (`subCatID`, `categoryID`, `subcategory`, `subCatDescription`, `dateUpdated`, `updatedBy`, `isActive`) VALUES
+(1, 1, 'Diabetes', 'Diabetes Awareness Campaign', '2023-06-30 12:32:21', 1, 1),
+(2, 3, 'Others', 'Other Stories or news', '2023-06-30 13:35:11', 1, 1),
+(3, 2, 'Others', 'For Other Events within and across the d', '2023-07-03 08:58:55', 1, 1),
+(4, 1, 'Service Projects', 'News Update about Clubs Service Projects', '2023-07-03 09:52:36', 1, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tblusers`
 --
 
@@ -1280,6 +1403,13 @@ ALTER TABLE `tblactivitycategory`
   ADD KEY `updatedBy` (`updatedBy`);
 
 --
+-- Indexes for table `tblcategory`
+--
+ALTER TABLE `tblcategory`
+  ADD PRIMARY KEY (`postCatID`),
+  ADD KEY `updatedBy` (`updatedBy`);
+
+--
 -- Indexes for table `tblclubpresidents`
 --
 ALTER TABLE `tblclubpresidents`
@@ -1296,6 +1426,19 @@ ALTER TABLE `tblclubs`
   ADD PRIMARY KEY (`clubID`),
   ADD KEY `regionID` (`regionID`),
   ADD KEY `updatedBy` (`updatedBy`);
+
+--
+-- Indexes for table `tblcomments`
+--
+ALTER TABLE `tblcomments`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `postID` (`post`);
+
+--
+-- Indexes for table `tblcontactentry`
+--
+ALTER TABLE `tblcontactentry`
+  ADD PRIMARY KEY (`entryID`);
 
 --
 -- Indexes for table `tbldistrictofficers`
@@ -1334,6 +1477,15 @@ ALTER TABLE `tbldpteam`
   ADD KEY `memberID` (`memberID`);
 
 --
+-- Indexes for table `tbllcileaders`
+--
+ALTER TABLE `tbllcileaders`
+  ADD PRIMARY KEY (`leaderID`),
+  ADD KEY `dOfficesID` (`dOfficesID`),
+  ADD KEY `serviceYrID` (`serviceYrID`),
+  ADD KEY `updatedBy` (`updatedBy`);
+
+--
 -- Indexes for table `tbllga`
 --
 ALTER TABLE `tbllga`
@@ -1364,15 +1516,8 @@ ALTER TABLE `tblpdp`
 --
 ALTER TABLE `tblpost`
   ADD PRIMARY KEY (`postID`),
-  ADD KEY `postCatID` (`postCatID`),
-  ADD KEY `updatedBy` (`updatedBy`);
-
---
--- Indexes for table `tblcategory`
---
-ALTER TABLE `tblcategory`
-  ADD PRIMARY KEY (`postCatID`),
-  ADD KEY `updatedBy` (`updatedBy`);
+  ADD KEY `updatedBy` (`updatedBy`),
+  ADD KEY `postCatID` (`postCatID`);
 
 --
 -- Indexes for table `tblregion`
@@ -1388,7 +1533,8 @@ ALTER TABLE `tblregiondirector`
   ADD KEY `memberID` (`memberID`),
   ADD KEY `regionID` (`regionID`),
   ADD KEY `serviceYrID` (`serviceYrID`),
-  ADD KEY `updatedBy` (`updatedBy`);
+  ADD KEY `updatedBy` (`updatedBy`),
+  ADD KEY `ardMemberID` (`ardMemberID`);
 
 --
 -- Indexes for table `tblreport`
@@ -1413,6 +1559,14 @@ ALTER TABLE `tblstates`
   ADD PRIMARY KEY (`stateID`);
 
 --
+-- Indexes for table `tblsubcategory`
+--
+ALTER TABLE `tblsubcategory`
+  ADD PRIMARY KEY (`subCatID`),
+  ADD KEY `categoryID` (`categoryID`),
+  ADD KEY `updatedBy` (`updatedBy`);
+
+--
 -- Indexes for table `tblusers`
 --
 ALTER TABLE `tblusers`
@@ -1435,6 +1589,12 @@ ALTER TABLE `tblactivitycategory`
   MODIFY `categoryID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `tblcategory`
+--
+ALTER TABLE `tblcategory`
+  MODIFY `postCatID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `tblclubpresidents`
 --
 ALTER TABLE `tblclubpresidents`
@@ -1444,7 +1604,19 @@ ALTER TABLE `tblclubpresidents`
 -- AUTO_INCREMENT for table `tblclubs`
 --
 ALTER TABLE `tblclubs`
-  MODIFY `clubID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `clubID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `tblcomments`
+--
+ALTER TABLE `tblcomments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tblcontactentry`
+--
+ALTER TABLE `tblcontactentry`
+  MODIFY `entryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbldistrictofficers`
@@ -1456,7 +1628,7 @@ ALTER TABLE `tbldistrictofficers`
 -- AUTO_INCREMENT for table `tbldistrictoffices`
 --
 ALTER TABLE `tbldistrictoffices`
-  MODIFY `dOfficesID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `dOfficesID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tbldpsteam`
@@ -1471,6 +1643,12 @@ ALTER TABLE `tbldpteam`
   MODIFY `teamID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `tbllcileaders`
+--
+ALTER TABLE `tbllcileaders`
+  MODIFY `leaderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `tbllga`
 --
 ALTER TABLE `tbllga`
@@ -1480,7 +1658,7 @@ ALTER TABLE `tbllga`
 -- AUTO_INCREMENT for table `tblmembers`
 --
 ALTER TABLE `tblmembers`
-  MODIFY `memberID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `memberID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tblpdp`
@@ -1492,25 +1670,19 @@ ALTER TABLE `tblpdp`
 -- AUTO_INCREMENT for table `tblpost`
 --
 ALTER TABLE `tblpost`
-  MODIFY `postID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tblcategory`
---
-ALTER TABLE `tblcategory`
-  MODIFY `postCatID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `postID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tblregion`
 --
 ALTER TABLE `tblregion`
-  MODIFY `regionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `regionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tblregiondirector`
 --
 ALTER TABLE `tblregiondirector`
-  MODIFY `regiondirID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `regiondirID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tblreport`
@@ -1529,6 +1701,12 @@ ALTER TABLE `tblserviceyr`
 --
 ALTER TABLE `tblstates`
   MODIFY `stateID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+
+--
+-- AUTO_INCREMENT for table `tblsubcategory`
+--
+ALTER TABLE `tblsubcategory`
+  MODIFY `subCatID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tblusers`
@@ -1554,6 +1732,12 @@ ALTER TABLE `tblactivitycategory`
   ADD CONSTRAINT `tblactivitycategory_ibfk_1` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`);
 
 --
+-- Constraints for table `tblcategory`
+--
+ALTER TABLE `tblcategory`
+  ADD CONSTRAINT `tblcategory_ibfk_1` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`);
+
+--
 -- Constraints for table `tblclubpresidents`
 --
 ALTER TABLE `tblclubpresidents`
@@ -1568,6 +1752,12 @@ ALTER TABLE `tblclubpresidents`
 ALTER TABLE `tblclubs`
   ADD CONSTRAINT `tblclubs_ibfk_1` FOREIGN KEY (`regionID`) REFERENCES `tblregion` (`regionID`),
   ADD CONSTRAINT `tblclubs_ibfk_2` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`);
+
+--
+-- Constraints for table `tblcomments`
+--
+ALTER TABLE `tblcomments`
+  ADD CONSTRAINT `tblcomments_ibfk_1` FOREIGN KEY (`post`) REFERENCES `tblpost` (`postID`);
 
 --
 -- Constraints for table `tbldistrictofficers`
@@ -1602,6 +1792,14 @@ ALTER TABLE `tbldpteam`
   ADD CONSTRAINT `tbldpteam_ibfk_4` FOREIGN KEY (`memberID`) REFERENCES `tblmembers` (`memberID`);
 
 --
+-- Constraints for table `tbllcileaders`
+--
+ALTER TABLE `tbllcileaders`
+  ADD CONSTRAINT `tbllcileaders_ibfk_1` FOREIGN KEY (`dOfficesID`) REFERENCES `tbldistrictoffices` (`dOfficesID`),
+  ADD CONSTRAINT `tbllcileaders_ibfk_2` FOREIGN KEY (`serviceYrID`) REFERENCES `tblserviceyr` (`serviceYrID`),
+  ADD CONSTRAINT `tbllcileaders_ibfk_3` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`);
+
+--
 -- Constraints for table `tbllga`
 --
 ALTER TABLE `tbllga`
@@ -1628,14 +1826,8 @@ ALTER TABLE `tblpdp`
 -- Constraints for table `tblpost`
 --
 ALTER TABLE `tblpost`
-  ADD CONSTRAINT `tblpost_ibfk_1` FOREIGN KEY (`postCatID`) REFERENCES `tblcategory` (`postCatID`),
-  ADD CONSTRAINT `tblpost_ibfk_2` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`);
-
---
--- Constraints for table `tblcategory`
---
-ALTER TABLE `tblcategory`
-  ADD CONSTRAINT `tblcategory_ibfk_1` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`);
+  ADD CONSTRAINT `tblpost_ibfk_2` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`),
+  ADD CONSTRAINT `tblpost_ibfk_3` FOREIGN KEY (`postCatID`) REFERENCES `tblsubcategory` (`subCatID`);
 
 --
 -- Constraints for table `tblregiondirector`
@@ -1659,6 +1851,13 @@ ALTER TABLE `tblreport`
 --
 ALTER TABLE `tblserviceyr`
   ADD CONSTRAINT `tblserviceyr_ibfk_1` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`);
+
+--
+-- Constraints for table `tblsubcategory`
+--
+ALTER TABLE `tblsubcategory`
+  ADD CONSTRAINT `tblsubcategory_ibfk_1` FOREIGN KEY (`categoryID`) REFERENCES `tblcategory` (`postCatID`),
+  ADD CONSTRAINT `tblsubcategory_ibfk_2` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

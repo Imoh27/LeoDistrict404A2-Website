@@ -156,19 +156,19 @@ if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
                                             <select class="form-control" name="region" id="region" required>
                                                 <?php 
                                                 if (!empty($chk_club) || $chk_club != '') { ?>
-                                                <option value="<?php echo htmlentities($chk_club['regionID']); ?>" selected><?php echo htmlentities($chk_club['region']); ?> </option>
+                                                <option value="<?php echo htmlentities($chk_club['regionID']); ?>" selected>Region <?php echo htmlentities($chk_club['region']); ?> </option>
                                                 <?php
                                                 foreach ($result as $region_fetch) {?>
-                                                <option value="<?php echo htmlentities($region_fetch['regionID']); ?>"><?php echo htmlentities($region_fetch['region']); ?></option>
+                                                <option value="<?php echo htmlentities($region_fetch['regionID']); ?>">Region <?php echo htmlentities($region_fetch['region']); ?></option>
                                                 
                                                 <?php } } else {?>
-                                                    <option value="" selected>Select Region </option>
+                                                     <option value="" selected>Select Region </option>
                                                 <?php
 
                                                 foreach ($result as $region_fetch) {
 
                                                     ?>
-                                                <option value="<?php echo htmlentities($region_fetch['regionID']); ?>"><?php echo htmlentities($region_fetch['region']); ?></option>
+                                                <option value="<?php echo htmlentities($region_fetch['regionID']); ?>">Region <?php echo htmlentities($region_fetch['region']); ?></option>
                                                 <?php } } ?>
 
                                             </select>

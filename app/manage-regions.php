@@ -173,6 +173,20 @@ function getBods(val) {
                                             </table>
                                         </div>
                                     </div>
+                                    <?php 
+                                
+                                    
+                                    $RDselect_query = "Select rd.regionID as foreignRID, rd.ardMemberID as foreignARDID, r.region as regionNAME,m.firstName as RDfirstName, m. lastName as RDlastName from  tblregiondirector rd 
+                                    JOIN tblmembers m ON m.memberID = rd.memberID INNER JOIN tblregion r ON r.regionID = m.regionID where rd.serviceYrID = $currentLSYID ";
+                                //    echo $RDselect_query; exit;
+                                   $RDquery = mysqli_query($con, $RDselect_query);
+                                   $rowcount = mysqli_num_rows($RDquery);
+
+                                //    $ardRow = mysqli_fetch_array($query);
+                                //    $ard = $ardRow['ardMemberID'];
+                                //    var_dump($ard); 
+                                   $cnt = 1;
+                                    ?>
                                     <div class="col-md-6 col-sm-12 ms-5 ">
                                         <p class=" text-uppercase font-600 font-secondary text-overflow"
                                            ><a >Region Directors</a>
@@ -190,18 +204,12 @@ function getBods(val) {
                                                         <th>#</th>
                                                         <th> Region Name</th>
                                                         <th>Region Director</th>
-                                                        <!-- <th style="text-align:center">Action</th> -->
+                                                        <th class="text-center">ARD</th>
+                                                        
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                        $select_query = "Select * from  tblregiondirector rd 
-                                                         JOIN tblmembers m ON m.memberID = rd.memberID INNER JOIN tblregion r ON r.regionID = m.regionID where rd.serviceYrID = $currentLSYID ";
-                                                        // echo $select_query; exit;
-                                                        $query = mysqli_query($con, $select_query);
-                                                        $rowcount = mysqli_num_rows($query);
-                                                        $cnt = 1;
-
                                                         if ($rowcount == 0) { ?>
                                                     <tr>
 
@@ -210,7 +218,8 @@ function getBods(val) {
                                                         </td>
                                                     <tr>
                                                         <?php } else {
-                                                            while ($row = mysqli_fetch_array($query)) {
+                                                            while ($row = mysqli_fetch_array($RDquery)) {
+                                                                $ardMemberID = $row['foreignARDID'];
                                                                 ?>
 
                                                     <tr>
@@ -218,18 +227,33 @@ function getBods(val) {
                                                             <?php echo htmlentities($cnt); ?>
                                                         </th>
                                                         <td>
-                                                            <?php echo htmlentities($row['region']); ?>
+                                                           Region  <?php echo htmlentities($row['regionNAME']); ?>
                                                         </td>
                                                         <td>
-                                                            <?php echo htmlentities($row['firstName'] . ' ' . $row['lastName']); ?>
+                                                            <?php echo htmlentities($row['RDfirstName'] . ' ' . $row['RDlastName']); ?>
                                                         </td>
+                                                        <td style="text-align:center">
+                                                        
 
-                                                        <!-- <td style="text-align:center">
+                                                        <?php 
+                                                            if ($row['foreignARDID'] == 0) {?>
                                                             <a
-                                                                href="add-region-director?rdid=<?php echo htmlentities($row['regiondirID']); ?>"><i
-                                                                    class="fa fa-pencil"
-                                                                    style="color: #29b6f6;"></i>&nbsp; </a>
-                                                        </td> -->
+                                                            href="add-region-director?action=addARD"><i
+                                                            class="fa fa-plus"
+                                                            style="color: #29b6f6;"></i>&nbsp; Add ARD</a>
+                                                            <?php } else {
+                                                                    // $ardSelect = "Select rd.regionID as foreignRID, rd.ardMemberID as foreignARDID, m.firstName as RDfirstName, m. lastName as RDlastName from  tblregiondirector rd 
+                                                                    // JOIN tblmembers m ON m.memberID = rd.memberID INNER JOIN tblregion r ON r.regionID = m.regionID where rd.serviceYrID = $currentLSYID AND rd.ardMemberID != 0";
+                                                                    $ardSelect = "Select * from   tblmembers m where memberID =  $ardMemberID ";
+                                                                //    echo $ardSelect; exit;
+                                                                   $ARDquery = mysqli_query($con, $ardSelect);
+                                                                   $ardrow = mysqli_fetch_array($ARDquery);
+                                                                   if (!empty($ardrow)) {
+                                                                    $ardname = $ardrow['firstName']. ' ' . $ardrow['lastName'];
+                                                                   }
+                                                                
+                                                                ?><?php echo htmlentities($ardname); }?>
+                                                        </td>
                                                     </tr>
                                                     <?php
                                                                 $cnt++;

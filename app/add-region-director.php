@@ -7,46 +7,66 @@ if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
     header('location:index');
 } else {
     global $con;
-    $rdID = intval($_GET['rdid']);
+     if (!empty($_GET['rdid'])) {
+        $rdID = $_GET['rdid'];
+    }
+     if (!empty($_GET['action'])) {
+        $addARD = $_GET['action'];
+        // echo $addARD; exit;
+    }
     $lsyQuery = "SELECT *  From tblserviceyr ORDER BY serviceYrID  desc";
     $sth = $con->query($lsyQuery);
     $result = $sth->fetch(PDO::FETCH_ASSOC);
     $currentLSYID = $result['serviceYrID'] ;
-    // echo $rdnID;     exit;
-
-    if (isset($_POST['addRegDir'])) {
-        $regionID = $_POST['region'];
-        // $clubID = $_POST['clubs'];
-        $memberID = $_POST['members'];
-        $added_by = $_SESSION['login'];
+    
+    $regionID = $_POST['region'];
+    // $clubID = $_POST['clubs'];
+    $memberID = $_POST['members'];
+    $added_by = $_SESSION['login'];
+    
+    
+    $session_user = "SELECT *  From tblusers WHERE loginID = '$added_by'";
+    $sth = $con->query($session_user);
+    $user_session = $sth->fetch(PDO::FETCH_OBJ);
+    $added_by = $user_session->userID;
+    
+    if (isset($_POST['addRD'])) {
         $isActive = 1;
-        
-        $session_user = "SELECT *  From tblusers WHERE loginID = '$added_by'";
-        $sth = $con->query($session_user);
-        $result = $sth->fetch(PDO::FETCH_OBJ);
-        $added_by = $result->userID;
+        $tblRDquery = "SELECT * From  tblregiondirector WHERE regionID = $regionID AND memberID = $memberID";
+        // echo $tblRDquery;     exit;
+        $sth = $con->query($tblRDquery);
+        $rdRECORDS = $sth->fetch(PDO::FETCH_ASSOC);
 
-        $select_club = "SELECT * From  tblregiondirector WHERE regionID = $regionID AND memberID = '$memberID'";
-        // echo $select_club;     exit;
-        $sth = $con->query($select_club);
-        $result = $sth->fetch(PDO::FETCH_ASSOC);
-        if (!empty($result)) {
-            $error = "Duplicate Data Entry, Already Assigned! ";
-        } else {
-            $insert = "INSERT INTO tblregiondirector VALUES(NULL, $regionID, $memberID, $currentLSYID, NOW(), $added_by, $isActive)";
-            // echo $insert; exit;
-            $query = $con->query($insert);
-            if ($query == TRUE) {
-
-
-                $msg = "Region Director Successfully Added ";
-
+        $ardMemberID =  0;
+            if (!empty($rdRECORDS)) {
+                $error = "Duplicate Data Entry, Already Assigned! ";
+            } else {
+                $insert = "INSERT INTO tblregiondirector VALUES(NULL, $regionID, $memberID, $ardMemberID, $currentLSYID, NOW(), $added_by, $isActive)";
+                // echo $insert; exit;
+                $query = $con->query($insert);
+                if ($query == TRUE) {
+    
+    
+                    $msg = "Region Director Successfully Added ";
+    
+                } else {
+                    $error = "Something went wrong . Please try again.";
+                }
+            }
+        }
+        if (isset($_POST['addARD'])) {
+            $update = "UPDATE tblregiondirector SET ardMemberID  =  $memberID WHERE regionID = $regionID";
+            // echo $update; exit;
+            $ardQuery = $con->query($update);
+            if ($ardQuery == TRUE) {
+    
+    
+                $msg = "Associate Region Director Successfully Added ";
+    
             } else {
                 $error = "Something went wrong . Please try again.";
             }
         }
-    }
-
 
     ?>
 
@@ -149,7 +169,7 @@ function getMembers(val) {
 
                         <div class="row">
                             <div class="col-md-6">
-                                <form class="form-horizontal" name="addRegDir" method="post">
+                                <form class="form-horizontal" name="addRD" method="post">
                                     <div class="form-group">
                                         <?php
                                             $select = "SELECT * FROM tblregion";
@@ -180,7 +200,7 @@ function getMembers(val) {
                                                     // while ($result = mysqli_fetch_array($ret)) {
                                                     ?>
                                                 <option value="<?php echo htmlentities($regions['regionID']); ?>">
-                                                    <?php echo htmlentities($regions['region']); ?></option>
+                                                    Region <?php echo htmlentities($regions['region']); ?></option>
                                                 <?php } ?>
                                             </select>
                                         </div>
@@ -204,11 +224,9 @@ function getMembers(val) {
                                     <div class="form-group">
                                         <label class="col-md-3 control-label"></label>
                                         <div class="col-md-9">
-                                            <button type="submit" name="addRegDir"
-                                                class=" text-center btn btn-success waves-effect waves-light"></i>&nbsp;<?php if (!empty($rdID)) {echo "Update ";}else{?>
-                                                Add <?php }?>
-
-                                            </button>
+                                            <button type="submit" name="<?php if ($addARD || $addARD != '') {?>addARD<?php }else{?>addRD<?php }?>"
+                                                class=" text-center btn btn-success waves-effect waves-light"></i><?php if (!empty($rdID)) {?> Update <?php }else{?> Add <?php } ?>
+                                             </button>
                                         </div>
                                     </div>
 

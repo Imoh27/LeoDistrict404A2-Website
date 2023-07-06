@@ -2,6 +2,7 @@
 session_start();
 include('app/includes/config.php');
 $postid = intval($_GET['nid']);
+$subcatID = intval($_GET['sc']);
 //Genrating CSRF Token
 if (empty($_SESSION['token'])) {
   $_SESSION['token'] = bin2hex(random_bytes(32));
@@ -14,7 +15,7 @@ if (isset($_POST['submitComment'])) {
       $name = $_POST['name'];
       $email = $_POST['email'];
       $comment = $_POST['comment'];
-      
+
       $st1 = '0';
       $insertComment = "insert into tblcomments values(NULL, $postid,'$name','$email','$comment', now(), $st1)";
       // echo $insertComment; exit;
@@ -68,9 +69,12 @@ if (isset($_POST['submitComment'])) {
               <h2 class="card-title" style="text-transform:capitalize !important">
                 <?php echo htmlentities($row['postTitle']); ?>
               </h2>
-              <p><b>Category : </b> <?php echo htmlentities($row['postCategory']); ?> &nbsp; | &nbsp; <br> Subcategory: </b><a href="category.php?catid=<?php echo htmlentities($row['postCatID']) ?>"><?php echo htmlentities($row['subcategory']); ?></a> |
-                <b>Sub Category : </b> <b> Posted on </b>
-                <?php echo htmlentities($row['postUpdated']); ?>
+              <p><b>Category : </b>
+                <?php echo htmlentities($row['postCategory']); ?> &nbsp; | <b>
+                  Subcategory: </b><a href="category.php?catid=<?php echo htmlentities($row['postCatID']) ?>"><?php echo htmlentities($row['subcategory']); ?></a>
+                |
+                <b> Posted on </b>
+                <?php echo htmlentities(date('m-d-Y', strtotime($row['postUpdated']))); ?>
               </p>
               <hr />
 
@@ -91,20 +95,45 @@ if (isset($_POST['submitComment'])) {
           </div>
         <?php } ?>
 
-
-
-
-
-
+       
+          <h4 class="card-header mb-2">Related News</h4>
+          <div class="container-fluid row">
+              <?php
+              $subCat = "select * from tblsubcategory WHERE subCatID = $subcatID";
+              //  echo $subCat; exit;
+              $query = mysqli_query($con, $subCat);
+              $rowSubCat = mysqli_fetch_array($query);
+              $SubCatId = $rowSubCat['subCatID'];
+      
+              $postSelect = "SELECT * from 
+                    tblpost p join tblsubcategory s on s.subCatID  =p.postCatID  Inner join  tblcategory c on  
+                    c.postCatID =s.categoryID  where p.postCatID = $SubCatId AND   p.postID NOT IN ('$postid')  LIMIT 3 ";
+              //  echo $postSelect; exit;
+              $Postquery = mysqli_query($con, $postSelect);
+              while ($row = mysqli_fetch_array($Postquery)) {?>
+                <div class="col-md-4 col-lg-4 card mb-4 mx-1">
+                  <a href="news-details.php?sc=<?php echo htmlentities($row['subCatID']);?>&&nid=<?php echo htmlentities($row['postID']) ?>"><img class="card-img-top"
+                      src="app/postimages/<?php echo htmlentities($row['postPhoto']); ?>"
+                      alt="<?php echo htmlentities($row['postTitle']); ?>"></a>
+                  <div class="card-body">
+                    <a href="news-details.php?sc=<?php echo htmlentities($row['subCatID']);?>&&nid=<?php echo htmlentities($row['postID']) ?>">
+                      <h6 class="card-title" style="text-transform:capitalize !important">
+                        <?php echo htmlentities($row['postTitle']); ?>
+                      </h6>
+                    </a>
+                  </div>
+                </div>
+              <?php } ?>
+          </div>
       </div>
-
+    
       <!-- Sidebar Widgets Column -->
       <?php include('app/includes/sidebar.php'); ?>
     </div>
     <!-- /.row -->
     <!---Comment Section --->
 
-    <div class="row" >
+    <div class="row">
       <div class="col-md-8">
         <div class="card my-4">
           <h5 class="card-header">Leave a Comment:</h5>
