@@ -104,16 +104,18 @@ include('includes/config.php');
           </li>
           <li class="page-item"><a href="?pageno=<?php echo $total_pages; ?>" class="page-link">Last</a></li>
         </ul>
+  
 
       </div>
-
+      
       <!-- Sidebar Widgets Column -->
       <?php include('includes/sidebar.php'); ?>
     </div>
     <!-- /.row -->
-
+    
   </div>
   <!-- /.container -->
+
 
   <!-- Footer -->
   <?php include('includes/footer.php'); ?>

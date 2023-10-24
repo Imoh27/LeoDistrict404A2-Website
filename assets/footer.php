@@ -1,7 +1,7 @@
 
 <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
-        <div class="container py-5">
-            <div class="row g-5">
+       
+            <div class="row mb-4">
                 <div class="col-sm-1"> </div>
                 <div class="col-lg-4 col-md-6">
                     <h5 class="text-light mb-4"><img class="img-wrap" src="img/dplogo23-24.jpg" alt="" height="50"> Leo
@@ -9,7 +9,7 @@
                     <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Lions Park, Marian Road Calabar</p>
                     <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+2348063652747</p>
                     <p class="mb-2"><a class="text-light" href="mailto:leodistrict404A2nig@yahoo.com"><i
-                                class="fa fa-envelope me-3"></i>leodistrict404A2nig@yahoo.com</a></p>
+                                class="fa fa-envelope me-3"></i>info@leodistrict404a2.com.ng</a></p>
                     <div class="d-flex pt-2 ms-lg-4">
                         <a class="btn btn-outline-light btn-social"
                             href="https://www.facebook.com/groups/leodistirct404a/"><i
@@ -23,27 +23,47 @@
                         <!-- <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a> -->
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 ">
+                <div class="col-lg-4">
                     <h4 class="text-light mb-4">Our Global Causes</h4>
-                    <p class="text-light"><a class="text-light"
-                            href="https://www.lionsclubs.org/en/start-our-global-causes/diabetes" target="_blank"><img class="me-2"
-                                src="img/diabetes-icon.png" alt="" height="20"> Diabetes</a></p>
-                    <!-- <p class="mb-4">Hunger</p> -->
-                    <p class="text-light"><a class="text-light"
-                            href="https://www.lionsclubs.org/en/start-our-global-causes/vision" target="_blank"><img class="me-2"
-                                src="img/sight.png" alt="" height="20">Vision</a></p>
-                    <p class="text-light"><a class="text-light"
-                            href="https://www.lionsclubs.org/en/start-our-global-causes/hunger" target="_blank"><img class="me-2"
-                                src="img/hunger-icon.png" alt="" height="20">Hunger</a></p>
-                    <p class="text-light"><a class="text-light"
-                            href="https://www.lionsclubs.org/en/start-our-global-causes/environment" target="_blank"><img class="me-2"
-                                src="img/environment.png" alt="" height="20">Environmment</a></p>
-                    <p class="text-light"> <a class="text-light"
-                            href="https://www.lionsclubs.org/en/start-our-global-causes/childhood-cancer" target="_blank"><img
-                                class="me-2" src="img/childhood-cancer.png" alt="" height="20">Paediatric Cancer</a>
-                    </p>
+                    <div class="row ">
+                        <div class="col-lg-6 col-md-6">
+                            <p class="text-light"><a class="text-light"
+                                href="https://www.lionsclubs.org/en/start-our-global-causes/diabetes" target="_blank"><img class="me-2"
+                                    src="img/diabetes-icon.png" alt="" height="20"> Diabetes</a></p>
+                            <!-- <p class="mb-4">Hunger</p> -->
+                            <p class="text-light"><a class="text-light"
+                                    href="https://www.lionsclubs.org/en/start-our-global-causes/vision" target="_blank"><img class="me-2"
+                                        src="img/sight.png" alt="" height="20">Vision</a></p>
+                            <p class="text-light"><a class="text-light"
+                                    href="https://www.lionsclubs.org/en/start-our-global-causes/hunger" target="_blank"><img class="me-2"
+                                        src="img/hunger-icon.png" alt="" height="20">Hunger</a></p>
+                            <p class="text-light"><a class="text-light"
+                                    href="https://www.lionsclubs.org/en/start-our-global-causes/environment" target="_blank"><img class="me-2"
+                                        src="img/environment.png" alt="" height="20">Environmment</a></p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 ">
+                            <!-- <h4 class="text-light mb-4"></h4> -->
+                            
+                            <p class="text-light"> <a class="text-light"
+                                    href="https://www.lionsclubs.org/en/start-our-global-causes/childhood-cancer" target="_blank"><img
+                                        class="me-2" src="img/childhood-cancer.png" alt="" height="20">Paediatric Cancer</a>
+                            </p>
+                            <p class="text-light"> <a class="text-light"
+                                    href="https://www.lionsclubs.org/en/give-our-focus-areas/youth" target="_blank"><img
+                                        class="me-2" src="img/youth.png" alt="" height="20">Youth</a>
+                            </p>
+                            <p class="text-light"> <a class="text-light"
+                                    href="https://www.lionsclubs.org/en/give-our-focus-areas/humanitarian" target="_blank"><img
+                                        class="me-2" src="img/humanitarian.png" alt="" height="20">Humanitarian</a>
+                            </p>
+                            <p class="text-light"> <a class="text-light"
+                                    href="https://www.lionsclubs.org/en/give-our-focus-areas/disaster-relief" target="_blank"><img
+                                        class="me-2" src="img/disaster-relief.png" alt="" height="20">Disaster Relief</a>
+                            </p>
+                        </div>
+                    </div>
+                   
                 </div>
-
                 <div class="col-lg-3 col-md-6">
                     <h4 class="text-light mb-4">Newsletter</h4>
                     <p>Enter your email to receive notification on our monthly Newsletter here</p>
@@ -57,16 +77,15 @@
                     </div>
                 </div>
             </div>
-        </div>
         <div class="container">
             <div class="copyright">
                 <div class="row">
-                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        &copy; <?php echo date('Y') ?> <a class="border-bottom" href="">Leo District 404A2 Nigeria</a>,
+                    <div class="col-md-5 text-center text-md-start mb-3 mb-md-0">
+                        &copy; <?php echo date('Y') ?> <a  href="">Leo District 404A2 Nigeria</a>,
                         All Right Reserved.
                     </div>
-                    <div class="col-md-6 text-center text-md-end">
-                        Powered by Leo District 404A2 ICT & Data Management Team.
+                    <div class="col-md-7 text-center text-md-end">
+                        Powered by <a href="https://lionsdistrict404a2.org" target="_blank">Lions District 404A2 Nigeria</a> | Built with <i class="fa fa-heart"></i> by ICT & Data Management Team.
                     </div>
                 </div>
             </div>

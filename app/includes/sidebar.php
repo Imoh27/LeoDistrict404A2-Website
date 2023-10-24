@@ -70,8 +70,8 @@
         <div class="card-body">
           <h4 class="card-header">Advertise Here</h4>
           <img class="img-fluid" src="/../img/ads.png" alt="" srcset=""><hr>
-          <img class="img-fluid" src="/../img/ads.png" alt="" srcset=""><hr>
-          <img class="img-fluid" src="/../img/ads.png" alt="" srcset="">
+          <img class="img-fluid" src="/../img/skyscrapper.png" alt="" srcset=""><hr>
+          <!-- <img class="img-fluid" src="/../img/ads.png" alt="" srcset=""> -->
         </div>
       </div>
 

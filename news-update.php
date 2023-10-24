@@ -139,14 +139,16 @@ global $con;
           </li>
           <li class="page-item"><a href="?pageno=<?php echo $total_pages; ?>" class="page-link">Last</a></li>
         </ul>
-
+        <div class="col-sm-12 text-center"><img class="img-fluid "  src="img/loaderboard--.png" alt=""></div>
+        
+        
       </div>
-
+      
       <!-- Sidebar Widgets Column -->
       <?php include('app/includes/sidebar.php'); ?>
     </div>
     <!-- /.row -->
-
+    
   </div>
   <!-- /.container -->
 

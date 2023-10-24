@@ -38,6 +38,7 @@
                     <ul class="list-unstyled">
                         <li><a href="district-offices">District Offices</a></li>
                         <li><a href="dp-team">DP Team</a></li>
+                        <li><a href="core-officers.php">Core Officers</a></li>
                         <li><a href="lci-leaders.php">LCI Leaders</a></li>
                         <li><a href="past-dp.php" class="waves-effect"><span>Past Leo Leaders</span></a></li>
                         <!-- <li ><a href="boards-history">Boards History</a></li> -->
@@ -67,7 +68,6 @@
                 </li>
 
 
-
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-format-list-bulleted"></i>
                         <span> Category </span> <span class="menu-arrow"></span></a>
@@ -87,6 +87,8 @@
                         <li><a href="trashed-subcategories">Trashed Sub Category</a></li>
                     </ul>
                 </li>
+
+                <li><a href="add-gallery" class="waves-effect"><i class="mdi mdi-book-multiple-variant"></i> <span>Gallery</span></a></li>
 
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="mdi ion-speakerphone"></i> <span> Posts
@@ -110,7 +112,7 @@
                     <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-lightbulb-o"></i> <span> Activity
                         </span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="add-activity">Add Activity</a></li>
+                        <!-- <li><a href="add-activity">Add Activity</a></li> -->
                         <li><a href="manage-activity">Manage Activity</a></li>
                         <!-- <li><a href="gallery">Upload Photos</a></li> -->
                     </ul>

@@ -12,9 +12,9 @@ if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
         $region = $_POST['region'];
         $clubs = $_POST['clubs'];
         $memberNo = $_POST['memberNo'];
-        $firstname = $_POST['firstname'];
-        $middlename = $_POST['middlename'];
-        $lastname = $_POST['lastname'];
+        $firstname = strtolower($_POST['firstname']);
+        $middlename = strtolower($_POST['middlename']);
+        $lastname = strtolower($_POST['lastname']);
         $email = $_POST['email'];
         $phone = $_POST['phone'];
         $altPhone = $_POST['altPhone'];
@@ -90,9 +90,9 @@ if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
         $region = $_POST['region'];
         $clubs = $_POST['clubs'];
         $memberNo = $_POST['memberNo'];
-        $firstname = $_POST['firstname'];
-        $middlename = $_POST['middlename'];
-        $lastname = $_POST['lastname'];
+        $firstname = strtolower($_POST['firstname']);
+        $middlename = strtolower($_POST['middlename']);
+        $lastname = strtolower($_POST['lastname']);
         $email = $_POST['email'];
         $phone = $_POST['phone'];
         $altPhone = $_POST['altPhone'];
@@ -319,7 +319,7 @@ if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
                                                 if (!empty($fetchresult) || $leoID) {?>
 
                                                 <option value="<?php echo htmlentities($fetchresult['regionID'])?>"
-                                                    selected><?php echo htmlentities($fetchresult['region'])?> </option>
+                                                    selected>Region <?php echo htmlentities($fetchresult['region'])?> </option>
 
                                                 <?php } else{?>
                                                 <option value="" selected>Select Region </option>
@@ -363,7 +363,7 @@ if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
                                             <input type="text" class="form-control"
                                                 value="<?php echo htmlentities($fetchresult['membershipNo'])?>"
                                                 name="memberNo"
-                                                placeholder="<?php  if (empty($fetchresult) || !$leoID) {?>This field is not editable<?php } ?>"
+                                                placeholder="<?php  if (empty($fetchresult) || !$leoID) {?>Can't be Modified<?php } ?>"
                                                 <?php  if (!empty($fetchresult) || $leoID) {?> readonly <?php } ?>
                                                 required>
                                         </div>

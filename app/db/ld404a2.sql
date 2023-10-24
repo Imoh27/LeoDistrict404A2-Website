@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 06, 2023 at 08:48 AM
+-- Generation Time: Sep 26, 2023 at 07:27 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -24,33 +24,29 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblactivityareas`
+-- Table structure for table `tblactivity`
 --
 
-CREATE TABLE `tblactivityareas` (
-  `areasID` int(11) NOT NULL,
+CREATE TABLE `tblactivity` (
+  `activityID` int(11) NOT NULL,
   `activityCatID` int(11) DEFAULT NULL,
-  `areaName` varchar(50) NOT NULL,
-  `areaDescription` mediumtext NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `activityDesc` mediumtext DEFAULT NULL,
+  `activityLocation` varchar(100) NOT NULL,
+  `startDate` date NOT NULL,
+  `endDate` date NOT NULL,
+  `activityFoto` varchar(200) NOT NULL,
   `dateUpdated` datetime DEFAULT current_timestamp(),
-  `updatedBy` int(11) DEFAULT NULL,
-  `isActive` int(1) DEFAULT NULL
+  `isActive` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `tblactivitycategory`
+-- Dumping data for table `tblactivity`
 --
 
-CREATE TABLE `tblactivitycategory` (
-  `categoryID` int(11) NOT NULL,
-  `categoryName` varchar(50) NOT NULL,
-  `Description` varchar(200) NOT NULL,
-  `dateUpdated` datetime DEFAULT current_timestamp(),
-  `updatedBy` int(11) DEFAULT NULL,
-  `isActive` int(1) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `tblactivity` (`activityID`, `activityCatID`, `title`, `activityDesc`, `activityLocation`, `startDate`, `endDate`, `activityFoto`, `dateUpdated`, `isActive`) VALUES
+(1, 1, 'leo district & club officers training', ' Training of Leo District and Club Officers for 2023/2024 Lions Service Year. Its PRomises to fun and engaging', 'hogis luxury suite, state housing, calabar', '2023-08-24', '2023-08-24', '0e11c7aaabda6f91d7e151ff10843c8a.jpg', '2023-07-25 18:04:09', 0),
+(2, 1, 'leo district & club officers training', ' Training of Leo District and Club Officers for 2023/2024 Lions Service Year. Its PRomises to fun and engaging', 'hogis luxury suite, state housing, calabar', '2023-08-24', '2023-08-24', '0e11c7aaabda6f91d7e151ff10843c8a.jpg', '2023-07-25 18:04:09', 1);
 
 -- --------------------------------------------------------
 
@@ -74,7 +70,8 @@ CREATE TABLE `tblcategory` (
 INSERT INTO `tblcategory` (`postCatID`, `postCategory`, `CatDescription`, `dateUpdated`, `updatedBy`, `isActive`) VALUES
 (1, 'Project', 'Information about Districts Region and Club Projects', '2023-06-30 12:17:03', 1, 1),
 (2, 'Events', 'Information about Various Events within and across Club, Regions, District and Multiple District', '2023-06-29 16:02:33', 1, 1),
-(3, 'Other', 'Other News or stories', '2023-06-30 13:34:34', 1, 1);
+(3, 'Other', 'Other News or stories', '2023-06-30 13:34:34', 1, 1),
+(4, 'Meetings', 'FOr MD DIstrict, Region and Club activities', '2023-07-25 12:03:44', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1143,7 +1140,10 @@ INSERT INTO `tblmembers` (`memberID`, `clubID`, `regionID`, `membershipNo`, `fir
 (2, 2, 4, '5352040', 'MIchael', 'Okon', '', 'mikeokon@gmail.com', 'Male', '08144640312', '09069351146', 'someWhere in Calabar', 'Single', 'Student', 'Calabar', 9, 9, 171, ' 2016', '1994-01-13', 'edf8c765c54d669360bbe30274480fa5.jpg', '2023-06-19 09:19:52', 1, 0),
 (3, 4, 1, '5463844', 'Michael', 'Aderonke', '', 'mikeaderonke@gmail.com', 'Male', '07066556655', '09054342322', 'someWhere in FUT Minna', 'Single', 'Student', 'Minna', 27, 13, 252, ' 2020', '1998-02-12', '347e1cb939a752dbdeae4bf07343648a.jpg', '2023-07-05 12:50:27', 1, 1),
 (4, 9, 2, '6343533', 'Blessing ', 'Okon', '', 'blissokon@yahoo.com', 'Female', '07088787655', '', 'someWhere in Oron', 'Single', 'Business', 'Oron', 3, 3, 63, ' 2017', '1996-07-09', '02a26cbee06173efdef34016424df662.jpg', '2023-07-05 12:55:54', 1, 1),
-(5, 12, 1, '5465463', 'Lovelyn', 'Chinyeaka', '', 'chinyeaka_love@yahoo.com', 'Female', '09166554533', '', 'someWhere in FUT Minna', 'Single', 'Student', 'Minna', 27, 17, 299, ' 2021', '1999-11-09', '61a4dc42165953132180492efdfe11d2.jpg', '2023-07-05 13:28:43', 1, 1);
+(5, 12, 1, '5465463', 'Lovelyn', 'Chinyeaka', '', 'chinyeaka_love@yahoo.com', 'Female', '09166554533', '', 'someWhere in FUT Minna', 'Single', 'Student', 'Minna', 27, 17, 299, ' 2021', '1999-11-09', '61a4dc42165953132180492efdfe11d2.jpg', '2023-07-05 13:28:43', 1, 1),
+(14, 2, 4, '5353532', 'LUCY', 'ANDESHINA', '', 'teacher@demo.com', 'Female', '08076767676', '09087878787', 'Lions Park Marian', 'Married', 'Student', 'Calabar', 15, 15, 280, ' 2008', '2023-07-19', 'c26be60cfd1ba40772b5ac48b95ab19b.png', '2023-07-22 16:18:14', NULL, 1),
+(15, 3, 4, '5438769', 'Glory', 'Essien', '', 'glory_essien@gmail.com', 'Female', '09087453625', '', 'Lions Park Marian', 'Single', 'Teacher', 'Calabar', 9, 9, 172, ' 2015', '1995-06-06', 'c26be60cfd1ba40772b5ac48b95ab19b.png', '2023-07-22 17:44:44', 1, 1),
+(16, 3, 4, '6545345', 'Blessing', 'Eyo', '', 'blessingeyo@gmail.com', 'Female', '08086577634', '', 'Lions Park Marian', 'Single', 'Student', 'Calabar', 9, 9, 177, ' 2008', '2010-08-03', 'd275416445e6fa9cd7c193d0a3c64d94.jpg', '2023-07-27 14:45:31', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -1388,19 +1388,11 @@ INSERT INTO `tblusers` (`userID`, `loginID`, `loginPWD`, `dateUpdated`) VALUES
 --
 
 --
--- Indexes for table `tblactivityareas`
+-- Indexes for table `tblactivity`
 --
-ALTER TABLE `tblactivityareas`
-  ADD PRIMARY KEY (`areasID`),
-  ADD KEY `updatedBy` (`updatedBy`),
+ALTER TABLE `tblactivity`
+  ADD PRIMARY KEY (`activityID`),
   ADD KEY `activityCatID` (`activityCatID`);
-
---
--- Indexes for table `tblactivitycategory`
---
-ALTER TABLE `tblactivitycategory`
-  ADD PRIMARY KEY (`categoryID`),
-  ADD KEY `updatedBy` (`updatedBy`);
 
 --
 -- Indexes for table `tblcategory`
@@ -1577,22 +1569,16 @@ ALTER TABLE `tblusers`
 --
 
 --
--- AUTO_INCREMENT for table `tblactivityareas`
+-- AUTO_INCREMENT for table `tblactivity`
 --
-ALTER TABLE `tblactivityareas`
-  MODIFY `areasID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tblactivitycategory`
---
-ALTER TABLE `tblactivitycategory`
-  MODIFY `categoryID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `tblactivity`
+  MODIFY `activityID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tblcategory`
 --
 ALTER TABLE `tblcategory`
-  MODIFY `postCatID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `postCatID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tblclubpresidents`
@@ -1658,7 +1644,7 @@ ALTER TABLE `tbllga`
 -- AUTO_INCREMENT for table `tblmembers`
 --
 ALTER TABLE `tblmembers`
-  MODIFY `memberID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `memberID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `tblpdp`
@@ -1694,7 +1680,7 @@ ALTER TABLE `tblreport`
 -- AUTO_INCREMENT for table `tblserviceyr`
 --
 ALTER TABLE `tblserviceyr`
-  MODIFY `serviceYrID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `serviceYrID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tblstates`
@@ -1719,17 +1705,10 @@ ALTER TABLE `tblusers`
 --
 
 --
--- Constraints for table `tblactivityareas`
+-- Constraints for table `tblactivity`
 --
-ALTER TABLE `tblactivityareas`
-  ADD CONSTRAINT `tblactivityareas_ibfk_1` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`),
-  ADD CONSTRAINT `tblactivityareas_ibfk_2` FOREIGN KEY (`activityCatID`) REFERENCES `tblactivitycategory` (`categoryID`);
-
---
--- Constraints for table `tblactivitycategory`
---
-ALTER TABLE `tblactivitycategory`
-  ADD CONSTRAINT `tblactivitycategory_ibfk_1` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`);
+ALTER TABLE `tblactivity`
+  ADD CONSTRAINT `tblactivity_ibfk_1` FOREIGN KEY (`activityCatID`) REFERENCES `tblcategory` (`postCatID`);
 
 --
 -- Constraints for table `tblcategory`
@@ -1839,14 +1818,6 @@ ALTER TABLE `tblregiondirector`
   ADD CONSTRAINT `tblregiondirector_ibfk_4` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`);
 
 --
--- Constraints for table `tblreport`
---
-ALTER TABLE `tblreport`
-  ADD CONSTRAINT `tblreport_ibfk_1` FOREIGN KEY (`clubID`) REFERENCES `tblclubs` (`clubID`),
-  ADD CONSTRAINT `tblreport_ibfk_2` FOREIGN KEY (`areasID`) REFERENCES `tblactivityareas` (`areasID`),
-  ADD CONSTRAINT `tblreport_ibfk_3` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`);
-
---
 -- Constraints for table `tblserviceyr`
 --
 ALTER TABLE `tblserviceyr`
@@ -1856,8 +1827,7 @@ ALTER TABLE `tblserviceyr`
 -- Constraints for table `tblsubcategory`
 --
 ALTER TABLE `tblsubcategory`
-  ADD CONSTRAINT `tblsubcategory_ibfk_1` FOREIGN KEY (`categoryID`) REFERENCES `tblcategory` (`postCatID`),
-  ADD CONSTRAINT `tblsubcategory_ibfk_2` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`);
+  ADD CONSTRAINT `tblsubcategory_ibfk_1` FOREIGN KEY (`categoryID`) REFERENCES `tblcategory` (`postCatID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

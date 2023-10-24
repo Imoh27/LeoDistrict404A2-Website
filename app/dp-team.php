@@ -235,7 +235,7 @@ if (strlen($_SESSION['login']) == 0) {
 
                         <!-- Start Add team -->
                         <div class=" col-md-12 " id="addPosition"
-                                style="display:none; !important">
+                                style="display:none !important; ">
                                 <div class="col-md-6 col-md-offset-2">
                                     <p class="text-uppercase font-600 font-secondary text-center"><a>Add DP's Team</a>
 

@@ -1,4 +1,5 @@
 <?php include('assets/header.php'); ?>
+<title>Leo District 404A2 -- About our District</title>
 
 <body>
     <!-- Spinner Start -->
