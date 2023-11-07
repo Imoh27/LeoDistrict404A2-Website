@@ -35,7 +35,7 @@ if (strlen($_SESSION['login']) == 0) {
             echo "<script>alert('Invalid format. Only jpg / jpeg/ png /gif format allowed');</script>";
         } else {
             //rename the image file
-            $imgnewfile = md5($imgfile) . $extension;
+            $imgnewfile = md5($imgfile) .'.'. $extension;
             // Code for move image into directory
             move_uploaded_file($_FILES["postimage"]["tmp_name"], "postimages/" . $imgnewfile);
 
@@ -64,7 +64,7 @@ if (strlen($_SESSION['login']) == 0) {
                 echo "<script>alert('Invalid format. Only jpg / jpeg/ png /gif format allowed');</script>";
             } else {
                 //rename the image file
-                $imgnewfile = md5($imgfile) . $extension;
+                $imgnewfile = md5($imgfile) .'.'. $extension;
                 // Code for move image into directory
             }}
                 move_uploaded_file($_FILES["postimage"]["tmp_name"], "postimages/" . $imgnewfile);

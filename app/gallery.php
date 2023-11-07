@@ -5,44 +5,47 @@ error_reporting(0);
 if (strlen($_SESSION['login']) == 0) {
     header('location:index');
 } else {
-    $active  = $_SESSION['login'];
-    // For adding post  
-    if (isset($_POST['submit'])) {
+    $active = $_SESSION['login'];
+    $session_user = "SELECT *  From tblusers WHERE loginID = '$active'";
+    $query = mysqli_query($con, $session_user);
+    $result = mysqli_fetch_assoc($query);
+    $active = $result['userID'];
 
+    // For adding activity  
+    if (isset($_POST['submit'])) {
+        
         $activity_id = $_POST['activity'];
         $imgfile = $_FILES["activity_images"]["name"];
         $imgsize = $_FILES["activity_images"]["size"];
-
         // loop Through the file
         $countFiles = count($_FILES['activity_images']['name']);
         for ($i = 0; $i < $countFiles; $i++) {
-            $imgfile = $_FILES['activity_images']['name'][$i];
+            $imgfile = strtolower($_FILES['activity_images']['name'][$i]);
 
             // get the image extension
             $extension = substr($imgfile, strlen($imgfile) - 4, strlen($imgfile));
             // allowed extensions
             $allowed_extensions = array(".jpg", "jpeg", ".png", ".gif");
             // Validation for allowed extensions .in_array() function searches an array for a specific value.
-            if($imgsize[$i] > 2000000){
-                echo "<script>alert('OOP!. Maximum File Size of 2mb Exceeded');</script>"; 
+            if($imgsize[$i] > 20000000){
+                echo "<script>alert('OOP!. Maximum File Size of 20mb Exceeded');</script>"; 
             }
            else if (!in_array($extension, $allowed_extensions)) {
                 echo "<script>alert('Invalid format. Only jpg / jpeg/ png /gif format allowed');</script>"; 
-                
             } 
             else {
                 //rename the image file
-                $imgnewfile = '[_CPLC-activity_]'.$imgfile;
+                $imgnewfile = 'ld404A2_'.$imgfile;
                 // Code for move image into directory
-                move_uploaded_file($_FILES["activity_images"]["tmp_name"][$i], "activity-gallery/" . $imgnewfile);
+                move_uploaded_file($_FILES["activity_images"]["tmp_name"][$i], "gallery/" . $imgfile);
                 $status = 1;
-                $insert = "insert into tblgallery values(NULL, $activity_id,'$imgnewfile', '$active', NOW(), NULL)";
-                // echo $insert; exit;
+                $insert = "insert into tblgallery values(NULL, $activity_id,'$imgfile', $active, NOW())";
+            //   echo $insert .'<br>';
                 $query = mysqli_query($con, $insert);
                 if ($query) {
-                    $msg = "Post successfully added ";
+                    $msg = "Gallery successfully added ";
                 } else {
-                    $error = "Something went wrong . Please try again.";
+                   $error = "Something went wrong . Please try again.";
                 }
             }
         }
@@ -51,43 +54,24 @@ if (strlen($_SESSION['login']) == 0) {
     <!DOCTYPE html>
     <html lang="en">
 
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
-        <meta name="author" content="Coderthemes">
-
-        <!-- App favicon -->
-        <link rel="shortcut icon" href="assets/images/favicon.ico">
-        <!-- App title -->
-        <title>CPLC -- Official Calabar Paradise Lions Club Website | Add Post</title>
-
-        <!-- Summernote css -->
-        <link href="../plugins/summernote/summernote.css" rel="stylesheet" />
-
-        <!-- Select2 -->
-        <link href="../plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
-
-        <!-- Jquery filer css -->
-        <link href="../plugins/jquery.filer/css/jquery.filer.css" rel="stylesheet" />
-        <link href="../plugins/jquery.filer/css/themes/jquery.filer-dragdropbox-theme.css" rel="stylesheet" />
-
-        <!-- App css -->
-        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/core.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/components.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/pages.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/menu.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/responsive.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" href="../plugins/switchery/switchery.min.css">
-        <script src="assets/js/modernizr.min.js"></script>
-
-        
-
-
-    </head>
-
+    <?php include('includes/pages-head.php'); ?>
+<title>Leo District 404A2 -- Official Website | Add Gallery</title>
+<script>
+    
+function getActivity(val) {
+    $.ajax({
+        type: "POST",
+        url: "get_activities.php",
+        data: 'categoryID=' + val,
+        beforeSend: function() {
+            $("#activities").html('Fetching, Please Wait...');
+        },
+        success: function(data) {
+            $("#activities").html(data);
+        }
+    });
+}
+</script>
 
     <body class="fixed-left">
 
@@ -118,9 +102,6 @@ if (strlen($_SESSION['login']) == 0) {
                                     <ol class="breadcrumb p-0 m-0">
                                         <li>
                                             <a href="#">Photo Gallery</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Add Photo Gallery </a>
                                         </li>
                                         <li class="active">
                                             Add Photo Gallery
@@ -159,25 +140,34 @@ if (strlen($_SESSION['login']) == 0) {
                                     <div class="">
                                         <form name="addpost" method="post" enctype="multipart/form-data">
                                             <div class="form-group m-b-20">
-                                                <label for="exampleInputEmail1">Activity</label>
-                                                <select class="form-control" name="activity" id="activity" required>
+                                                <label for="activity">Activity</label>
+                                                <select class="form-control" name="activity" id="activity"
+                                                onChange="getActivity(this.value);"  required>
                                                     <option value="">Select Activity </option>
                                                     <?php
                                                     // Feching active categories
-                                                    $ret = mysqli_query($con, "select id,activity_title from  tblactivity");
+                                                    $ret = mysqli_query($con, "select * from  tblcategory");
                                                     while ($result = mysqli_fetch_array($ret)) {
                                                     ?>
-                                                        <option value="<?php echo htmlentities($result['id']); ?>"><?php echo htmlentities($result['activity_title']); ?></option>
+                                                        <option value="<?php echo htmlentities($result['postCatID']); ?>"><?php echo htmlentities($result['postCategory']); ?></option>
                                                     <?php } ?>
 
                                                 </select>
                                             </div>
+                                            <div class="col-md-12">
+                                            <div class="form-group m-b-20">
+                                                <label for="activities">Select Activity</label>
+                                                <select class="form-control" name="activities" id="activities" required>
+
+                                                </select>
+                                            </div>
+                                        </div>
 
 
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <div class="card-box">
-                                                        <h4 class="m-b-30 m-t-0 header-title"><b>Activity Images</b></h4>
+                                                        <h4 class="m-b-30 m-t-0 header-title"><b>Gallery Images</b></h4>
                                                         <input type="file" class="form-control" id="activity_images" name="activity_images[]" multiple required>
                                                     </div>
                                                 </div>

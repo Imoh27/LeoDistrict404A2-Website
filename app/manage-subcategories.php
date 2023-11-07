@@ -17,7 +17,7 @@ if (strlen($_SESSION['login']) == 0) {
     <html lang="en">
 
     <?php include('includes/pages-head.php'); ?>
-    <title>Leo District 404A2 -- Official Website | Manage Sub Category</title>
+    <title>Leo District 404A2 -- Admin | Manage Sub Category</title>
 
     <body class="fixed-left">
 

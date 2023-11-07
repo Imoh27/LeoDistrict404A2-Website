@@ -200,11 +200,9 @@ function getMembers(val) {
 
                                                 foreach ($results as $regions) {
 
-                                                    // $ret = mysqli_query($con, "select id,regions from  tblmembertype where Stat=1");
-                                                    // while ($result = mysqli_fetch_array($ret)) {
                                                     ?>
                                                 <option value="<?php echo htmlentities($regions['regionID']); ?>">
-                                                    <?php echo htmlentities($regions['region']); ?></option>
+                                                   Region  <?php echo htmlentities($regions['region']); ?></option>
                                                 <?php } ?>
                                             </select>
                                         </div>

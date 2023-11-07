@@ -35,8 +35,18 @@ if (isset($_POST['submitComment'])) {
 <?php include('assets/header.php'); ?>
 <?php include('assets/navbar.php'); ?>
 <link rel="stylesheet" href="css/modern-business.css">
-<title>Leo District 404A2 -- Official Website | News Update</title>
-
+ <?php
+        $pid = intval($_GET['nid']);
+        $postSelect = "select * from 
+        tblpost p join tblsubcategory s on s.subCatID  =p.postCatID  Inner join  tblcategory c on  
+        c.postCatID =s.categoryID  where postID = $postid";
+        //  echo $postSelect; exit;
+        $query = mysqli_query($con, $postSelect);
+       while ($row = mysqli_fetch_array($query)) {
+          ?>
+        
+<title>Leo District 404A2 -- News Update | <?php echo ucwords(htmlentities($row['postTitle'])); ?></title>
+ 
 <body>
 
   <!-- Navigation -->
@@ -53,15 +63,7 @@ if (isset($_POST['submitComment'])) {
       <div class="col-md-8">
 
         <!-- Blog Post -->
-        <?php
-        $pid = intval($_GET['nid']);
-        $postSelect = "select * from 
-        tblpost p join tblsubcategory s on s.subCatID  =p.postCatID  Inner join  tblcategory c on  
-        c.postCatID =s.categoryID  where postID = $postid";
-        //  echo $postSelect; exit;
-        $query = mysqli_query($con, $postSelect);
-        while ($row = mysqli_fetch_array($query)) {
-          ?>
+        
 
           <div class="card mb-4">
 
@@ -78,7 +80,7 @@ if (isset($_POST['submitComment'])) {
               </p>
               <hr />
 
-              <img class="img-fluid rounded" src="app/postimages/<?php echo htmlentities($row['postPhoto']); ?>"
+              <img class="img-fluid" src="app/postimages/<?php echo htmlentities($row['postPhoto']); ?>" srcset=""
                 alt="<?php echo htmlentities($row['postTitle']); ?>">
 
               <p class="card-text">
@@ -125,10 +127,12 @@ if (isset($_POST['submitComment'])) {
                 </div>
               <?php } ?>
           </div>
+          
       </div>
     
-      <!-- Sidebar Widgets Column -->
+       <!-- Sidebar Widgets Column -->
       <?php include('app/includes/sidebar.php'); ?>
+     
     </div>
     <!-- /.row -->
     <!---Comment Section --->
@@ -181,6 +185,7 @@ if (isset($_POST['submitComment'])) {
         <?php } ?>
 
       </div>
+      
     </div>
   </div>
 

@@ -15,7 +15,7 @@
                                 <p class="fs-5 fw-medium text-white mb-4 pb-2">Are you already a member of the Leo Club?
                                     We're excited to have you continue your journey of service and leadership with us!
                                 </p>
-                                <a href="form.php?page=enrolment-form" target="__blank" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Enroll Now!</a>
+                                <a href="data-registration?page=enrolment-form" target="__blank" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Enroll Now!</a>
                                
                             </div>
                         </div>

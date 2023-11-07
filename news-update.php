@@ -52,11 +52,11 @@ global $con;
               ?>
               <div class="col-lg-6 col-md-6 col-sm-12">
                 <div class="card-box widget-box-one">
-                  <img class="card-img-top" src="app/postimages/<?php echo htmlentities($row['postPhoto']); ?>"
-                    alt="<?php echo htmlentities($row['postTitle']); ?>">
+                 <a href="news-details.php?post=<?php echo htmlentities($row['postTitle']); ?>&&sc=<?php echo htmlentities($row['subCatID']); ?>&&nid=<?php echo htmlentities($row['postID']) ?>"> <img class="card-img-top" src="app/postimages/<?php echo htmlentities($row['postPhoto']); ?>"
+                    alt="<?php echo htmlentities($row['postTitle']); ?>"></a>
                   <div class="card-body">
                     <h6 class="card-title" style="text-transform:capitalize !important">
-                      <?php echo htmlentities($row['postTitle']); ?>
+                     <a href="news-details.php?post=<?php echo htmlentities($row['postTitle']); ?>&&sc=<?php echo htmlentities($row['subCatID']); ?>&&nid=<?php echo htmlentities($row['postID']) ?>"> <?php echo htmlentities($row['postTitle']); ?></a>
                     </h6>
                     <p style="font-size:12px"><b>Category: </b>
                       <?php echo htmlentities($row['postCategory']); ?> &nbsp; |
@@ -65,8 +65,7 @@ global $con;
                       &nbsp; | Posted on
                       <?php echo htmlentities(date('d-m-Y', strtotime($row['postUpdated']))); ?>
                     </p>
-
-                    <a href="news-details.php?sc=<?php echo htmlentities($row['subCatID']); ?>&&nid=<?php echo htmlentities($row['postID']) ?>"
+                    <a href="news-details.php?post=<?php echo htmlentities($row['postTitle']); ?>&&sc=<?php echo htmlentities($row['subCatID']); ?>&&nid=<?php echo htmlentities($row['postID']) ?>"
                       class="btn btn-primary btn-sm">Read More &rarr;</a>
                   </div>
                 </div>
@@ -100,8 +99,7 @@ global $con;
                       &nbsp; | Posted on
                       <?php echo htmlentities(date('d-m-Y', strtotime($allrow['postUpdated']))); ?>
                     </p>
-
-                    <a href="news-details.php?sc=<?php echo htmlentities($allrow['subCatID']); ?>&&nid=<?php echo htmlentities($allrow['postID']) ?>"
+                    <a href="news-details.php?post=<?php echo htmlentities($allrow['postTitle']); ?>&&sc=<?php echo htmlentities($allrow['subCatID']); ?>&&nid=<?php echo htmlentities($allrow['postID']) ?>"
                       class="btn btn-primary btn-sm">Read More &rarr;</a>
                   </div>
                 </div>

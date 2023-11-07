@@ -66,8 +66,8 @@ include_once('app/includes/alt_config.php'); ?>
                 $result = $query->fetchAll(PDO::FETCH_ASSOC);
                 foreach ($result as $pdp) { ?>
                     <div class="col-lg-3 col-md-6 service-item-top wow fadeInUp mb-5" data-wow-delay="0.1s">
-                        <div class="overflow-hidden bg-dark" style="height: 200px; width:auto">
-                            <img class="img-fluid" src="app/pdp_photos/<?php echo htmlentities($pdp['pdpPhoto']); ?>" alt="">
+                        <div class="overflow-hidden bg-dark" style="height: 230px; width:auto">
+                            <img class="img-fluid" src="app/pdp_photos/<?php echo htmlentities($pdp['pdpPhoto']); ?>" alt="" style="height:100%; width:100%">
                         </div>
                         <div class="d-flex text-center align-items-center justify-content-center bg-light p-4">
                             <div class="team-text">

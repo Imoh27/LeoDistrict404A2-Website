@@ -52,7 +52,7 @@ $error="Something went wrong . Please try again.";
         <!-- App favicon -->
         <link rel="shortcut icon" href="assets/images/favicon.ico">
         <!-- App title -->
-        <title>CPLC -- Official Calabar Paradise Lions Club Website | Add Post</title>
+        <title>Leo District 404A2 -- Official Website| Add Post</title>
 
         <!-- Summernote css -->
         <link href="../plugins/summernote/summernote.css" rel="stylesheet" />

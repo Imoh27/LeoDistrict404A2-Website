@@ -40,7 +40,7 @@ if (strlen($_SESSION['login']) == 0) {
         <link href="../plugins/jquery.filer/css/jquery.filer.css" rel="stylesheet" />
         <link href="../plugins/jquery.filer/css/themes/jquery.filer-dragdropbox-theme.css" rel="stylesheet" />
         <link rel="stylesheet" href="../plugins/switchery/switchery.min.css">
-        <title>Leo District 404A2 -- Official Website | Manage Activity</title>
+        <title>Leo District 404A2 -- Admin | Manage Activity</title>
         <!-- App css -->
         <script>
             function getmMemId(val) {

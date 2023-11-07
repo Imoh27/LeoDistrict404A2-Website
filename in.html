@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Leo District 404A2 - Official Website</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="dplogo23-24.jpg" rel="icon">
+  <link href="dplogo23-24.jpg" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="coming_soon/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="coming_soon/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="coming_soon/css/style.css" rel="stylesheet">
+  <style>
+    p {
+      text-align: center;
+      font-size: 60px;
+      margin-top: 0px;
+    }
+    @media (max-width: 275px) {
+    p {
+      text-align: center;
+      font-size: 30px;
+      margin-top: 0px;
+      }
+    }
+   
+   </style>
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="d-flex align-items-center">
+    <div class="container d-flex flex-column align-items-center">
+
+      <h1>ComingSoon</h1>
+      <h2>We're working hard to improve our website and we'll ready to launch after</h2>
+      <div class="countdown d-flex justify-content-center" data-count="2023/12/5">
+        <div>
+          <p id="demo"></p>
+        </div>
+      </div>
+
+      
+<!--  -->
+
+      <div class="social-links text-center">
+        <a href="https://twitter.com/LeoDist404a2?t=UNMJVXY_rO5MOYHOOWGJUA&s=09" class="twitter"><i class="bi bi-twitter"></i></a>
+        <a href="https://www.facebook.com/groups/leodistirct404a/" class="facebook"><i class="bi bi-facebook"></i></a>
+        <a href="https://instagram.com/district404a2?igshid=MzRlODBiNWFlZA==" class="instagram"><i class="bi bi-instagram"></i></a>
+      </div>
+
+    </div>
+  </header><!-- End #header -->
+
+  <main id="main">
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Leo District 404 A2 Nigeria</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        Powered by <a href="https://lionsdistrict404a2.org/">Lions District 404A2 Nigeria</a>
+      </div>
+    </div>
+  </footer><!-- End #footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+  <script>
+    // Set the date we're counting down to
+    var countDownDate = new Date("Oct 8, 2023 12:00:00").getTime();
+    
+    // Update the count down every 1 second
+    var x = setInterval(function() {
+    
+      // Get today's date and time
+      var now = new Date().getTime();
+        
+      // Find the distance between now and the count down date
+      var distance = countDownDate - now;
+        
+      // Time calculations for days, hours, minutes and seconds
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+      // Output the result in an element with id="demo"
+      document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+      + minutes + "m " + seconds + "s ";
+        
+      // If the count down is over, write some text 
+      if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("demo").innerHTML = "EXPIRED";
+      }
+    }, 1000);
+    </script>
+    
+</body>
+
+</html>

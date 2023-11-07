@@ -40,7 +40,7 @@ if (strlen($_SESSION['login']) == 0) {
 
     <head>
 
-        <title>CPLC -- Official Calabar Paradise Lions Club Website | Add Executive Position</title>
+        <title>Leo District 404A2 -- Admin | Add Executive Position</title>
 
         <!-- App css -->
         <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />

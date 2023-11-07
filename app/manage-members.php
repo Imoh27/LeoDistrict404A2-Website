@@ -16,7 +16,7 @@ if (strlen($_SESSION['login']) == 0) {
 ?>
 
 <?php include('includes/pages-head.php'); ?>
-<title>Leo District 404A2 -- Official Website | Manage Leos</title>
+<title>Leo District 404A2 -- Admin | Manage Leos</title>
 
     <body class="fixed-left">
 
@@ -141,7 +141,7 @@ if (strlen($_SESSION['login']) == 0) {
 
                                                         <tr>
                                                             <th scope="row"><?php echo htmlentities($cnt); ?></th>
-                                                            <td><?php echo htmlentities($row['firstName'].' '. $row['lastName']); ?></td>
+                                                            <td><a class="text-capitalize" href="details?leo=<?php echo htmlentities($row['firstName'].''.$row['lastName']); ?>&&lid=<?php echo htmlentities($row['memberID']); ?>"><?php echo htmlentities($row['firstName'].' '. $row['lastName']); ?></a></td>
                                                             <td><?php echo htmlentities($row['membershipNo']); ?></td>
                                                             <!-- <td><?php echo htmlentities($row['gender']); ?></td> -->
                                                             <td width="40"><?php echo htmlentities($row['clubName']); ?></td>

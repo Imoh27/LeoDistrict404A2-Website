@@ -50,15 +50,7 @@
                  <a class="btn btn-sm-square bg-white text-primary me-1" href="https://twitter.com/LeoDist404a2?t=UNMJVXY_rO5MOYHOOWGJUA&s=09" target="_blank"><i class="fab fa-twitter"></i></a>
                  <a class="btn btn-sm-square bg-white text-primary me-0" href="https://instagram.com/district404a2?igshid=MzRlODBiNWFlZA==" target="_blank"><i class="fab fa-instagram"></i></a>
              </div>
-             <!-- <div class="mt-4 mt-lg-0 me-lg-n4 py-3 px-4 bg-primary d-flex align-items-center">
-                    <div class="d-flex flex-shrink-0 align-items-center justify-content-center bg-white" style="width: 45px; height: 45px;">
-                        <i class="fa fa-phone-alt text-primary"></i>
-                    </div>
-                    <div class="ms-3">
-                        <p class="mb-1 text-white">Emergency 24/7</p>
-                        <h5 class="m-0 text-secondary">+012 345 6789</h5>
-                    </div>
-                </div> -->
+              <a href="data-registration?page=enrolment-form" target="__blank" class="btn btn-primary btn-rounded py-md-2 px-md-2 ms-lg-3 animated slideInLeft">Register</a>
          </div>
      </nav>
  </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 26, 2023 at 07:27 PM
+-- Generation Time: Oct 06, 2023 at 09:21 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -70,8 +70,7 @@ CREATE TABLE `tblcategory` (
 INSERT INTO `tblcategory` (`postCatID`, `postCategory`, `CatDescription`, `dateUpdated`, `updatedBy`, `isActive`) VALUES
 (1, 'Project', 'Information about Districts Region and Club Projects', '2023-06-30 12:17:03', 1, 1),
 (2, 'Events', 'Information about Various Events within and across Club, Regions, District and Multiple District', '2023-06-29 16:02:33', 1, 1),
-(3, 'Other', 'Other News or stories', '2023-06-30 13:34:34', 1, 1),
-(4, 'Meetings', 'FOr MD DIstrict, Region and Club activities', '2023-07-25 12:03:44', 1, 1);
+(3, 'Other', 'Other News or stories', '2023-06-30 13:34:34', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -223,7 +222,9 @@ INSERT INTO `tbldistrictoffices` (`dOfficesID`, `position`, `abbr`, `dateUpdated
 (8, ' Multiple District President', 'MDP', '2023-06-21 11:02:44', 1, 1),
 (9, ' District Secretary', 'DS', '2023-06-21 11:03:27', 1, 1),
 (10, ' District Treasurer', 'DT', '2023-06-21 11:03:42', 1, 1),
-(11, ' Leo Program Chairpersom', 'LPC', '2023-06-21 11:57:01', 1, 1);
+(11, ' Leo Program Chairpersom', 'LPC', '2023-06-21 11:57:01', 1, 1),
+(12, ' Chief of Protocol', 'DCOP', '2023-09-30 11:09:31', 1, 1),
+(13, ' Chief of Staff', 'COS', '2023-09-30 11:10:11', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -279,6 +280,20 @@ CREATE TABLE `tbldpteam` (
 
 INSERT INTO `tbldpteam` (`teamID`, `memberID`, `dOfficesID`, `fbProfile`, `lnProfile`, `igProfile`, `foto`, `serviceYrID`, `dateUpdated`, `updatedBy`) VALUES
 (1, 1, 1, 'bbakawu', 'bbakawu', 'bbakawu', '', 1, '2023-06-20 16:58:34', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblgallery`
+--
+
+CREATE TABLE `tblgallery` (
+  `galleryID` int(11) NOT NULL,
+  `activityID` int(11) NOT NULL,
+  `foto` varchar(100) DEFAULT NULL,
+  `addedBy` int(11) DEFAULT NULL,
+  `updateOn` date DEFAULT curdate()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -1412,422 +1427,43 @@ ALTER TABLE `tblclubpresidents`
   ADD KEY `updatedBy` (`updatedBy`);
 
 --
--- Indexes for table `tblclubs`
---
-ALTER TABLE `tblclubs`
-  ADD PRIMARY KEY (`clubID`),
-  ADD KEY `regionID` (`regionID`),
-  ADD KEY `updatedBy` (`updatedBy`);
-
---
--- Indexes for table `tblcomments`
---
-ALTER TABLE `tblcomments`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `postID` (`post`);
-
---
--- Indexes for table `tblcontactentry`
---
-ALTER TABLE `tblcontactentry`
-  ADD PRIMARY KEY (`entryID`);
-
---
--- Indexes for table `tbldistrictofficers`
---
-ALTER TABLE `tbldistrictofficers`
-  ADD PRIMARY KEY (`dOfficersID`),
-  ADD KEY `dOfficesID` (`dOfficesID`),
-  ADD KEY `memberID` (`memberID`),
-  ADD KEY `serviceYrID` (`serviceYrID`),
-  ADD KEY `updatedBy` (`updatedBy`);
-
---
 -- Indexes for table `tbldistrictoffices`
 --
 ALTER TABLE `tbldistrictoffices`
-  ADD PRIMARY KEY (`dOfficesID`),
-  ADD KEY `updatedBy` (`updatedBy`);
+  ADD PRIMARY KEY (`dOfficesID`);
 
 --
--- Indexes for table `tbldpsteam`
+-- Indexes for table `tblgallery`
 --
-ALTER TABLE `tbldpsteam`
-  ADD PRIMARY KEY (`teamID`),
-  ADD KEY `dOfficesID` (`dOfficesID`),
-  ADD KEY `serviceYrID` (`serviceYrID`),
-  ADD KEY `updatedBy` (`updatedBy`);
-
---
--- Indexes for table `tbldpteam`
---
-ALTER TABLE `tbldpteam`
-  ADD PRIMARY KEY (`teamID`),
-  ADD KEY `dOfficesID` (`dOfficesID`),
-  ADD KEY `serviceYrID` (`serviceYrID`),
-  ADD KEY `updatedBy` (`updatedBy`),
-  ADD KEY `memberID` (`memberID`);
-
---
--- Indexes for table `tbllcileaders`
---
-ALTER TABLE `tbllcileaders`
-  ADD PRIMARY KEY (`leaderID`),
-  ADD KEY `dOfficesID` (`dOfficesID`),
-  ADD KEY `serviceYrID` (`serviceYrID`),
-  ADD KEY `updatedBy` (`updatedBy`);
-
---
--- Indexes for table `tbllga`
---
-ALTER TABLE `tbllga`
-  ADD PRIMARY KEY (`lgaID`),
-  ADD KEY `stateID` (`stateID`);
-
---
--- Indexes for table `tblmembers`
---
-ALTER TABLE `tblmembers`
-  ADD PRIMARY KEY (`memberID`),
-  ADD KEY `clubID` (`clubID`),
-  ADD KEY `regionID` (`regionID`),
-  ADD KEY `state` (`state`),
-  ADD KEY `updatedBy` (`updatedBy`),
-  ADD KEY `stateOfOrigin` (`stateOfOrigin`),
-  ADD KEY `lgaOfOrigin` (`lgaOfOrigin`);
-
---
--- Indexes for table `tblpdp`
---
-ALTER TABLE `tblpdp`
-  ADD PRIMARY KEY (`pdpID`),
-  ADD KEY `updatedBy` (`updatedBy`);
-
---
--- Indexes for table `tblpost`
---
-ALTER TABLE `tblpost`
-  ADD PRIMARY KEY (`postID`),
-  ADD KEY `updatedBy` (`updatedBy`),
-  ADD KEY `postCatID` (`postCatID`);
-
---
--- Indexes for table `tblregion`
---
-ALTER TABLE `tblregion`
-  ADD PRIMARY KEY (`regionID`);
-
---
--- Indexes for table `tblregiondirector`
---
-ALTER TABLE `tblregiondirector`
-  ADD PRIMARY KEY (`regiondirID`),
-  ADD KEY `memberID` (`memberID`),
-  ADD KEY `regionID` (`regionID`),
-  ADD KEY `serviceYrID` (`serviceYrID`),
-  ADD KEY `updatedBy` (`updatedBy`),
-  ADD KEY `ardMemberID` (`ardMemberID`);
-
---
--- Indexes for table `tblreport`
---
-ALTER TABLE `tblreport`
-  ADD PRIMARY KEY (`reportID`),
-  ADD KEY `clubID` (`clubID`),
-  ADD KEY `areasID` (`areasID`),
-  ADD KEY `updatedBy` (`updatedBy`);
-
---
--- Indexes for table `tblserviceyr`
---
-ALTER TABLE `tblserviceyr`
-  ADD PRIMARY KEY (`serviceYrID`),
-  ADD KEY `updatedBy` (`updatedBy`);
-
---
--- Indexes for table `tblstates`
---
-ALTER TABLE `tblstates`
-  ADD PRIMARY KEY (`stateID`);
-
---
--- Indexes for table `tblsubcategory`
---
-ALTER TABLE `tblsubcategory`
-  ADD PRIMARY KEY (`subCatID`),
-  ADD KEY `categoryID` (`categoryID`),
-  ADD KEY `updatedBy` (`updatedBy`);
-
---
--- Indexes for table `tblusers`
---
-ALTER TABLE `tblusers`
-  ADD PRIMARY KEY (`userID`);
+ALTER TABLE `tblgallery`
+  ADD PRIMARY KEY (`galleryID`),
+  ADD KEY `activityID` (`activityID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `tblactivity`
---
-ALTER TABLE `tblactivity`
-  MODIFY `activityID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `tblcategory`
---
-ALTER TABLE `tblcategory`
-  MODIFY `postCatID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `tblclubpresidents`
---
-ALTER TABLE `tblclubpresidents`
-  MODIFY `presidentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `tblclubs`
---
-ALTER TABLE `tblclubs`
-  MODIFY `clubID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- AUTO_INCREMENT for table `tblcomments`
---
-ALTER TABLE `tblcomments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `tblcontactentry`
---
-ALTER TABLE `tblcontactentry`
-  MODIFY `entryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `tbldistrictofficers`
---
-ALTER TABLE `tbldistrictofficers`
-  MODIFY `dOfficersID` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `tbldistrictoffices`
 --
 ALTER TABLE `tbldistrictoffices`
-  MODIFY `dOfficesID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `dOfficesID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT for table `tbldpsteam`
+-- AUTO_INCREMENT for table `tblgallery`
 --
-ALTER TABLE `tbldpsteam`
-  MODIFY `teamID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `tbldpteam`
---
-ALTER TABLE `tbldpteam`
-  MODIFY `teamID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `tbllcileaders`
---
-ALTER TABLE `tbllcileaders`
-  MODIFY `leaderID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `tbllga`
---
-ALTER TABLE `tbllga`
-  MODIFY `lgaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=775;
-
---
--- AUTO_INCREMENT for table `tblmembers`
---
-ALTER TABLE `tblmembers`
-  MODIFY `memberID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- AUTO_INCREMENT for table `tblpdp`
---
-ALTER TABLE `tblpdp`
-  MODIFY `pdpID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tblpost`
---
-ALTER TABLE `tblpost`
-  MODIFY `postID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `tblregion`
---
-ALTER TABLE `tblregion`
-  MODIFY `regionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `tblregiondirector`
---
-ALTER TABLE `tblregiondirector`
-  MODIFY `regiondirID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `tblreport`
---
-ALTER TABLE `tblreport`
-  MODIFY `reportID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tblserviceyr`
---
-ALTER TABLE `tblserviceyr`
-  MODIFY `serviceYrID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `tblstates`
---
-ALTER TABLE `tblstates`
-  MODIFY `stateID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
-
---
--- AUTO_INCREMENT for table `tblsubcategory`
---
-ALTER TABLE `tblsubcategory`
-  MODIFY `subCatID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `tblusers`
---
-ALTER TABLE `tblusers`
-  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `tblgallery`
+  MODIFY `galleryID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `tblactivity`
+-- Constraints for table `tblgallery`
 --
-ALTER TABLE `tblactivity`
-  ADD CONSTRAINT `tblactivity_ibfk_1` FOREIGN KEY (`activityCatID`) REFERENCES `tblcategory` (`postCatID`);
-
---
--- Constraints for table `tblcategory`
---
-ALTER TABLE `tblcategory`
-  ADD CONSTRAINT `tblcategory_ibfk_1` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`);
-
---
--- Constraints for table `tblclubpresidents`
---
-ALTER TABLE `tblclubpresidents`
-  ADD CONSTRAINT `tblclubpresidents_ibfk_1` FOREIGN KEY (`president`) REFERENCES `tblmembers` (`memberID`),
-  ADD CONSTRAINT `tblclubpresidents_ibfk_2` FOREIGN KEY (`clubID`) REFERENCES `tblclubs` (`clubID`),
-  ADD CONSTRAINT `tblclubpresidents_ibfk_3` FOREIGN KEY (`serviceYr`) REFERENCES `tblserviceyr` (`serviceYrID`),
-  ADD CONSTRAINT `tblclubpresidents_ibfk_4` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`);
-
---
--- Constraints for table `tblclubs`
---
-ALTER TABLE `tblclubs`
-  ADD CONSTRAINT `tblclubs_ibfk_1` FOREIGN KEY (`regionID`) REFERENCES `tblregion` (`regionID`),
-  ADD CONSTRAINT `tblclubs_ibfk_2` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`);
-
---
--- Constraints for table `tblcomments`
---
-ALTER TABLE `tblcomments`
-  ADD CONSTRAINT `tblcomments_ibfk_1` FOREIGN KEY (`post`) REFERENCES `tblpost` (`postID`);
-
---
--- Constraints for table `tbldistrictofficers`
---
-ALTER TABLE `tbldistrictofficers`
-  ADD CONSTRAINT `tbldistrictofficers_ibfk_1` FOREIGN KEY (`dOfficesID`) REFERENCES `tbldistrictoffices` (`dOfficesID`),
-  ADD CONSTRAINT `tbldistrictofficers_ibfk_2` FOREIGN KEY (`memberID`) REFERENCES `tblmembers` (`memberID`),
-  ADD CONSTRAINT `tbldistrictofficers_ibfk_3` FOREIGN KEY (`serviceYrID`) REFERENCES `tblserviceyr` (`serviceYrID`),
-  ADD CONSTRAINT `tbldistrictofficers_ibfk_4` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`);
-
---
--- Constraints for table `tbldistrictoffices`
---
-ALTER TABLE `tbldistrictoffices`
-  ADD CONSTRAINT `tbldistrictoffices_ibfk_1` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`);
-
---
--- Constraints for table `tbldpsteam`
---
-ALTER TABLE `tbldpsteam`
-  ADD CONSTRAINT `tbldpsteam_ibfk_1` FOREIGN KEY (`dOfficesID`) REFERENCES `tbldistrictoffices` (`dOfficesID`),
-  ADD CONSTRAINT `tbldpsteam_ibfk_2` FOREIGN KEY (`serviceYrID`) REFERENCES `tblserviceyr` (`serviceYrID`),
-  ADD CONSTRAINT `tbldpsteam_ibfk_3` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`);
-
---
--- Constraints for table `tbldpteam`
---
-ALTER TABLE `tbldpteam`
-  ADD CONSTRAINT `tbldpteam_ibfk_1` FOREIGN KEY (`dOfficesID`) REFERENCES `tbldistrictoffices` (`dOfficesID`),
-  ADD CONSTRAINT `tbldpteam_ibfk_2` FOREIGN KEY (`serviceYrID`) REFERENCES `tblserviceyr` (`serviceYrID`),
-  ADD CONSTRAINT `tbldpteam_ibfk_3` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`),
-  ADD CONSTRAINT `tbldpteam_ibfk_4` FOREIGN KEY (`memberID`) REFERENCES `tblmembers` (`memberID`);
-
---
--- Constraints for table `tbllcileaders`
---
-ALTER TABLE `tbllcileaders`
-  ADD CONSTRAINT `tbllcileaders_ibfk_1` FOREIGN KEY (`dOfficesID`) REFERENCES `tbldistrictoffices` (`dOfficesID`),
-  ADD CONSTRAINT `tbllcileaders_ibfk_2` FOREIGN KEY (`serviceYrID`) REFERENCES `tblserviceyr` (`serviceYrID`),
-  ADD CONSTRAINT `tbllcileaders_ibfk_3` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`);
-
---
--- Constraints for table `tbllga`
---
-ALTER TABLE `tbllga`
-  ADD CONSTRAINT `tbllga_ibfk_1` FOREIGN KEY (`stateID`) REFERENCES `tblstates` (`stateID`);
-
---
--- Constraints for table `tblmembers`
---
-ALTER TABLE `tblmembers`
-  ADD CONSTRAINT `tblmembers_ibfk_1` FOREIGN KEY (`clubID`) REFERENCES `tblclubs` (`clubID`),
-  ADD CONSTRAINT `tblmembers_ibfk_2` FOREIGN KEY (`regionID`) REFERENCES `tblregion` (`regionID`),
-  ADD CONSTRAINT `tblmembers_ibfk_3` FOREIGN KEY (`state`) REFERENCES `tblstates` (`stateID`),
-  ADD CONSTRAINT `tblmembers_ibfk_4` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`),
-  ADD CONSTRAINT `tblmembers_ibfk_5` FOREIGN KEY (`lgaOfOrigin`) REFERENCES `tbllga` (`lgaID`),
-  ADD CONSTRAINT `tblmembers_ibfk_6` FOREIGN KEY (`stateOfOrigin`) REFERENCES `tblstates` (`stateID`);
-
---
--- Constraints for table `tblpdp`
---
-ALTER TABLE `tblpdp`
-  ADD CONSTRAINT `tblpdp_ibfk_1` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`);
-
---
--- Constraints for table `tblpost`
---
-ALTER TABLE `tblpost`
-  ADD CONSTRAINT `tblpost_ibfk_2` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`),
-  ADD CONSTRAINT `tblpost_ibfk_3` FOREIGN KEY (`postCatID`) REFERENCES `tblsubcategory` (`subCatID`);
-
---
--- Constraints for table `tblregiondirector`
---
-ALTER TABLE `tblregiondirector`
-  ADD CONSTRAINT `tblregiondirector_ibfk_1` FOREIGN KEY (`memberID`) REFERENCES `tblmembers` (`memberID`),
-  ADD CONSTRAINT `tblregiondirector_ibfk_2` FOREIGN KEY (`regionID`) REFERENCES `tblregion` (`regionID`),
-  ADD CONSTRAINT `tblregiondirector_ibfk_3` FOREIGN KEY (`serviceYrID`) REFERENCES `tblserviceyr` (`serviceYrID`),
-  ADD CONSTRAINT `tblregiondirector_ibfk_4` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`);
-
---
--- Constraints for table `tblserviceyr`
---
-ALTER TABLE `tblserviceyr`
-  ADD CONSTRAINT `tblserviceyr_ibfk_1` FOREIGN KEY (`updatedBy`) REFERENCES `tblusers` (`userID`);
-
---
--- Constraints for table `tblsubcategory`
---
-ALTER TABLE `tblsubcategory`
-  ADD CONSTRAINT `tblsubcategory_ibfk_1` FOREIGN KEY (`categoryID`) REFERENCES `tblcategory` (`postCatID`);
+ALTER TABLE `tblgallery`
+  ADD CONSTRAINT `tblgallery_ibfk_1` FOREIGN KEY (`activityID`) REFERENCES `tblactivity` (`activityID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

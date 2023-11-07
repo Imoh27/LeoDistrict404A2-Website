@@ -119,8 +119,8 @@ include_once('app/includes/alt_config.php'); ?>
                         <div class="d-flex text-center align-items-center justify-content-center bg-light p-4">
                             <div class="team-text">
                                 <div class="bg-light">
-                                    <h5 class="fw-bold mb-0">
-                                        Lion <?php echo htmlentities($memberfoto['firstName'] . ' ' . $memberfoto['lastName']); ?>
+                                    <h5 class="fw-bold mb-0 text-capitalize">
+                                        Leo <?php echo htmlentities($memberfoto['firstName'] . ' ' . $memberfoto['lastName']); ?>
                                     </h5>
                                     <small>
                                         <?php echo htmlentities($memberfoto['position']); ?>
@@ -146,14 +146,14 @@ include_once('app/includes/alt_config.php'); ?>
                 $result = $query->fetchAll(PDO::FETCH_ASSOC);
                 foreach ($result as $memberfoto) { ?>
                     <div class="col-lg-4 col-md-6 service-item-top wow fadeInUp mb-5" data-wow-delay="0.1s">
-                        <div class="overflow-hidden bg-dark" style="height: 400px; width:auto">
-                            <img class="img-fluid" src="app/membersimages/<?php echo htmlentities($memberfoto['memberPhoto']); ?>" alt="">
+                        <div class="overflow-hidden bg-dark" style="height: 300px; width:auto">
+                            <img class="img-fluid" src="app/membersimages/<?php echo htmlentities($memberfoto['memberPhoto']); ?>" alt="" style="width: 100%; height: 100%;">
                         </div>
                         <div class="d-flex text-center align-items-center justify-content-center bg-light p-4">
                             <div class="team-text">
                                 <div class="bg-light">
-                                    <h5 class="fw-bold mb-0">
-                                        Lion <?php echo htmlentities($memberfoto['firstName'] . ' ' . $memberfoto['lastName']); ?>
+                                    <h5 class="fw-bold mb-0 text-capitalize">
+                                        Leo <?php echo htmlentities($memberfoto['firstName'] . ' ' . $memberfoto['lastName']); ?>
                                     </h5>
                                     <small>
                                         <?php echo htmlentities($memberfoto['clubName']); ?>  <br/>

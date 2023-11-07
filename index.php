@@ -8,14 +8,14 @@ $query = $con->query($lsyQuery);
 $result = $query->fetch(PDO::FETCH_ASSOC);
 $currentLSYID = $result['serviceYrID'];
 
-// echo $page; exit;
-include('assets/header.php');
+include('assets/header.php');  
 ?>
-<title>Leo District 404A2 -- Official Website</title>
-
+   <title>Leo District 404A2 -- Official Website</title>
+</head>
 <body>
     <!-- Spinner Start -->
-    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
             <span class="sr-only">Loading...</span>
         </div>
@@ -39,15 +39,17 @@ include('assets/header.php');
     <!-- Topbar End -->
 
 
-    <?php
-    include('assets/navbar.php');
-    include('assets/slider.php');
+    <?php 
+    include('assets/navbar.php'); 
+    // Slider Start
+    include('assets/slider.php'); 
+    // Slider End
     ?>
 
 
+    
 
-
-    <!-- Service Start -->
+ <!-- Service Start -->
     <div class="container-xxl py-5">
         <div class="container">
             <div class="row g-4">
@@ -66,7 +68,7 @@ include('assets/header.php');
                             <div class="team-text">
                                 <div class="bg-light">
                                     <h5 class="fw-bold mb-0">
-                                        Lion <?php echo htmlentities($lclLeader['leaderName']); ?>
+                                       Lion <?php echo htmlentities($lclLeader['leaderName']); ?>
                                     </h5>
                                     <small>
                                         <?php echo htmlentities($lclLeader['position']); ?>
@@ -163,14 +165,13 @@ include('assets/header.php');
         </div>
     </div>
     <!-- Fact End -->
-
+    
     <!-- Home Gallery Start -->
 
 
-    <div class="container-fluid py-5 px-4 px-lg-0">
+    <div class="container py-5 ">
         <div class="row g-0">
             <div class="col-md-12 col-lg-12">
-                <div class="ms-lg-5 ps-lg-5">
                     <div class="text-center text-lg-start wow fadeInUp" data-wow-delay="0.1s">
                         <h4 class="text-secondary text-uppercase">Gallery</h4>
                     </div>
@@ -188,8 +189,8 @@ include('assets/header.php');
 
 
                             <!-- Start single gallery -->
-                            <div class="col-md-6 col-sm-6 col-lg-3 p-2 mb-4" data-aos="fade-up" data-aos-delay="200">
-                            <div class=" justify-content-center border border-5 border-white me-2" style="width: 300px; height: 280px;">
+                            <div class="col-md-6 col-sm-6 col-lg-3 mb-4" data-aos="fade-up" data-aos-delay="200">
+                            <div class=" justify-content-center border border-5 border-white" style="width: auto; height: 250px;">
 
                                 <a  href="app/gallery/<?php echo $photos['photos']; ?>" >
                                      <img style="width: 100%; height: 100%;" src="app/gallery/<?php echo $photos['photos']; ?>" alt="" />
@@ -200,15 +201,18 @@ include('assets/header.php');
                             </div>
                             <!-- End single gallery -->
                         <?php } ?>
+                        <div class="col-lg-12 col-sm-12 text-center mt-3">
+
+                            <a style="width:auto;" href="gallery?page=gallery">See more...</a>
+                        </div>
                     </div>
                 </div>
-            </div>
         </div>
     </div>
-    </div>
     <!-- Home Gallery End -->
-
-    <!-- Blog News Start -->
+    
+        <!-- Blog News Start -->
+       
     <div class="container-fluid py-5 px-4 px-lg-0">
         <div class="row g-0">
             <div class="col-lg-3 d-none d-lg-flex">
@@ -266,7 +270,7 @@ include('assets/header.php');
                         <i class="fas fa-question fa-2x text-white mb-3"></i>
                         <h1 class="text-white mb-2">Not already enrolled in our database </h1>
                         <p class="text-white mb-0">What are you waiting for?</p>
-                        <button class="btn btn-primary my-3"><a target="_blank" class="text-white text-center" href="free-plumbing-website-template?page=enrollment-form">Enrol Now...</a></button>
+                        <button class="btn btn-primary my-3"><a target="_blank" class="text-white text-center" href="data-registration?page=enrollment-form">Enrol Now...</a></button>
                     </div>
                 </div>
             </div>
@@ -277,7 +281,7 @@ include('assets/header.php');
         <div class="container-xxl py-5">
             <div class="container">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                    <h6 class="text-secondary text-uppercase">Our Learders</h6>
+                    <h6 class="text-secondary text-uppercase">Our Leaders</h6>
                     <h1 class="mb-5">District President Team</h1>
                 </div>
                 <div class="row g-4">
@@ -291,8 +295,8 @@ include('assets/header.php');
 
                         <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                             <div class="team-item">
-                                <div class="position-relative overflow-hidden" style="width: 260px; height: 300px;">
-                                    <img class="img-fluid" src="app/dp_team/<?php echo htmlentities($dpsteam['foto']); ?>" alt="" style="width: 100%; height: 100%;" >
+                                <div class="position-relative overflow-hidden">
+                                    <img class="img-fluid" src="app/dp_team/<?php echo htmlentities($dpsteam['foto']); ?>" alt="" style="width: 100%; height: 100%;">
                                 </div>
                                 <div class="team-text">
                                     <div class="bg-light">
@@ -318,7 +322,9 @@ include('assets/header.php');
             </div>
         </div>
         <!-- Team End -->
-        <?php
+
+
+       <?php
                 $select = "SELECT * FROM tblpdp";
                 // echo $select; exit;
                 $query = $con->query($select);
@@ -337,7 +343,7 @@ include('assets/header.php');
                     <div class="testimonial-text bg-light text-center p-4 mb-4">
                         <p class="mb-0"><?php echo $pdp['servicetheme']; ?></p>
                     </div>
-                    <img class="bg-light rounded-circle p-2 mx-auto mb-2" src="app/pdp_photos/<?php echo $pdp['pdpPhoto'];?>" style="width: 80px; height: 80px;">
+                    <img class="bg-light rounded-circle p-2 mx-auto mb-2" src="app/pdp_photos/<?php echo $pdp['pdpPhoto']; ?>" style="width: 80px; height: 80px;">
                     
                     <h5 class="mb-1"><?php echo $pdp['fullName']; ?></h5>
                     <p class="m-0"><?php echo $pdp['serviceYR']; ?>  Service Year</p>
@@ -347,8 +353,10 @@ include('assets/header.php');
             </div>
         </div>
         <!-- Past Dp End -->
+</div>
 
-    </div>
     <!-- Footer Start -->
     <?php include('assets/footer.php'); ?>
 </body>
+
+</html>

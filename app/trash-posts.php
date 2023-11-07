@@ -30,7 +30,7 @@ if (strlen($_SESSION['login']) == 0) {
     <html lang="en">
 
     <?php include('includes/pages-head.php'); ?>
-<title>Leo District 404A2 -- Official Website | Trashed Post</title>
+<title>Leo District 404A2 -- Admin | Trashed Post</title>
 
     <body class="fixed-left">
 

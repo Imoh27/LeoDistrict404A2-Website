@@ -233,7 +233,7 @@ if (strlen($_SESSION['login']) == 0) {
                                     <p class="m-0 text-uppercase font-600 font-secondary text-overflow"
                                         title="Clubs in the District"><a href="manage-activity">Clubs in the
                                             District</a></p>
-                                    <div class="table-responsive table-wrapper-scroll-y custom-table-scrollbar">
+                                    <div class="table-responsive table-wrapper-scroll-y custom-table-scrollbar" style="overflow-y: auto; height:400px">
                                         <table class="table m-0 table-colored-bordered table-bordered-success"
                                             id="table_filter">
                                             <thead>

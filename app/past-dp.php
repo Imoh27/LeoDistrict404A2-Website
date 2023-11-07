@@ -35,7 +35,7 @@ if (strlen($_SESSION['login']) == 0) {
             // echo "<script>alert('Invalid format. Only jpg / jpeg/ png /gif format allowed');</script>";
         } else {
             //rename the image file
-            $imgnewfile = md5($imgfile) . $extension;
+            $imgnewfile = md5($imgfile) .'.'. $extension;
 
             $fetch = "SELECT *  From tblpdp WHERE  fullName like '%$pdpName%' OR serviceYR  = '$lsy'";
             // echo $fetch; exit;
@@ -45,7 +45,7 @@ if (strlen($_SESSION['login']) == 0) {
                 $delmsg = "Duplicate Entry! Already Exists";
             } else {
                 // Code for move image into directory
-                move_uploaded_file($_FILES["pdpPhoto"]["tmp_name"], "pdp_photos/" . $imgnewfile);
+                move_uploaded_file($_FILES["pdpPhoto"]["tmp_name"], "pdp_photos/". $imgnewfile);
                 $insert = "INSERT INTO tblpdp VALUES(NULL,'$pdpName', $clubs, '$theme', '$lsy', '$imgnewfile', NOW(), $session)";
                 // echo $insert; exit;
                 $query = $con->query($insert);

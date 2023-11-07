@@ -31,7 +31,7 @@ if (strlen($_SESSION['login']) == 0) {
         <!-- App favicon -->
         <link rel="shortcut icon" href="assets/images/favicon.ico">
         <!-- App title -->
-        <title>CPLC -- Official Calabar Paradise Lions Club Website | <?php echo htmlentities( $results['CategoryName'].''); ?> Details</title>
+        <title>Leo District 404A2 -- Admin | <?php echo htmlentities( $results['CategoryName'].''); ?> Details</title>
 
         <!-- Summernote css -->
         <link href="../plugins/summernote/summernote.css" rel="stylesheet" />

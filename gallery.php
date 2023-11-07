@@ -77,40 +77,23 @@ $results = $sth->fetchAll(PDO::FETCH_ASSOC); ?>
                     <h2 class="title"> Gallery</h2>
                 </div>
 
-                <div style="float:right; display: inline !important">
-                    Sort Gallery By : <select name="filter" id="filterBy" onChange="sortActivity(this.value);" style=" width: 25%; margin-left:20px; padding:10px;">
-                        <option value="">All</option>
-
-                        <?php
-                        foreach ($results as $result) {
-                            // echo $result['SubCategoryId']; exit;
-                        ?>
-                            <option value="<?php echo htmlentities($result['postCatID ']); ?>"><?php echo htmlentities($result['postCategory']); ?></option>
-                        <?php } ?>
-                    </select>
-                </div>
             </div>
             <!-- End section title -->
         </div>
 
         <!-- Start main gallery -->
-        <div class="row banner-area mb-4" id="activity">
+        <div class="row banner-area mb-4 justify-content-center text-center" id="activity">
 
             <?php
             include_once('app/includes/alt_config.php');
-            $select = "SELECT g.galleryID as galleryID, g.foto as photos, g.activityID as activity_id, c.postCategory as postCategory, a.title as title
-             FROM tblgallery g JOIN tblactivity a ON a.activityID  = g.activityID  
-              INNER JOIN tblcategory c ON c.postCatID = a.activityCatID  ORDER BY
-               galleryID DESC LIMIT $offset, $no_of_records_per_page";
+            $select = "SELECT g.galleryID as galleryID, g.foto as photos, g.activityID as activity_id, c.postCategory as postCategory, a.title as title FROM tblgallery g JOIN tblactivity a ON a.activityID  = g.activityID   INNER JOIN tblcategory c ON c.postCatID = a.activityCatID  ORDER BY galleryID DESC LIMIT $offset, $no_of_records_per_page";
             //    echo $select; exit;
             $sth = $con->query($select);
             $result = $sth->fetchAll(PDO::FETCH_ASSOC);
             foreach ($result as $photos) { ?>
-
-
                 <!-- Start single gallery -->
-                <div class="col-md-6 col-sm-6 col-lg-3 p-2" data-aos="fade-up" data-aos-delay="200">
-                    <div class=" justify-content-center border border-5 border-white mb-1 me-3"  style="width: 300px; height: 280px;">
+                <div class="col-md-6 col-sm-6 col-lg-3 p-2 mb-3 justify-content-center text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="justify-content-center border border-5 border-white"  style="width: auto; height: 250px;">
                        
                         <a data-gall="myGallery" href="app/gallery/<?php echo $photos['photos']; ?> "  >
                            <img src="app/gallery/<?php echo $photos['photos']; ?>" alt="" style="width: 100%; height: 100%;" />
@@ -124,6 +107,7 @@ $results = $sth->fetchAll(PDO::FETCH_ASSOC); ?>
     </div>
     <!-- End main gallery -->
 </div>
+<?php if (!empty($result)) { ?>
 <ul class="pagination justify-content-center mb-4">
         <li class="page-item"><a href="?pageno=1"  class="page-link">First</a></li>
         <li class="<?php if($pageno <= 1){ echo 'disabled'; } ?> page-item">
@@ -134,6 +118,7 @@ $results = $sth->fetchAll(PDO::FETCH_ASSOC); ?>
         </li>
         <li class="page-item"><a href="?pageno=<?php echo $total_pages; ?>" class="page-link">Last</a></li>
     </ul>
+    <?php } ?>
 </div>
 <!-- Footer Start --> 
 <?php include('assets/footer.php');?>

@@ -38,7 +38,7 @@ if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
             if ($query == TRUE) {
 
 
-                $msg = "Region Successfully Added ";
+                $msg = $clubName." Leo Club Successfully Added ";
 
             } else {
                 $error = "Something went wrong . Please try again.";
@@ -53,7 +53,7 @@ if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
         //  echo $update; exit;
         $query = $con->query($update);
         if ($query) {
-            $msg = "Club details successfully Updated ";
+            $msg =  $clubName."Leo Club Successfully Updated ";
         } else {
             $error = "Something went wrong . Please try again.";
         }
@@ -200,9 +200,9 @@ if ($_SESSION['login'] == "" || strlen($_SESSION['login']) == 0) {
                                         <div class="col-md-8">
                                         <?php 
                                                 if (!empty($chk_club) || $chk_club != '') { ?>
-                                            <input type="text" class="form-control" value="<?php echo htmlentities($chk_club['SponsorLions']); ?>" name="sponsorClub"  required>
+                                            <input type="text" class="form-control" value="<?php echo htmlentities($chk_club['SponsorLions']); ?>" name="sponsorClub">
                                          <?php } else  {?> 
-                                            <input type="text" class="form-control" value="" name="sponsorClub" placeholder="Enter Club name without LEO CLUB" required>    <?php } ?>                                    </div>
+                                            <input type="text" class="form-control" value="" name="sponsorClub" placeholder="Enter Club name without LIONS CLUB">    <?php } ?>                                    </div>
                                     </div>
                                    
                                     <div class="form-group">

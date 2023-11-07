@@ -40,12 +40,11 @@ if (strlen($_SESSION['login']) == 0) {
         }
     }
 }
-if ($_GET['deldptid']) {
-    $teamID = $_GET['deldptid'];
-    $elete = "DELETE FROM tblcoreofficers WHERE teamID =  $teamID";
+if ($_GET['delcoid']) {
+    $coID = $_GET['delcoid'];
+    $elete = "DELETE FROM tblcoreofficers WHERE coreofficersID  =  $coID";
     $query = $con->query($elete);
     if ($query) {
-        echo ('Location: ');
         $msg = "Successfully Deleted";
     } else {
         $delmsg = "Error Encountered!, Try again";

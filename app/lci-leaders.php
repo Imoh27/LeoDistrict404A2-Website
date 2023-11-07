@@ -75,7 +75,7 @@ if (strlen($_SESSION['login']) == 0) {
 <!DOCTYPE html>
 <html lang="en">
 <?php include('includes/pages-head.php'); ?>
-<title>Leo District 404A2 -- Official Website | LCI Learders</title>
+<title>Leo District 404A2 -- Admin | LCI Learders</title>
 
 
 

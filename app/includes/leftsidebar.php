@@ -91,10 +91,10 @@
                 <li><a href="add-gallery" class="waves-effect"><i class="mdi mdi-book-multiple-variant"></i> <span>Gallery</span></a></li>
 
                 <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi ion-speakerphone"></i> <span> Posts
+                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi ion-speakerphone"></i> <span> Blog Posts
                         </span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="add-post">Add Posts</a></li>
+                        <li><a href="add-post">Add Blog Posts</a></li>
                         <li><a href="manage-posts">Manage Posts</a></li>
                         <li><a href="trash-posts">Trash Posts</a></li>
                     </ul>

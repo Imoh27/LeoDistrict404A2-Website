@@ -25,7 +25,7 @@ if (strlen($_SESSION['login']) == 0) {
             $delmsg = "Position Exist";
         } else {
             $insert = "INSERT INTO tbldistrictoffices VALUES(NULL, ' $position', '$abbr', NOW(), $session, $isActive)";
-
+            // echo $insert; exit;
             $query = $con->query($insert);
             if ($query) {
                 $msg = "Position Added";

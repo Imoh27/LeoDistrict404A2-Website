@@ -54,7 +54,7 @@ if (strlen($_SESSION['login']) == 0) {
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="page-title-box">
-                                    <h4 class="page-title"> <span style="color: #337ab7;">Leo
+                                    <h4 class="page-title text-capitalize"> <span style="color: #337ab7;">Leo
                                             <?php echo htmlentities($results['firstName'] . ' ' . $results['lastName']); ?>
                                         </span> </h4>
                                     <ol class="breadcrumb p-0 m-0">
@@ -100,7 +100,7 @@ if (strlen($_SESSION['login']) == 0) {
 
                                 </div>
                                 <div class="col-md-3 col-sm-12">
-                                    <div class="card-box">
+                                    <div class="card-box text-capitalize">
                                         <h6 class=" m-t-0 header-title"><b>Full Name: </b></h6>
                                         <?php echo $results['firstName'] .' '. $results['lastName']; ?>
                                     </div>

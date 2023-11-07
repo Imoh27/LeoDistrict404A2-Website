@@ -5,13 +5,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="CPLC -- Official Calabar Paradise Lions Club Website .">
+    <meta name="description" content="Humanitarian Service Organization .">
     <meta name="author" content="SirBen">
 
 
     <!-- App title -->
     
-    <link rel="icon" type="image/x-icon" href="images/dplogo23-24.jpg">
+    <link rel="icon" type="image/jpg" href="images/dplogo23-24.jpg">
 
     <!-- App css -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -24,4 +24,3 @@
 
     <script src="assets/js/modernizr.min.js"></script>
 
-</head>

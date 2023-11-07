@@ -28,7 +28,7 @@ if (isset($_POST['submit'])) {
 }
 
 ?>
-
+<title>Leo District 404A2 -- Official Website | Contact Us </title>
 <body>
   <!-- Spinner Start -->
   <div id="spinner"
@@ -137,7 +137,7 @@ if (isset($_POST['submit'])) {
           </div>
 
           <div class="col-md-6 bg-dark">
-            <div class="contact-info">
+            <div class="contact-info ms-lg-4">
               <h3 class="text-warning">District President</h3>
               <p class="text-white fs-5 fw-bold" >Leo Ikoh Unoh</p>
               <p class="text-white" >08063652747</p>
@@ -145,14 +145,18 @@ if (isset($_POST['submit'])) {
               <h3 class="text-warning mt-5">District Secretary</h3>
               <p class="text-white fs-5 fw-bold" >Leo Micheal Isidore</p>
               <p class="text-white" >08134374318</p>
+
+              <h3 class="text-warning mt-5">District Treasurer</h3>
+              <p class="text-white fs-5 fw-bold" >Leo Magdalene Atakpa</p>
+              <p class="text-white" >08081148257</p>
             </div>
           </div>
         </div>
 
         <div class="row g-4 region-details">
+          <h4>Region Directors and Associate Region Directors</h4>
           <div class="col-md-6">
             <div class="contact-info">
-              <h4>Region Directors and Associate Region Directors</h4>
 
               <h5>Region 1</h5>
               <p>Region Director: Leo Jude Micheal</p>

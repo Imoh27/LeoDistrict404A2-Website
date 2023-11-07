@@ -10,7 +10,7 @@
                     <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+2348063652747</p>
                     <p class="mb-2"><a class="text-light" href="mailto:leodistrict404A2nig@yahoo.com"><i
                                 class="fa fa-envelope me-3"></i>info@leodistrict404a2.com.ng</a></p>
-                    <div class="d-flex pt-2 ms-lg-4">
+                    <div class="d-flex pt-2 ms-lg-4 mt-2">
                         <a class="btn btn-outline-light btn-social"
                             href="https://www.facebook.com/groups/leodistirct404a/"><i
                                 class="fab fa-facebook-f"></i></a>
@@ -23,7 +23,7 @@
                         <!-- <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a> -->
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-4 mt-4">
                     <h4 class="text-light mb-4">Our Global Causes</h4>
                     <div class="row ">
                         <div class="col-lg-6 col-md-6">
@@ -48,7 +48,7 @@
                                     href="https://www.lionsclubs.org/en/start-our-global-causes/childhood-cancer" target="_blank"><img
                                         class="me-2" src="img/childhood-cancer.png" alt="" height="20">Paediatric Cancer</a>
                             </p>
-                            <p class="text-light"> <a class="text-light"
+                           <p class="text-light"> <a class="text-light"
                                     href="https://www.lionsclubs.org/en/give-our-focus-areas/youth" target="_blank"><img
                                         class="me-2" src="img/youth.png" alt="" height="20">Youth</a>
                             </p>
@@ -64,7 +64,7 @@
                     </div>
                    
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-3 col-md-6 mt-4">
                     <h4 class="text-light mb-4">Newsletter</h4>
                     <p>Enter your email to receive notification on our monthly Newsletter here</p>
                     <div class="position-relative mx-auto" style="max-width: 400px;">

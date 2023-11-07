@@ -119,8 +119,8 @@ function getBods(val) {
                                                     <i class="mdi mdi-plus-circle-outline"></i></button>
                                             </a>
                                         </p>
-                                        <div class="table-responsive table-wrapper-scroll-y custom-table-scrollbar">
-                                            <table class="table m-0 table-colored-bordered table-bordered-primary"
+                                        <div class="table-responsive table-wrapper-scroll-y custom-table-scrollbar" style="overflow-y:auto; height:350px;">
+                                            <table class="table m-0 table-colored-bordered table-bordered-primary table-striped table-hover"
                                                 id="table_filter">
                                                 <thead>
                                                     <tr>

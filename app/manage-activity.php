@@ -11,7 +11,7 @@ if (strlen($_SESSION['login']) == 0) {
         global $con;
         $category = $_POST['category'];
         $activity_title =  strtolower($_POST['activity_title']);
-        $hierarchi =  ($_POST['hierarchi']) ? $_POST['hierarchi'] : "";
+        $hierarchi =  $_POST['hierarchi'];
         $region_name =  ($_POST['region_name']) ? $_POST['region_name'] : "";
         $club_name =  ($_POST['club_name']) ? $_POST['club_name'] : "";
         $location =  $_POST['location'];
@@ -33,7 +33,7 @@ if (strlen($_SESSION['login']) == 0) {
             echo "<script>alert('Invalid format. Only jpg / jpeg/ png /gif format allowed');</script>";
         } else {
             //rename the image file
-            $imgnewfile = md5($imgfile) . $extension;
+            $imgnewfile = md5($imgfile) .'.'. $extension;
             // Code for move image into directory
             move_uploaded_file($_FILES["activity_image"]["tmp_name"], "activityimages/" . $imgnewfile);
 
@@ -44,7 +44,7 @@ if (strlen($_SESSION['login']) == 0) {
             if (mysqli_num_rows($sth) > 0) {
                 $error = "Something went wrong . Please try again.";
             } else {
-                $sql = "INSERT INTO tblactivity VALUES(NULL,  $category, '$activity_title', '$activity_details', '$location', $hierarchi, '$club_name', '$region_name', '$start_date', '$to_date', '$imgnewfile', NOW(), $status)";
+                $sql = "INSERT INTO tblactivity VALUES(NULL,  $category, '$activity_title', ' $activity_details', '$location', $hierarchi,  '$club_name', '$region_name', '$start_date', '$to_date',   '$imgnewfile', NOW(), $status)";
                 // echo $sql; exit;
                 $query = mysqli_query($con, $sql);
                 if ($query) {

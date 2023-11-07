@@ -6,26 +6,27 @@ error_reporting(0);
     if (isset($_POST['enrol'])) {
         global $con;
 
-        $region = $_POST['region'];
-        $clubs = $_POST['clubs'];
-        $memberNo = $_POST['memberNo'];
-        $firstname = $_POST['firstname'];
-        $middlename = $_POST['middlename'];
-        $lastname = $_POST['lastname'];
-        $email = $_POST['email'];
-        $phone = $_POST['phone'];
-        $altPhone = $_POST['altPhone'];
-        $residence = $_POST['residence'];
-        $memberSince = $_POST['memberSince'];
-        $gender = $_POST['gender'];
-        $stateOrigin = $_POST['stateOrigin'];
-        $lga = $_POST['lga'];
-        $stateResidence = $_POST['stateResidence'];
-        $city = $_POST['city'];
-        $dob = $_POST['dob'];
-        $occupation = $_POST['occupation'];
-        $maritalStatus = $_POST['maritalStatus'];
-        $imgfile = strtolower($_FILES["memberDp"]["name"]);
+        $region = strip_tags(htmlspecialchars($_POST['region']));
+        $clubs = strip_tags(htmlspecialchars($_POST['clubs']));
+        $memberNo = strip_tags(htmlspecialchars($_POST['memberNo']));
+        $firstname = strip_tags(htmlspecialchars($_POST['firstname']));
+        $middlename = strip_tags(htmlspecialchars($_POST['middlename']));
+        $lastname = strip_tags(htmlspecialchars($_POST['lastname']));
+        $email = strip_tags(htmlspecialchars($_POST['email']));
+        $phone = strip_tags(htmlspecialchars($_POST['phone']));
+        $altPhone = strip_tags(htmlspecialchars($_POST['altPhone']));
+        $residence = strip_tags(htmlspecialchars($_POST['residence']));
+        $memberSince = strip_tags(htmlspecialchars($_POST['memberSince']));
+        $gender = strip_tags(htmlspecialchars($_POST['gender']));
+        $stateOrigin = strip_tags(htmlspecialchars($_POST['stateOrigin']));
+        $lga = strip_tags(htmlspecialchars($_POST['lga']));
+        $stateResidence = strip_tags(htmlspecialchars($_POST['stateResidence']));
+        $city = strip_tags(htmlspecialchars($_POST['city']));
+        $dob = strip_tags(htmlspecialchars($_POST['dob']));
+        $occupation = strip_tags(htmlspecialchars($_POST['occupation']));
+        $maritalStatus = strip_tags(htmlspecialchars($_POST['maritalStatus']));
+        $imgfile = strip_tags(htmlspecialchars(strtolower($_FILES["memberDp"]["name"])));
+        $img_size = $_FILES["memberDp"]["size"];
         $added_by = empty($_SESSION['login']) ? 'NULL': $_SESSION['login'];
         $isActive = 1;
         
@@ -33,7 +34,7 @@ error_reporting(0);
         $sth = $con->query($session_user);
         $result = $sth->fetch(PDO::FETCH_OBJ);
         $added_by = empty($result) || !$result ? 'NULL': $result->userID;
-        // echo $dob; exit;
+        // echo strlen($memberNo); exit;
 
         // get the image extension
         $extension = substr($imgfile, strlen($imgfile) - 4, strlen($imgfile));
@@ -41,13 +42,23 @@ error_reporting(0);
         $allowed_extensions = array(".jpg", "jpeg", ".png", ".gif");
         $curr_date = date('Y-m-d');
         $calc_date = date('Y', strtotime($curr_date)) - date('Y', strtotime($dob));
+        // echo $calc_date; exit;
         // Validation for allowed extensions .in_array() function searches an array for a specific value.
+        
+        if ($calc_date < 16) {
+          $error = "Please Ensure your age is above 16";
+          
+        }elseif (strlen($memberNo) < 7) {
+            $error = "Invalid Membership No Entered";
+          }else{
         if (!in_array($extension, $allowed_extensions)) {
             $error = "Invalid format. Only jpg / jpeg/ png /gif format allowed";
             // echo "<script>alert('Invalid format. Only jpg / jpeg/ png /gif format allowed');</script>";
         } else {
+         
             //rename the image file
-            $imgnewfile = md5($imgfile) . $extension;
+            $imgnewfile = md5($imgfile) .'_['.$lastname.'].'. $extension;
+            // echo $imgnewfile; exit;
             // Code for move image into directory
             // move_uploaded_file($_FILES["member_dp"]["tmp_name"],"membersimages/".$imgnewfile);
 
@@ -60,7 +71,11 @@ error_reporting(0);
                 $error = "Sorry, Seems Entry Already Exists";
             }
             else {
-                move_uploaded_file($_FILES["memberDp"]["tmp_name"], "membersimages/" . $imgnewfile);
+              if ($img_size > 1048000) {
+                $error = "Maximum image size of 1mb exceeded";
+               
+              }else{
+                move_uploaded_file($_FILES["memberDp"]["tmp_name"], "app/membersimages/". $imgnewfile);
                 $insert = "INSERT INTO tblmembers VALUES(NULL, $clubs, $region,  '$memberNo','$firstname', '$lastname', '$middlename',
                 '$email', '$gender', '$phone', '$altPhone', '$residence', '$maritalStatus', '$occupation', '$city', $stateResidence, $stateOrigin, $lga, ' $memberSince', '$dob',
                       '$imgnewfile', NOW(), $added_by, $isActive)";
@@ -74,8 +89,10 @@ error_reporting(0);
                     $error = "Something went wrong . Please try again.";
                 }
             }
+          }
         }
     }
+  }
 
 
     
@@ -86,7 +103,10 @@ error_reporting(0);
 ?>
 
 <title>Leo District 404A2 -- Official Website | Member Enrollment</title>
+</head>
+
 <script>
+
     function getClubs(val) {
         $.ajax({
             type: "POST",
@@ -134,20 +154,6 @@ error_reporting(0);
                 </a>
             </div>
             <div class="col-lg-9 col-md-12 text-end">
-                <!--  <div class="h-100 d-inline-flex align-items-center me-4">
-                    <i class="fa fa-map-marker-alt text-primary me-2"></i>
-                    <p class="m-0">123 Street, New York, USA</p>
-                </div>
-                <div class="h-100 d-inline-flex align-items-center me-4">
-                    <i class="far fa-envelope-open text-primary me-2"></i>
-                    <p class="m-0">info@example.com</p>
-                </div>
-                <div class="h-100 d-inline-flex align-items-center">
-                    <a class="btn btn-sm-square bg-white text-primary me-1" href=""><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-sm-square bg-white text-primary me-1" href=""><i class="fab fa-twitter"></i></a>
-                    <a class="btn btn-sm-square bg-white text-primary me-1" href=""><i class="fab fa-linkedin-in"></i></a>
-                    <a class="btn btn-sm-square bg-white text-primary me-0" href=""><i class="fab fa-instagram"></i></a>
-                </div> --> 
             </div>
         </div>
     </div>
@@ -198,7 +204,7 @@ error_reporting(0);
     <div class="d-flex justify-content-center">
         <div class="col-md-6 wow fadeInUp" data-wow-delay="0.1s">
           <div class="bg-light p-5 h-100 d-flex align-items-center">
-            <form action="" method="POST" enctype="multipart/form-data">
+            <form action="" method="POST" id="regleo" name="regleo" enctype="multipart/form-data" onSubmit="return valid();">
               <div class="row g-3">
                 <div class="col-md-12 text-center fh5co-heading mb-4">
                   <h3 class="section-title">Enrollment Form</h3>
@@ -297,7 +303,7 @@ error_reporting(0);
                 </div>
                 <div class="col-md-6">
                   <div class="form-floating">
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Email Address" required>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="example@domain.com" title="Enter Email Format" required>
                     <label for="email">Email Address</label>
                   </div>
                 </div>
@@ -396,7 +402,7 @@ error_reporting(0);
                 <div class="col-12">
                   <div class="form-floating">
                     <input type="file" class="form-control" name="memberDp" id="memberDp" required>
-                    <label for="memberDp">Upload Picture</label>
+                    <label for="memberDp">Upload Picture: <p style="display: inline;" class="text-danger">Maximum Size 1mb</p></label>
                   </div>
                 </div>
                 <div class="col-12 text-center">

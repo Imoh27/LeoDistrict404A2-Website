@@ -27,7 +27,7 @@ if (strlen($_SESSION['login']) == 0) {
 
     ?>
        <?php include('includes/pages-head.php'); ?>
-    <title>Leo District 404A2 -- Official Website | Manage Comments</title>
+    <title>Leo District 404A2 -- Admin | Manage Comments</title>
 
 
     <body class="fixed-left">

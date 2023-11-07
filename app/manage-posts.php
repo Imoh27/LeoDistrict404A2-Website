@@ -30,7 +30,7 @@ if (strlen($_SESSION['login']) == 0) {
     <link href="../plugins/jquery.filer/css/jquery.filer.css" rel="stylesheet" />
     <link href="../plugins/jquery.filer/css/themes/jquery.filer-dragdropbox-theme.css" rel="stylesheet" />
     <link rel="stylesheet" href="../plugins/switchery/switchery.min.css">
-    <title>Leo District 404A2 -- Official Website | Manage Post</title>
+    <title>Leo District 404A2 -- Admin | Manage Post</title>
 
 
     <script>

@@ -12,29 +12,29 @@ if(isset($_POST['submit']))
 //Current Password hashing 
 $password=$_POST['password'];
 $options = ['cost' => 12];
-$hashedpass=password_hash($password, PASSWORD_BCRYPT, $options);
+// $hashedpass=password_hash($password, PASSWORD_BCRYPT, $options);
 $adminid=$_SESSION['login'];
 // new password hashing 
 $newpassword=$_POST['newpassword'];
-$newhashedpass=password_hash($newpassword, PASSWORD_BCRYPT, $options);
+// $newhashedpass=password_hash($newpassword, PASSWORD_BCRYPT, $options);
 
-date_default_timezone_set('Asia/Kolkata');// change according timezone
+// date_default_timezone_set('Asia/Kolkata');// change according timezone
 $currentTime = date( 'd-m-Y h:i:s A', time () );
-$sql=mysqli_query($con,"SELECT AdminPassword FROM  tbladmin where AdminUserName='$adminid' || AdminEmailId='$adminid'");
+$sql=mysqli_query($con,"SELECT AdminPassword FROM  tbladmin where AdminUserName='$adminid'");
 $num=mysqli_fetch_array($sql);
 if($num>0)
 {
  $dbpassword=$num['AdminPassword'];
 
-if (password_verify($password, $dbpassword)) {
+// if (password_verify($password, $dbpassword)) {
 
- $con=mysqli_query($con,"update tbladmin set AdminPassword='$newhashedpass', updationDate='$currentTime' where AdminUserName='$adminid'");
+ $con=mysqli_query($con,"update tbladmin set AdminPassword='$newpassword', dateUpdated=now() where AdminUserName='$adminid'");
 $msg="Password Changed Successfully !!";
-}
+
 }
 else
 {
-$error="Old Password not match !!";
+$error="Something Went Wrong !!";
 }
 }
 
@@ -45,8 +45,9 @@ $error="Old Password not match !!";
 <!DOCTYPE html>
 <html lang="en">
     <head>
-
-        <title>CPLC -- Official Calabar Paradise Lions Club Website | Add Category</title>
+    <link rel="icon" type="image/x-icon" href="images/dplogo23-24.jpg">
+        <title>Leo District 404A2 -- Admin | Change Password</title>
+        
 
         <!-- App css -->
         <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -171,7 +172,7 @@ return true;
 <div class="form-group">
 <label class="col-md-4 control-label">Current Password</label>
 <div class="col-md-8">
-<input type="text" class="form-control" value="" name="password" required>
+<input type="password" class="form-control" value="" name="password" required>
 </div>
 </div>
 	                                     
@@ -179,7 +180,7 @@ return true;
 <div class="form-group">
 <label class="col-md-4 control-label">New Password</label>
 <div class="col-md-8">
-<input type="text" class="form-control" value="" name="newpassword" required>
+<input type="password" class="form-control" value="" name="newpassword" required>
 </div>
 </div>
 
@@ -187,7 +188,7 @@ return true;
 <div class="form-group">
 <label class="col-md-4 control-label">Confirm Password</label>
 <div class="col-md-8">
-<input type="text" class="form-control" value="" name="confirmpassword" required>
+<input type="password" class="form-control" value="" name="confirmpassword" required>
 </div>
 </div>
 

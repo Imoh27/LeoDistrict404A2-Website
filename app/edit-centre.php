@@ -49,7 +49,7 @@ if (strlen($_SESSION['login']) == 0) {
                     // echo "<script>alert('Invalid format. Only jpg / jpeg/ png /gif format allowed');</script>";
                 } else {
                     //rename the image file
-                    $imgnewfile = md5($imgfile) . $extension;
+                    $imgnewfile = md5($imgfile) .'.'. $extension;
                     // echo $imgnewfile; exit;
                     // Code for move image into directory
                     move_uploaded_file($_FILES["pdpPhoto"]["tmp_name"], "pdp_photos/" . $imgnewfile);
@@ -213,6 +213,7 @@ if (strlen($_SESSION['login']) == 0) {
                 ';', '*'
             ), ' ', $_POST['activity_details']);
             $imgfile =  strtolower($_FILES['activity_image']['name']);
+             $imgsize =  $_FILES['activity_image']['size'];
             // echo $activity_details; exit;
 
             if ($imgfile) {
@@ -225,12 +226,16 @@ if (strlen($_SESSION['login']) == 0) {
                     $error = "Invalid format. Only jpg / jpeg/ png /gif format allowed";
                     // echo "<script>alert('Invalid format. Only jpg / jpeg/ png /gif format allowed');</script>";
                 } else {
+                    if ($imgsize > 1048000) {
+                        // echo "<script>alert('Maximum Umploadable File Size Exceeded');</script>";
+                        $error = "Maximum Umploadable File Size Exceeded.";
+                    } else {
                     //rename the image file
-                    $imgnewfile = md5($imgfile) . '.' . $extension;
+                    $imgnewfile = md5($imgfile) .'.'. $extension;
                     // echo $imgnewfile; exit;
                     // Code for move image into directory
                     move_uploaded_file($_FILES["activity_image"]["tmp_name"], "activityimages/" . $imgnewfile);
-                }
+                }}
             }
             $update = "UPDATE tblactivity SET activityCatID = $category, title = '$activity_title', activityDesc = '$activity_details',  activityLocation = '$location', startDate = '$start_date', 
             endDate = '$to_date', dateUpdated = NOW()";
