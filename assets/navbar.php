@@ -20,8 +20,8 @@
                          <a href="district?page=about&&section=lion-leaders" class="dropdown-item">Lion Leaders</a>
                          <a href="past-dp?page=about&&section=past-dps" class="dropdown-item">Past District Presidents</a>
                          <a href="district?page=about&&section=coreofficers" class="dropdown-item">Core Officers</a>
-                         <!-- <a href="district?page=about&&section=comm-lead" class="dropdown-item">Committee Chairpersons</a> -->
                          <a href="district?page=about&&section=region-directors" class="dropdown-item">Region Directors</a>
+                         <a href="club-presidents?page=about&&club presdients" class="dropdown-item">Club Presidents</a>
                      </div>
                  </div>
                  <div class="nav-item dropdown">
